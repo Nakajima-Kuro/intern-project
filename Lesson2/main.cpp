@@ -45,5 +45,4 @@ int main() {
 		}
 		cout << n << "! = " << fixed << result;
 	}
-	_CrtDumpMemoryLeaks();
 }
