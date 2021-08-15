@@ -5,6 +5,6 @@ class DynamicObject :
 {
 public:
     DynamicObject(int id, const char* name, std::pair <int, int> position);
-    virtual void move(std::pair <int, int> velocity);
+    void move(std::pair <int, int> velocity) override;
 };
 

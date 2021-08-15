@@ -18,6 +18,6 @@ class BaseObject
 		std::pair <int, int> getPosition();
 		void printPosition();
 		void setPosition(std::pair <int, int> position);
-		virtual void move(std::pair <int, int> velocity);
+		virtual void move(std::pair <int, int> velocity) = 0;
 };
 

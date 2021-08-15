@@ -46,8 +46,3 @@ void BaseObject::setPosition(std::pair <int, int> position)
 {
 	this->position = position;
 }
-
-void BaseObject::move(std::pair<int, int> velocity)
-{
-	return;
-}
