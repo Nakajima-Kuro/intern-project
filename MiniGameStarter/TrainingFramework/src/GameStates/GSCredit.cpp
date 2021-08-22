@@ -42,7 +42,7 @@ void GSCredit::Init()
 	text = std::make_shared< Text>(shader, font, "This Osu!Mania cloned game is proudly made by:", TextColor::YELLOW, 2, TextAlign::CENTER);
 	text->Set2DPosition(Vector2(30, 200));
 	m_listText.push_back(text);
-	text = std::make_shared< Text>(shader, font, "- Tran Ngoc Nam Anh (B17DCCN051)", TextColor::YELLOW, 1.5, TextAlign::CENTER);
+	text = std::make_shared< Text>(shader, font, "- Tran Ngoc Nam Anh (B17DCCN051) - PTIT", TextColor::YELLOW, 1.5, TextAlign::CENTER);
 	text->Set2DPosition(Vector2(40, 240));
 	m_listText.push_back(text);
 	text = std::make_shared< Text>(shader, font, "- with free assets provided by LegionGames", TextColor::YELLOW, 1.5, TextAlign::CENTER);
