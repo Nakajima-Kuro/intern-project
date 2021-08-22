@@ -9,7 +9,7 @@ enum class TextColor {
 	YELLOW,
 	PURPLE,
 	CYAN,
-	BLACK
+	BLACK,
 };
 
 enum class TextAlign {

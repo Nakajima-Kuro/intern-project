@@ -151,7 +151,7 @@ Vector4 Text::EnumToVector(TextColor color)
 		vecColor = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
 		break;
 	case TextColor::YELLOW:
-		vecColor = Vector4(1.0f, 1.0f, 0.0f, 1.0f);
+		vecColor = Vector4(0.96f, 0.84f, 0.74f, 1.0f);
 		break;
 	case TextColor::PURPLE:
 		vecColor = Vector4(0.5f, 0.0f, 0.5f, 1.0f);
@@ -159,6 +159,7 @@ Vector4 Text::EnumToVector(TextColor color)
 	case TextColor::CYAN:
 		vecColor = Vector4(0.0f, 1.0f, 1.0f, 1.0f);
 		break;
+
 	default:
 		vecColor = Vector4(0.0f, 0.0f, 0.0f, 1.0f);
 		break;

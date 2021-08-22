@@ -25,20 +25,30 @@ void GSMenu::Init()
 	m_background->SetSize(Globals::screenWidth, Globals::screenHeight);
 
 	// play button
-	texture = ResourceManagers::GetInstance()->GetTexture("btn_play.tga");
+	texture = ResourceManagers::GetInstance()->GetTexture("btn_menu_play.tga");
 	std::shared_ptr<GameButton> button = std::make_shared<GameButton>(model, shader, texture);
-	button->Set2DPosition(Globals::screenWidth / 2, Globals::screenHeight / 2);
-	button->SetSize(200, 200);
+	button->Set2DPosition(Globals::screenWidth / 2, Globals::screenHeight / 2 - 100);
+	button->SetSize(192, 72);
 	button->SetOnClick([]() {
 		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_PLAY);
 		});
 	m_listButton.push_back(button);
 
-	// exit button
-	texture = ResourceManagers::GetInstance()->GetTexture("btn_close.tga");
+	// credit button
+	texture = ResourceManagers::GetInstance()->GetTexture("btn_menu_credit.tga");
 	button = std::make_shared<GameButton>(model, shader, texture);
-	button->Set2DPosition(Globals::screenWidth - 50, 50);
-	button->SetSize(50, 50);
+	button->Set2DPosition(Globals::screenWidth / 2, Globals::screenHeight / 2);
+	button->SetSize(192, 72);
+	button->SetOnClick([]() {
+		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_CREDIT);
+		});
+	m_listButton.push_back(button);
+
+	// exit button
+	texture = ResourceManagers::GetInstance()->GetTexture("btn_menu_exit.tga");
+	button = std::make_shared<GameButton>(model, shader, texture);
+	button->Set2DPosition(Globals::screenWidth / 2, Globals::screenHeight / 2 + 100);
+	button->SetSize(192, 72);
 	button->SetOnClick([]() {
 		exit(0);
 		});
@@ -46,9 +56,9 @@ void GSMenu::Init()
 
 	// game title
 	shader = ResourceManagers::GetInstance()->GetShader("TextShader");
-	std::shared_ptr<Font> font = ResourceManagers::GetInstance()->GetFont("Brightly Crush Shine.otf");
-	m_textGameName = std::make_shared< Text>(shader, font, "Epic Game", Vector4(1.0f, 0.5f, 0.0f, 1.0f), 3.0f);
-	m_textGameName->Set2DPosition(Vector2(60, 200));
+	std::shared_ptr<Font> font = ResourceManagers::GetInstance()->GetFont("HeartbitXX.ttf");
+	m_textGameName = std::make_shared< Text>(shader, font, "Rymthm Jam", TextColor::YELLOW, 4, TextAlign::CENTER);
+	m_textGameName->Set2DPosition(Vector2(GLfloat(Globals::screenWidth / 2 - 170), 100));
 }
 
 void GSMenu::Exit()

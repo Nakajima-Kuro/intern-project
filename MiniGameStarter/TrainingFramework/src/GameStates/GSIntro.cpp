@@ -1,6 +1,6 @@
 #include "GSIntro.h"
 
-GSIntro::GSIntro() : GameStateBase(StateType::STATE_INTRO), m_time(0.0f)
+GSIntro::GSIntro() : GameStateBase(StateType::STATE_INTRO), m_time(0.0f), m_logo(nullptr)
 {
 }
 
@@ -14,8 +14,14 @@ void GSIntro::Init()
 {
 	auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
 	auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
-	auto texture = ResourceManagers::GetInstance()->GetTexture("logo.tga");
 
+	// background
+	auto texture = ResourceManagers::GetInstance()->GetTexture("bg_main_menu.tga");
+	m_background = std::make_shared<Sprite2D>(model, shader, texture);
+	m_background->Set2DPosition(Globals::screenWidth / 2, Globals::screenHeight / 2);
+	m_background->SetSize(Globals::screenWidth, Globals::screenHeight);
+
+	texture = ResourceManagers::GetInstance()->GetTexture("logo.tga");
 	m_logo = std::make_shared<Sprite2D>(model, shader, texture);
 	m_logo->Set2DPosition((float)Globals::screenWidth / 2, (float)Globals::screenHeight / 2);
 	m_logo->SetSize(150, 150);
@@ -63,5 +69,6 @@ void GSIntro::Update(float deltaTime)
 
 void GSIntro::Draw()
 {
+	m_background->Draw();
 	m_logo->Draw();
 }

@@ -153,12 +153,12 @@ void WinLoop(ESContext* esContext)
 {
 	MSG msg = { 0 };
 	int done = 0;
-	DWORD lastTime = GetTickCount();
+	DWORD lastTime = GetTickCount64();
 
 	while (!done)
 	{
 		int gotMsg = (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) != 0);
-		DWORD curTime = GetTickCount();
+		DWORD curTime = GetTickCount64();
 		float deltaTime = (float)(curTime - lastTime) / 1000.0f;
 		lastTime = curTime;
 
