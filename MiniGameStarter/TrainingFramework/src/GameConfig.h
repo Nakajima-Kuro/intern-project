@@ -86,9 +86,10 @@ public:
 // KEY define 
 #ifdef WIN32
 
-#define KEY_BACK			1
-#define KEY_LEFT			1<<1
-#define KEY_RIGHT			1<<2
-#define KEY_UP				1<<3
+#define KEY_BACK			VK_ESCAPE
+#define KEY_LEFT			VK_LEFT
+#define KEY_RIGHT			VK_RIGHT
+#define KEY_UP				VK_UP
+#define KEY_DOWN			VK_DOWN
 
 #endif

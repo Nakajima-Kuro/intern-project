@@ -6,20 +6,22 @@ ArrowButton::ArrowButton(std::shared_ptr<Model> model, std::shared_ptr<Shader> s
 
 int ArrowButton::HandleKeyEvents(int key, bool bIsPressed)
 {
-	if (bIsPressed && key == m_input)
-	{
-		// The button is being pressed down
-		m_isHolding = true;
-		this->SetTexture(m_listTexture.second);
-	}
-	else
-	{
-		if (m_isHolding == true)
+	if (key == m_input) {
+		if (bIsPressed)
 		{
-			this->SetTexture(m_listTexture.first);
-			m_isHolding = false;
+			// The button is being pressed down
+			m_isHolding = true;
+			this->SetTexture(m_listTexture.second);
 		}
-		
+		else
+		{
+			if (m_isHolding == true)
+			{
+				this->SetTexture(m_listTexture.first);
+				m_isHolding = false;
+			}
+
+		}
 	}
 	return 0;
 }
