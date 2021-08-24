@@ -37,8 +37,8 @@ private:
 
 	//ArrowButton
 	std::list<std::shared_ptr<ArrowButton>> m_listArrowButton;
-
 	std::shared_ptr<GameButton>	m_backButton;
+	const GLint m_arrowButtonY = Globals::screenHeight - 70;
 
 };
 
