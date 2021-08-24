@@ -9,7 +9,7 @@
 
 #include "GameStatebase.h"
 
-GameStateBase::GameStateBase(StateType stateType) : m_stateType(stateType)
+GameStateBase::GameStateBase(StateType stateType) : m_stateType(stateType), m_keyPressed(0)
 {}
 
 std::shared_ptr<GameStateBase> GameStateBase::CreateState(StateType stt)

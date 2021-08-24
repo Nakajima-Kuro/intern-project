@@ -70,6 +70,9 @@
       <Filter>TrainingFramework\src\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="src\GameStates\GSCredit.cpp" />
+    <ClCompile Include="src\GameObject\ArrowButton.cpp">
+      <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h">
@@ -130,6 +133,9 @@
       <Filter>TrainingFramework\src\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="src\GameStates\GSCredit.h" />
+    <ClInclude Include="src\GameObject\ArrowButton.h">
+      <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

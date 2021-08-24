@@ -27,9 +27,18 @@ public:
 	void	Draw() override;
 
 private:
+	//int m_score_value;
+	//int combo_value;
 	std::shared_ptr<Sprite2D>	m_background;
 	std::shared_ptr<Text>		m_score;
-	std::list<std::shared_ptr<GameButton>>	m_listButton;
+	std::shared_ptr<Text>		m_scoreTitle;
+	std::shared_ptr<Text>		m_combo;
+	std::shared_ptr<Text>		m_comboTitle;
+
+	//ArrowButton
+	std::list<std::shared_ptr<ArrowButton>> m_listArrowButton;
+
+	std::shared_ptr<GameButton>	m_backButton;
 
 };
 

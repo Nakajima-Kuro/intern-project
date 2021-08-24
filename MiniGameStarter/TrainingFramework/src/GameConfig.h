@@ -91,9 +91,5 @@ public:
 #define KEY_RIGHT			VK_RIGHT
 #define KEY_UP				VK_UP
 #define KEY_DOWN			VK_DOWN
-#define KEY_MOVE_LEFT		'A'
-#define KEY_MOVE_RIGHT		'D'
-#define KEY_MOVE_FORWORD	'W'
-#define KEY_MOVE_BACKWORD	'S'
 
 #endif

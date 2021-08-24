@@ -27,6 +27,7 @@ public:
 	StateType GetGameStateType();
 
 protected:
+	int m_keyPressed;
 	StateType m_stateType;
 };
 

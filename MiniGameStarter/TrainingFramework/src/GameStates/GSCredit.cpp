@@ -28,7 +28,7 @@ void GSCredit::Init()
 	m_backButton->Set2DPosition(Globals::screenWidth / 2, Globals::screenHeight - 100 );
 	m_backButton->SetSize(192, 72);
 	m_backButton->SetOnClick([]() {
-		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_MENU);
+		GameStateMachine::GetInstance()->PopState();
 		});
 
 	// game title
