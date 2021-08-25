@@ -32,7 +32,7 @@ private:
 	SoundDevice* soundDevice = SoundDevice::get();
 	SoundSource soundSource;
 	uint32_t /*ALuint*/ song;
-	std::string path = "../../../Data/Sounds/";
+	std::string path = "..\\Data\\Sounds\\";
 
 	//Timer
 	Timer* StartTimer;

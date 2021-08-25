@@ -12,7 +12,7 @@
 
 GSPlay::GSPlay()
 {
-	this->conductor = new Conductor(150, 4, "Myths You Forgot (feat. Toby Fox)");
+	this->conductor = new Conductor(150, 4, "Myths You Forgot (feat. Toby Fox).ogg");
 }
 
 
