@@ -40,4 +40,6 @@ private:
 	std::shared_ptr<GameButton>	m_backButton;
 	const GLint m_arrowButtonY = Globals::screenHeight - 70;
 
+	//Conductor
+
 };

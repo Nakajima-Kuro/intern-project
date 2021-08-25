@@ -19,45 +19,45 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SoundBuffer.cpp">
+    <ClCompile Include="src\SoundBuffer.cpp">
       <Filter>Ultilities\OpenAL</Filter>
     </ClCompile>
-    <ClCompile Include="SoundDevice.cpp">
+    <ClCompile Include="src\SoundDevice.cpp">
       <Filter>Ultilities\OpenAL</Filter>
     </ClCompile>
-    <ClCompile Include="SoundSource.cpp">
+    <ClCompile Include="src\SoundSource.cpp">
       <Filter>Ultilities\OpenAL</Filter>
     </ClCompile>
-    <ClCompile Include="ISubject.cpp">
+    <ClCompile Include="src\ISubject.cpp">
       <Filter>Ultilities\Observer</Filter>
     </ClCompile>
-    <ClCompile Include="Timer.cpp">
+    <ClCompile Include="src\Timer.cpp">
       <Filter>BaseNode</Filter>
     </ClCompile>
-    <ClCompile Include="Conductor.cpp">
+    <ClCompile Include="src\Conductor.cpp">
       <Filter>BaseNode</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SoundBuffer.h">
+    <ClInclude Include="src\SoundBuffer.h">
       <Filter>Ultilities\OpenAL</Filter>
     </ClInclude>
-    <ClInclude Include="SoundDevice.h">
+    <ClInclude Include="src\SoundDevice.h">
       <Filter>Ultilities\OpenAL</Filter>
     </ClInclude>
-    <ClInclude Include="SoundSource.h">
+    <ClInclude Include="src\SoundSource.h">
       <Filter>Ultilities\OpenAL</Filter>
     </ClInclude>
-    <ClInclude Include="IObserver.h">
+    <ClInclude Include="src\IObserver.h">
       <Filter>Ultilities\Observer</Filter>
     </ClInclude>
-    <ClInclude Include="ISubject.h">
+    <ClInclude Include="src\ISubject.h">
       <Filter>Ultilities\Observer</Filter>
     </ClInclude>
-    <ClInclude Include="Timer.h">
+    <ClInclude Include="src\Timer.h">
       <Filter>BaseNode</Filter>
     </ClInclude>
-    <ClInclude Include="Conductor.h">
+    <ClInclude Include="src\Conductor.h">
       <Filter>BaseNode</Filter>
     </ClInclude>
   </ItemGroup>

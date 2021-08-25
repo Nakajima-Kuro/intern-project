@@ -139,21 +139,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Conductor.h" />
-    <ClInclude Include="IObserver.h" />
-    <ClInclude Include="ISubject.h" />
-    <ClInclude Include="SoundBuffer.h" />
-    <ClInclude Include="SoundDevice.h" />
-    <ClInclude Include="SoundSource.h" />
-    <ClInclude Include="Timer.h" />
+    <ClInclude Include="src\Conductor.h" />
+    <ClInclude Include="src\IObserver.h" />
+    <ClInclude Include="src\ISubject.h" />
+    <ClInclude Include="src\SoundBuffer.h" />
+    <ClInclude Include="src\SoundDevice.h" />
+    <ClInclude Include="src\SoundSource.h" />
+    <ClInclude Include="src\Timer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Conductor.cpp" />
-    <ClCompile Include="ISubject.cpp" />
-    <ClCompile Include="SoundBuffer.cpp" />
-    <ClCompile Include="SoundDevice.cpp" />
-    <ClCompile Include="SoundSource.cpp" />
-    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="src\Conductor.cpp" />
+    <ClCompile Include="src\ISubject.cpp" />
+    <ClCompile Include="src\SoundBuffer.cpp" />
+    <ClCompile Include="src\SoundDevice.cpp" />
+    <ClCompile Include="src\SoundSource.cpp" />
+    <ClCompile Include="src\Timer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

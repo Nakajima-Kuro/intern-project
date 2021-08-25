@@ -3,6 +3,7 @@
 Timer::Timer()
 {
 	this->m_timeSec = -1;
+	this->timeLeft = -1;
 }
 
 Timer::~Timer()
