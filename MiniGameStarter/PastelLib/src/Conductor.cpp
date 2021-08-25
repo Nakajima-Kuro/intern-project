@@ -12,14 +12,18 @@ Conductor::Conductor(int bpm, int measures, std::string songName)
 
 Conductor::~Conductor()
 {
+	if (StartTimer != nullptr) {
+		delete StartTimer;
+	}
+	SoundBuffer::get()->removeSoundEffect(this->song);
 }
 
 void Conductor::PlayWithBeatOffset(int offset)
 {
 	this->beatsBeforeStart = offset;
-	/*this->StartTimer->Attach(this);
-	this->StartTimer->start(this->secPerBeat);*/
-	this->Play();
+	this->StartTimer->Attach(this);
+	this->StartTimer->start(this->secPerBeat);
+	//this->Play();
 }
 
 void Conductor::PlayFromBeat(int beat, int offset)
@@ -35,11 +39,9 @@ void Conductor::Play()
 
 void Conductor::Update(float deltaTime)
 {
-	if (AL_PLAYING) {
-		this->songPosition = AL_SEC_OFFSET;
-		this->songPositionInBeat = int(floor(this->songPosition / this->secPerBeat)) + this->beatsBeforeStart;
-		this->ReportBeat();
-	}
+	this->songPosition = AL_SEC_OFFSET;
+	this->songPositionInBeat = int(floor(this->songPosition / this->secPerBeat)) + this->beatsBeforeStart;
+	this->ReportBeat();
 }
 
 void Conductor::Update(const std::string& message_from_subject)
@@ -57,7 +59,6 @@ void Conductor::Update(const std::string& message_from_subject)
 		else {
 			this->Play();
 			this->measure = 1;
-			delete StartTimer;
 		}
 		this->ReportBeat();
 	}

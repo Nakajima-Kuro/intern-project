@@ -18,6 +18,7 @@ GSPlay::GSPlay()
 
 GSPlay::~GSPlay()
 {
+	delete conductor;
 }
 
 
@@ -83,6 +84,7 @@ void GSPlay::Init()
 	m_combo = std::make_shared< Text>(shader, font, "0", TextColor::YELLOW, 2);
 	m_combo->Set2DPosition(Vector2(130, 75));
 
+	this->conductor->Attach(this);
 	this->conductor->PlayWithBeatOffset(2);
 }
 
@@ -127,6 +129,7 @@ void GSPlay::Update(float deltaTime)
 	{
 		it->Update(deltaTime);
 	}
+	conductor->Update(deltaTime);
 }
 
 void GSPlay::Draw()
@@ -140,5 +143,17 @@ void GSPlay::Draw()
 	for (auto it : m_listArrowButton)
 	{
 		it->Draw();
+	}
+}
+
+void GSPlay::Update(const std::string& message_from_subject)
+{
+	//Trigger every beat
+	if (strcmp(message_from_subject.c_str(), "beat") == 0) {
+		std::cout << conductor->GetBeat();
+	}
+	//Trigger every beat in loop of measures
+	if (strcmp(message_from_subject.c_str(), "measure") == 0) {
+
 	}
 }

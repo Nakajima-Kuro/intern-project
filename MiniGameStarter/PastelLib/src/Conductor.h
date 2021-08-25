@@ -4,6 +4,7 @@
 #include "SoundSource.h"
 #include "Timer.h"
 #include "ISubject.h"
+#include <thread>
 class Conductor : public ISubject, public IObserver
 {
 public:
