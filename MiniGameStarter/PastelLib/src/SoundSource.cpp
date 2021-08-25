@@ -53,5 +53,7 @@ bool SoundSource::IsPlaying()
 
 double SoundSource::GetPlaybackOffset()
 {
-	return AL_SEC_OFFSET;
+	float pos = 0; 
+	alGetSourcef(p_Source, AL_SEC_OFFSET, &pos);
+	return pos;
 }

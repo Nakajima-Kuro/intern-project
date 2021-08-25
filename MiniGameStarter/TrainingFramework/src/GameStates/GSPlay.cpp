@@ -149,10 +149,10 @@ void GSPlay::Update(const std::string& message_from_subject)
 {
 	//Trigger every beat
 	if (strcmp(message_from_subject.c_str(), "beat") == 0) {
-		std::cout << conductor->GetBeat();
+		//std::cout << conductor->GetBeat();
 	}
 	//Trigger every beat in loop of measures
 	if (strcmp(message_from_subject.c_str(), "measure") == 0) {
-
+		//std::cout << conductor->GetMeasure();
 	}
 }
