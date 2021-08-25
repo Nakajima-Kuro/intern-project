@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="BaseNode">
+      <UniqueIdentifier>{f6c56e65-8695-4af3-89ee-137df4e3de99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ultilities">
+      <UniqueIdentifier>{434a690e-3a06-4f99-817e-87acda74ef61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ultilities\OpenAL">
+      <UniqueIdentifier>{55f2dbc3-01ae-4c4f-9a55-fa441bbb09d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ultilities\Observer">
+      <UniqueIdentifier>{fd1443c6-7796-42bb-849e-004dfcc69147}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SoundBuffer.cpp">
+      <Filter>Ultilities\OpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundDevice.cpp">
+      <Filter>Ultilities\OpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundSource.cpp">
+      <Filter>Ultilities\OpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="ISubject.cpp">
+      <Filter>Ultilities\Observer</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>BaseNode</Filter>
+    </ClCompile>
+    <ClCompile Include="Conductor.cpp">
+      <Filter>BaseNode</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SoundBuffer.h">
+      <Filter>Ultilities\OpenAL</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundDevice.h">
+      <Filter>Ultilities\OpenAL</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundSource.h">
+      <Filter>Ultilities\OpenAL</Filter>
+    </ClInclude>
+    <ClInclude Include="IObserver.h">
+      <Filter>Ultilities\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="ISubject.h">
+      <Filter>Ultilities\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>BaseNode</Filter>
+    </ClInclude>
+    <ClInclude Include="Conductor.h">
+      <Filter>BaseNode</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
