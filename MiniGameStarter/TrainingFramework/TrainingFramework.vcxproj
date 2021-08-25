@@ -337,6 +337,9 @@
     <ProjectReference Include="..\freetype\builds\windows\vc2019\freetype.vcxproj">
       <Project>{78b079bd-9fc7-4b9e-b4a6-96da0f00248b}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\PastelLib\PastelLib.vcxproj">
+      <Project>{98682bd5-f6e5-4889-b7e3-82a55a5bd6da}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Utilities\Utilities.vcxproj">
       <Project>{0d44529e-f7dd-4454-8ead-9afd857f53b4}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>

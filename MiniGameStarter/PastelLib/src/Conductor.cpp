@@ -8,7 +8,6 @@ Conductor::Conductor(int bpm, int measures, std::string songName)
 	this->secPerBeat = 60.0 / bpm;
 	this->song = SoundBuffer::get()->addSoundEffect(this->path.c_str());
 	this->StartTimer = new Timer();
-	this->StartTimer->Attach(this);
 }
 
 Conductor::~Conductor()
@@ -18,7 +17,9 @@ Conductor::~Conductor()
 void Conductor::PlayWithBeatOffset(int offset)
 {
 	this->beatsBeforeStart = offset;
-	this->StartTimer->start(this->secPerBeat);
+	/*this->StartTimer->Attach(this);
+	this->StartTimer->start(this->secPerBeat);*/
+	this->Play();
 }
 
 void Conductor::PlayFromBeat(int beat, int offset)

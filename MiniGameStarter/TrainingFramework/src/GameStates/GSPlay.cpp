@@ -83,6 +83,7 @@ void GSPlay::Init()
 	m_combo = std::make_shared< Text>(shader, font, "0", TextColor::YELLOW, 2);
 	m_combo->Set2DPosition(Vector2(130, 75));
 
+	this->conductor->PlayWithBeatOffset(2);
 }
 
 void GSPlay::Exit()
