@@ -14,6 +14,9 @@ SoundSource::SoundSource()
 
 SoundSource::~SoundSource()
 {
+	if (this->IsPlaying()) {
+		alSourceStop(p_Source);
+	}
 	alDeleteSources(1, &p_Source);
 }
 
@@ -36,4 +39,19 @@ void SoundSource::Play(const ALuint buffer_to_play)
 		alGetSourcei(p_Source, AL_SOURCE_STATE, &state);
 	}
 	std::cout << "done playing sound\n";*/
+}
+
+bool SoundSource::IsPlaying()
+{
+	if (alGetError() != AL_NO_ERROR) {
+		return false;
+	}
+	ALint state;
+	alGetSourcei(p_Source, AL_SOURCE_STATE, &state);
+	return state == AL_PLAYING;
+}
+
+double SoundSource::GetPlaybackOffset()
+{
+	return AL_SEC_OFFSET;
 }

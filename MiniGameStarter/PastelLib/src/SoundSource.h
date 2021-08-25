@@ -7,6 +7,8 @@ public:
 	~SoundSource();
 
 	void Play(const ALuint buffer_to_play);
+	bool IsPlaying();
+	double GetPlaybackOffset();
 
 private:
 	ALuint p_Source;

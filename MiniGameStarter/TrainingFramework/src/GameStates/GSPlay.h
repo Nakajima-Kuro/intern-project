@@ -1,6 +1,7 @@
 #pragma once
 #include "GameStateBase.h"
 #include "Conductor.h"
+#include "IObserver.h"
 
 class Sprite2D;
 class Sprite3D;

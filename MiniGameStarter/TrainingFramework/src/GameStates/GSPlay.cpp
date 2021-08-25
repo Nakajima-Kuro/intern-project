@@ -1,5 +1,4 @@
 #include "GSPlay.h"
-
 #include "Shader.h"
 #include "Texture.h"
 #include "Model.h"
@@ -12,7 +11,7 @@
 
 GSPlay::GSPlay()
 {
-	this->conductor = new Conductor(150, 4, "Myths You Forgot (feat. Toby Fox).ogg");
+	this->conductor = new Conductor(150, 4, "Myths You Forgot (feat. Toby Fox).wav");
 }
 
 
