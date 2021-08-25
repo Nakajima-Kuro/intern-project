@@ -13,8 +13,7 @@ public:
 	int measures;
 	void PlayWithBeatOffset(int offset);
 	void PlayFromBeat(int beat, int offset);
-	void Play();
-
+	
 	void Update(float deltaTime);
 	void Update(const std::string& message_from_subject) override;
 
@@ -38,6 +37,7 @@ private:
 	//Timer
 	Timer* StartTimer;
 
+	void Play();
 	//All the magic in this function
 	void ReportBeat();
 };

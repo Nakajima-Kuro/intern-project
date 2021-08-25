@@ -12,6 +12,7 @@
 
 GSPlay::GSPlay()
 {
+	this->conductor = new Conductor(150, 4, "Myths You Forgot (feat. Toby Fox)");
 }
 
 
@@ -81,7 +82,6 @@ void GSPlay::Init()
 	// score
 	m_combo = std::make_shared< Text>(shader, font, "0", TextColor::YELLOW, 2);
 	m_combo->Set2DPosition(Vector2(130, 75));
-
 
 }
 

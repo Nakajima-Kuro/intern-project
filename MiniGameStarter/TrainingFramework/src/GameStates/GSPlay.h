@@ -1,5 +1,6 @@
 #pragma once
 #include "GameStateBase.h"
+#include "Conductor.h"
 
 class Sprite2D;
 class Sprite3D;
@@ -41,5 +42,5 @@ private:
 	const GLint m_arrowButtonY = Globals::screenHeight - 70;
 
 	//Conductor
-
+	Conductor* conductor;
 };
