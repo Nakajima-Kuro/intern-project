@@ -6,18 +6,18 @@ Point2D::Point2D()
 	this->y = 0;
 }
 
-Point2D::Point2D(int x, int y)
+Point2D::Point2D(float x, float y)
 {
 	this->x = x;
 	this->y = y;
 }
 
-int Point2D::GetX()
+float Point2D::GetX()
 {
 	return this->x;
 }
 
-int Point2D::GetY()
+float Point2D::GetY()
 {
 	return this->y;
 }

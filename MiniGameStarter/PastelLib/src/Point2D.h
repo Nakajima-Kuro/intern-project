@@ -2,13 +2,13 @@
 class Point2D
 {
 private:
-	int x;
-	int y;
+	float x;
+	float y;
 public:
 	Point2D();
-	Point2D(int x, int y);
+	Point2D(float x, float y);
 	
-	int GetX();
-	int GetY();
+	float GetX();
+	float GetY();
 };
 
