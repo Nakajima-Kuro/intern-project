@@ -2,16 +2,23 @@
 #include "GameManager/ResourceManagers.h"
 #include<algorithm>
 
-Area2D::Area2D(Point2D position, int sizeX, int sizeY, std::string name = "") :m_position(position), m_sizeX(sizeX), m_sizeY(sizeY), m_name(name)
+Area2D::Area2D(Point2D position, int sizeX, int sizeY, std::string name = "") 
+	:m_position(position), m_sizeX(sizeX), m_sizeY(sizeY), m_name(name), m_background(nullptr)
 {
 	//Setup area hitbox display
 	auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
 	auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
 	auto texture = ResourceManagers::GetInstance()->GetTexture("spr_hitbox.tga");
-	m_background = std::make_shared<Sprite2D>(model, shader, texture);
+	m_background = new Sprite2D(model, shader, texture);
 	m_background->Set2DPosition(GLint(m_position.GetX()), GLint(m_position.GetY()));
 	m_background->SetSize(m_sizeX * 2, m_sizeY * 2);
-	//m_background->SetVisible(false);
+	m_background->SetVisible(false);
+}
+
+Area2D::~Area2D()
+{
+	m_listOverlapArea.clear();
+	delete m_background;
 }
 
 void Area2D::checkCollision(std::list<std::shared_ptr<Area2D>> listArea2D)

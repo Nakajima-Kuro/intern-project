@@ -13,20 +13,21 @@ private:
 	int									m_sizeX;
 	int									m_sizeY;
 
-	std::shared_ptr<Sprite2D>			m_background;
+	Sprite2D* m_background;
 	std::list<std::shared_ptr<Area2D>>	m_listOverlapArea;
 public:
-	Area2D() : m_name(""), m_position(Point2D(0, 0)), m_sizeX(0), m_sizeY(0) {};
+	Area2D() : m_name(""), m_position(Point2D(0, 0)), m_sizeX(0), m_sizeY(0), m_background(nullptr) {};
 	Area2D(Point2D position, int sizeX, int sizeY, std::string name);
-	
+	virtual ~Area2D();
+
 	//Collision logic
 	void checkCollision(std::list<std::shared_ptr<Area2D>> listArea2D);
 	std::shared_ptr<Area2D> GetCollidedArea();
 
-	//Draw
-	void Draw();
-	void Update(float deltaTime);
-	
+	//Game Function
+	virtual void Draw();
+	virtual void Update(float deltaTime);
+
 	//get basic info
 	Point2D GetPosition();
 	void SetPosition(Point2D position);
