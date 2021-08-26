@@ -22,7 +22,10 @@ public:
 
 	void		Set2DPosition(GLint x, GLint y);
 	void		Set2DPosition(Vector2 position);
+	Vector2		Get2DPosition();
 	void		SetSize(GLint width, GLint height);
+	GLint		GetWidth();
+	GLint		GetHeight();
 	void		SetVisible(bool isVisible);
 	bool		IsVisible();
 };

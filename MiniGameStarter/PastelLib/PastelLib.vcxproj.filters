@@ -37,6 +37,12 @@
     <ClCompile Include="src\Conductor.cpp">
       <Filter>BaseNode</Filter>
     </ClCompile>
+    <ClCompile Include="src\Area2D.cpp">
+      <Filter>BaseNode</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Point2D.cpp">
+      <Filter>BaseNode</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\SoundBuffer.h">
@@ -58,6 +64,12 @@
       <Filter>BaseNode</Filter>
     </ClInclude>
     <ClInclude Include="src\Conductor.h">
+      <Filter>BaseNode</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Area2D.h">
+      <Filter>BaseNode</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Point2D.h">
       <Filter>BaseNode</Filter>
     </ClInclude>
   </ItemGroup>

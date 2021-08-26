@@ -114,6 +114,11 @@ void Sprite2D::Set2DPosition(Vector2 position)
 	CalculateWorldMatrix();
 }
 
+Vector2 Sprite2D::Get2DPosition()
+{
+	return Vector2(m_position.x, m_position.y);
+}
+
 void Sprite2D::SetSize(GLint width, GLint height)
 {
 	m_iWidth = width;
@@ -122,9 +127,19 @@ void Sprite2D::SetSize(GLint width, GLint height)
 	CalculateWorldMatrix();
 }
 
+GLint Sprite2D::GetWidth()
+{
+	return this->m_iWidth;
+}
+
+GLint Sprite2D::GetHeight()
+{
+	return this->m_iHeight;
+}
+
 void Sprite2D::SetVisible(bool isVisible)
 {
-	this->m_isVisible = IsVisible;
+	this->m_isVisible = isVisible;
 }
 
 bool Sprite2D::IsVisible()

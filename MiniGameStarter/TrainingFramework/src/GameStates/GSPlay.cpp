@@ -68,15 +68,15 @@ void GSPlay::Init()
 	std::shared_ptr<Font> font = ResourceManagers::GetInstance()->GetFont("HeartbitXX.ttf");
 	shader = ResourceManagers::GetInstance()->GetShader("TextShader");
 	// score title
-	m_scoreTitle = std::make_shared< Text>(shader, font, "Score:", TextColor::YELLOW, 2);
+	m_scoreTitle = std::make_shared<Text>(shader, font, "Score:", TextColor::YELLOW, 2);
 	m_scoreTitle->Set2DPosition(Vector2(20, 40));
 
 	// score
-	m_score = std::make_shared< Text>(shader, font, "0", TextColor::YELLOW, 2);
+	m_score = std::make_shared<Text>(shader, font, "0", TextColor::YELLOW, 2);
 	m_score->Set2DPosition(Vector2(130, 40));
 
 	// score title
-	m_comboTitle = std::make_shared< Text>(shader, font, "Combo:", TextColor::YELLOW, 2);
+	m_comboTitle = std::make_shared<Text>(shader, font, "Combo:", TextColor::YELLOW, 2);
 	m_comboTitle->Set2DPosition(Vector2(20, 75));
 
 	// score

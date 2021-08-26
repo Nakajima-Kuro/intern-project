@@ -140,6 +140,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Point2D.h" />
+    <ClInclude Include="src\Area2D.h" />
     <ClInclude Include="src\Conductor.h" />
     <ClInclude Include="src\IObserver.h" />
     <ClInclude Include="src\ISubject.h" />
@@ -149,6 +151,8 @@
     <ClInclude Include="src\Timer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Point2D.cpp" />
+    <ClCompile Include="src\Area2D.cpp" />
     <ClCompile Include="src\Conductor.cpp" />
     <ClCompile Include="src\ISubject.cpp" />
     <ClCompile Include="src\SoundBuffer.cpp" />
