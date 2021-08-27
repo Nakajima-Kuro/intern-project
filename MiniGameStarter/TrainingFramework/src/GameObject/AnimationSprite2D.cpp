@@ -109,7 +109,7 @@ void AnimationSprite2D::Update(GLfloat deltaTime)
 	}
 }
 
-void AnimationSprite2D::SetPlaying(bool isPlaying)
+void AnimationSprite2D::SetPlayAnimation(bool isPlaying)
 {
 	m_isPlaying = isPlaying;
 }

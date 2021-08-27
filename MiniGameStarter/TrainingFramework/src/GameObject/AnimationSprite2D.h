@@ -17,7 +17,7 @@ public:
 	void		Draw() override;
 	void		Update(GLfloat deltatime) override;
 
-	void        SetPlaying(bool isPlaying);
+	void        SetPlayAnimation(bool isPlaying);
 	bool        IsPlaying();
 	void        setFrame(int frame);
 };

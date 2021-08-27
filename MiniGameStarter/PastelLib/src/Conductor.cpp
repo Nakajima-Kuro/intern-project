@@ -38,7 +38,6 @@ void Conductor::Play()
 void Conductor::Update(float deltaTime)
 {
 	if (soundSource.IsPlaying()) {
-		//std::cout<< soundSource.GetPlaybackOffset();
 		this->songPosition = soundSource.GetPlaybackOffset();
 		this->songPositionInBeat = int(floor(this->songPosition / this->secPerBeat)) + this->beatsBeforeStart;
 		this->ReportBeat();
