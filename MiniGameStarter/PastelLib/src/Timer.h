@@ -16,5 +16,6 @@ public:
 private:
 	double m_timeSec;
 	std::chrono::time_point<std::chrono::steady_clock> m_StartTime;
+	void StartTimer();
 };
 

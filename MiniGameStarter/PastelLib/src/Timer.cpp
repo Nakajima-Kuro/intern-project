@@ -24,8 +24,12 @@ void Timer::start(double timeSec)
 
 void Timer::start()
 {
-	/*auto thread = std::thread(&Timer::StartTimer, this);
-	thread.detach();*/
+	auto thread = std::thread(&Timer::StartTimer, this);
+	thread.detach();
+}
+
+void Timer::StartTimer()
+{
 	this->m_StartTime = std::chrono::steady_clock::now();
 	this->timeLeft = this->m_timeSec;
 	while (true) {
@@ -36,9 +40,4 @@ void Timer::start()
 			break;
 		}
 	}
-}
-
-void Timer::StartTimer()
-{
-	
 }
