@@ -1,5 +1,5 @@
 #include "Conductor.h"
-Conductor::Conductor(int bpm, int measures, std::string songName)
+Conductor::Conductor(float bpm, int measures, std::string songName)
 {
 	this->bpm = bpm;
 	this->measures = measures;

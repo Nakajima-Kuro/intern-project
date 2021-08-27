@@ -8,9 +8,9 @@
 class Conductor : public ISubject, public IObserver
 {
 public:
-	Conductor(int bpm, int measures, std::string songName);
+	Conductor(float bpm, int measures, std::string songName);
 	~Conductor();
-	int bpm;
+	float bpm;
 	int measures;
 	void PlayWithBeatOffset(int offset);
 	void PlayFromBeat(int beat, int offset);
