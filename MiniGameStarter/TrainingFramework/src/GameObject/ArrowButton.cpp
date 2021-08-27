@@ -30,10 +30,10 @@ void ArrowButton::Init()
 	m_areaPerfect->SetSize(16, 16);
 
 	m_areaGood = new Area2D("good");
-	m_areaPerfect->SetSize(16, 32);
+	m_areaGood->SetSize(16, 32);
 
 	m_areaOkay = new Area2D("okay");
-	m_areaPerfect->SetSize(16, 48);
+	m_areaOkay->SetSize(16, 48);
 
 	//Asign signal, hail Godot!!!
 	m_areaPerfect->Attach(this);
@@ -98,8 +98,8 @@ void ArrowButton::Update(float deltaTime)
 void ArrowButton::Draw()
 {
 	AnimationSprite2D::Draw();
-	m_areaGood->Draw();
 	m_areaOkay->Draw();
+	m_areaGood->Draw();
 	m_areaPerfect->Draw();
 }
 
