@@ -1,7 +1,7 @@
 #include "Note.h"
 #include "ResourceManagers.h"
 
-Note::Note(float finish_y, float bpm, int difficulty, Point2D position)
+Note::Note(float finish_y, float bpm, int difficulty, Vector2 position)
 	:m_speed(0), m_spawn_y(0), m_finish_y(Globals::screenHeight), m_bpm(0), m_difficulty(4)
 {
 	//Init 3 arrow sprite

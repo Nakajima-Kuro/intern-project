@@ -2,7 +2,6 @@
 #include "BaseObject.h"
 #include "ISubject.h"
 #include "IObserver.h"
-#include "Point2D.h"
 #include "Sprite2D.h"
 #include <memory>
 class Area2D :
