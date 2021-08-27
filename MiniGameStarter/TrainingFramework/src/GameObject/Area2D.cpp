@@ -1,5 +1,6 @@
 #include "Area2D.h"
 #include "GameManager/ResourceManagers.h"
+#include "Sprite2D.h"
 
 Area2D::Area2D(std::string name = "")
 	: m_sizeX(0), m_sizeY(0), m_name(name), m_background(nullptr)
@@ -20,8 +21,6 @@ void Area2D::Init()
 	auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
 	auto texture = ResourceManagers::GetInstance()->GetTexture("spr_hitbox.tga");
 	m_background = new Sprite2D(model, shader, texture);
-	m_background->Set2DPosition(m_position.x, m_position.y);
-	m_background->SetSize(m_sizeX * 2, m_sizeY * 2);
 	//m_background->SetVisible(false);
 }
 
@@ -32,7 +31,6 @@ void Area2D::Draw()
 
 void Area2D::Update(GLfloat deltatime)
 {
-	m_background->Set2DPosition(GLint(m_position.x), GLint(m_position.y));
 }
 
 void Area2D::checkCollision(std::list<std::shared_ptr<Area2D>> listArea2D)
@@ -93,7 +91,7 @@ void Area2D::Set2DPosition(Vector2 position)
 	CalculateWorldMatrix();
 }
 
-void Area2D::Set2DPosition(GLfloat x, GLfloat y)
+void Area2D::Set2DPosition(GLint x, GLint y)
 {
 	m_position = Vector3(x, y, 0.0f);
 	m_background->Set2DPosition(x, y);

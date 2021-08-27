@@ -106,15 +106,15 @@ void ArrowButton::Draw()
 void ArrowButton::Set2DPosition(GLint x, GLint y)
 {
 	AnimationSprite2D::Set2DPosition(x, y);
-	m_areaPerfect->Set2DPosition(m_position.x, m_position.y);
-	m_areaGood->Set2DPosition(m_position.x, m_position.y);
-	m_areaOkay->Set2DPosition(m_position.x, m_position.y);
+	m_areaPerfect->Set2DPosition(x, y);
+	m_areaGood->Set2DPosition(x, y);
+	m_areaOkay->Set2DPosition(x, y);
 }
 
 void ArrowButton::Set2DPosition(Vector2 position)
 {
 	AnimationSprite2D::Set2DPosition(position);
-	m_areaPerfect->Set2DPosition(m_position.x, m_position.y);
-	m_areaGood->Set2DPosition(m_position.x, m_position.y);
-	m_areaOkay->Set2DPosition(m_position.x, m_position.y);
+	m_areaPerfect->Set2DPosition(position);
+	m_areaGood->Set2DPosition(position);
+	m_areaOkay->Set2DPosition(position);
 }

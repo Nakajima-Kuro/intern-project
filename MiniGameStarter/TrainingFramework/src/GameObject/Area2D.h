@@ -2,8 +2,9 @@
 #include "BaseObject.h"
 #include "ISubject.h"
 #include "IObserver.h"
-#include "Sprite2D.h"
-#include <memory>
+
+class Sprite2D;
+
 class Area2D :
 	public BaseObject, public ISubject
 {
@@ -29,7 +30,7 @@ public:
 	//get basic info
 	Vector2 Get2DPosition();
 	void Set2DPosition(Vector2 position);
-	void Set2DPosition(GLfloat x, GLfloat y);
+	void Set2DPosition(GLint x, GLint y);
 	void SetSize(GLint x, GLint y);
 	void setVisible(bool isVisible);
 	int GetSizeX();
