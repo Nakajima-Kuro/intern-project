@@ -4,23 +4,13 @@
 ArrowButton::ArrowButton() 
 	: AnimationSprite2D(), m_input(-1), m_areaPerfect(nullptr), m_areaGood(nullptr), m_areaOkay(nullptr)
 {
+	Init();
 };
 
 ArrowButton::ArrowButton(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture, int input)
 	: AnimationSprite2D(model, shader, texture, 2, 0.0f), m_input(input)
 {
-	//Set animation playing to false
-	this->SetPlayAnimation(false);
-
-	//Setup all area2D for score
-	m_areaPerfect = new Area2D(Point2D(0, 0), 16, 16, "perfect");
-	m_areaGood = new Area2D(Point2D(0, 0), 16, 32, "good");
-	m_areaOkay = new Area2D(Point2D(0, 0), 16, 48, "okay");
-
-	//Asign signal, hail Godot!!!
-	m_areaPerfect->Attach(this);
-	m_areaGood->Attach(this);
-	m_areaOkay->Attach(this);
+	Init();
 }
 
 ArrowButton::~ArrowButton()
@@ -28,6 +18,27 @@ ArrowButton::~ArrowButton()
 	delete m_areaPerfect;
 	delete m_areaGood;
 	delete m_areaOkay;
+}
+
+void ArrowButton::Init() 
+{
+	//Set animation playing to false
+	this->SetPlayAnimation(false);
+
+	//Setup all area2D for score
+	m_areaPerfect = new Area2D("perfect");
+	m_areaPerfect->SetSize(16, 16);
+
+	m_areaGood = new Area2D("good");
+	m_areaPerfect->SetSize(16, 32);
+
+	m_areaOkay = new Area2D("okay");
+	m_areaPerfect->SetSize(16, 48);
+
+	//Asign signal, hail Godot!!!
+	m_areaPerfect->Attach(this);
+	m_areaGood->Attach(this);
+	m_areaOkay->Attach(this);
 }
 
 int ArrowButton::HandleKeyEvents(int key, bool bIsPressed)
@@ -78,9 +89,6 @@ void ArrowButton::Update(const std::string& message_from_subject)
 
 void ArrowButton::Update(float deltaTime)
 {
-	m_areaPerfect->SetPosition(m_position.x, m_position.y);
-	m_areaGood->SetPosition(m_position.x, m_position.y);
-	m_areaOkay->SetPosition(m_position.x, m_position.y);
 	m_areaPerfect->Update(deltaTime);
 	m_areaGood->Update(deltaTime);
 	m_areaOkay->Update(deltaTime);
@@ -93,4 +101,20 @@ void ArrowButton::Draw()
 	m_areaGood->Draw();
 	m_areaOkay->Draw();
 	m_areaPerfect->Draw();
+}
+
+void ArrowButton::Set2DPosition(GLint x, GLint y)
+{
+	AnimationSprite2D::Set2DPosition(x, y);
+	m_areaPerfect->Set2DPosition(m_position.x, m_position.y);
+	m_areaGood->Set2DPosition(m_position.x, m_position.y);
+	m_areaOkay->Set2DPosition(m_position.x, m_position.y);
+}
+
+void ArrowButton::Set2DPosition(Vector2 position)
+{
+	AnimationSprite2D::Set2DPosition(position);
+	m_areaPerfect->Set2DPosition(m_position.x, m_position.y);
+	m_areaGood->Set2DPosition(m_position.x, m_position.y);
+	m_areaOkay->Set2DPosition(m_position.x, m_position.y);
 }

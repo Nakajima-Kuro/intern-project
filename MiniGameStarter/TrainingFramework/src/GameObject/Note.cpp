@@ -2,13 +2,13 @@
 #include "ResourceManagers.h"
 
 Note::Note(float finish_y, float bpm, int difficulty, Point2D position)
-	:m_speed(0), M_SPAWN_Y(0), m_finish_y(Globals::screenHeight), m_bpm(0), m_difficulty(4)
+	:m_speed(0), m_spawn_y(0), m_finish_y(Globals::screenHeight), m_bpm(0), m_difficulty(4)
 {
 	//Init 3 arrow sprite
 	auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
-	auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
+	auto shader = ResourceManagers::GetInstance()->GetShader("AnimationShader");
 
-	auto texture = ResourceManagers::GetInstance()->GetTexture("Arrow/Left/arrow_button_left_3.tga");
+	auto texture = ResourceManagers::GetInstance()->GetTexture("Arrow/Left/spr_note.tga");
 	
 
 	//Set note position

@@ -12,6 +12,8 @@ public:
 	ArrowButton();
 	ArrowButton(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture, int input);
 	~ArrowButton();
+
+	void Init();
 	int HandleKeyEvents(int key, bool bIsPressed);
 
 	//Check collision
@@ -23,6 +25,8 @@ public:
 	//Override AnimationSprite2D
 	void Update(float deltaTime) override;
 	void Draw() override;
+	void Set2DPosition(GLint x, GLint y);
+	void Set2DPosition(Vector2 position);
 private:
 	int m_input;
 	std::string m_status;
