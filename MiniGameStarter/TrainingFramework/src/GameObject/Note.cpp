@@ -9,16 +9,7 @@ Note::Note(float finish_y, float bpm, int difficulty, Point2D position)
 	auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
 
 	auto texture = ResourceManagers::GetInstance()->GetTexture("Arrow/Left/arrow_button_left_3.tga");
-	Sprite2D* sprite = new Sprite2D(model, shader, texture);
-	m_listSprite.push_back(sprite);
-
-	auto texture = ResourceManagers::GetInstance()->GetTexture("Arrow/Left/arrow_button_up_3.tga");
-	sprite = new Sprite2D(model, shader, texture);
-	m_listSprite.push_back(sprite);
-
-	auto texture = ResourceManagers::GetInstance()->GetTexture("Arrow/Left/arrow_button_right_3.tga");
-	sprite = new Sprite2D(model, shader, texture);
-	m_listSprite.push_back(sprite);
+	
 
 	//Set note position
 	this->SetPosition(position);

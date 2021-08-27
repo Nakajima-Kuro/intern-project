@@ -1,10 +1,18 @@
 #include "ArrowButton.h"
-ArrowButton::ArrowButton(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::pair<std::shared_ptr<Texture>, std::shared_ptr<Texture>> listTexture, int input)
-	: Sprite2D(-1, model, shader, listTexture.first), m_listTexture(listTexture), m_input(input)
+ArrowButton::ArrowButton(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture, int input)
+	: AnimationSprite2D(model, shader, texture, 2, 0.0f), m_input(input)
 {
+	//Set animation playing to false
+	this->SetPlaying(false);
+
+	//Setup all area2D for score
 	m_areaPerfect = std::make_shared<Area2D>(Point2D(0, 0), 16, 16, "perfect");
 	m_areaGood = std::make_shared<Area2D>(Point2D(0, 0), 16, 32, "good");
 	m_areaOkay = std::make_shared<Area2D>(Point2D(0, 0), 16, 48, "okay");
+
+	m_areaPerfect->Attach(this);
+	m_areaGood->Attach(this);
+	m_areaOkay->Attach(this);
 }
 
 int ArrowButton::HandleKeyEvents(int key, bool bIsPressed)
@@ -13,11 +21,11 @@ int ArrowButton::HandleKeyEvents(int key, bool bIsPressed)
 		if (bIsPressed)
 		{
 			// The button is being pressed down
-			this->SetTexture(m_listTexture.second);
+			this->setFrame(1);
 		}
 		else
 		{
-			this->SetTexture(m_listTexture.first);
+			this->setFrame(0);
 		}
 	}
 	return 0;
@@ -26,6 +34,24 @@ int ArrowButton::HandleKeyEvents(int key, bool bIsPressed)
 void ArrowButton::Update(const std::string& message_from_subject)
 {
 	//Handle all 6 message here
+	if (strcmp(message_from_subject.c_str(), "perfect_area_enter") == 0) {
+
+	}
+	if (strcmp(message_from_subject.c_str(), "perfect_area_exit") == 0) {
+
+	}
+	if (strcmp(message_from_subject.c_str(), "good_area_enter") == 0) {
+
+	}
+	if (strcmp(message_from_subject.c_str(), "good_area_exit") == 0) {
+
+	}
+	if (strcmp(message_from_subject.c_str(), "okay_area_enter") == 0) {
+
+	}
+	if (strcmp(message_from_subject.c_str(), "okay_area_exit") == 0) {
+
+	}
 }
 
 void ArrowButton::Update(float deltaTime)
@@ -36,11 +62,12 @@ void ArrowButton::Update(float deltaTime)
 	m_areaPerfect->Update(deltaTime);
 	m_areaGood->Update(deltaTime);
 	m_areaOkay->Update(deltaTime);
+	AnimationSprite2D::Update(deltaTime);
 }
 
 void ArrowButton::Draw()
 {
-	Sprite2D::Draw();
+	AnimationSprite2D::Draw();
 	m_areaGood->Draw();
 	m_areaOkay->Draw();
 	m_areaPerfect->Draw();

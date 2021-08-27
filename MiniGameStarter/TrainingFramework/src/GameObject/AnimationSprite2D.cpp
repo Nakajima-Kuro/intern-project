@@ -5,8 +5,12 @@
 #include "Texture.h"
 #include "Application.h"
 
+AnimationSprite2D::AnimationSprite2D() :Sprite2D(), m_numFrames(0), m_currentFrame(0), m_frameTime(0.0f), m_currentFrameTime(0.0f), m_isPlaying(true)
+{
+}
+
 AnimationSprite2D::AnimationSprite2D(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture, int numFrame, float frameTime)
-	:Sprite2D(-1, model, shader, texture), m_numFrames(0), m_currentFrame(0), m_frameTime(0.0f), m_currentFrameTime(0.0f), m_isPlaying(true)
+	: Sprite2D(-1, model, shader, texture), m_numFrames(numFrame), m_currentFrame(0), m_frameTime(frameTime), m_currentFrameTime(0.0f), m_isPlaying(true)
 {
 
 }
@@ -75,12 +79,12 @@ void AnimationSprite2D::Draw()
 		iTempShaderVaribleGLID = -1;
 		iTempShaderVaribleGLID = m_pShader->GetUniformLocation((char*)"u_numFrames");
 		if (iTempShaderVaribleGLID != -1)
-			glUniform1f(iTempShaderVaribleGLID, m_numFrames);
+			glUniform1f(iTempShaderVaribleGLID, GLfloat(m_numFrames));
 
 		iTempShaderVaribleGLID = -1;
 		iTempShaderVaribleGLID = m_pShader->GetUniformLocation((char*)"u_currentFrame");
 		if (iTempShaderVaribleGLID != -1)
-			glUniform1f(iTempShaderVaribleGLID, m_currentFrame);
+			glUniform1f(iTempShaderVaribleGLID, GLfloat(m_currentFrame));
 
 
 		glDrawElements(GL_TRIANGLES, m_pModel->GetNumIndiceObject(), GL_UNSIGNED_INT, 0);
@@ -119,5 +123,6 @@ void AnimationSprite2D::setFrame(int frame)
 {
 	if (frame <= m_numFrames) {
 		m_currentFrame = frame;
+		m_currentFrameTime = m_currentFrame * m_frameTime;
 	}
 }

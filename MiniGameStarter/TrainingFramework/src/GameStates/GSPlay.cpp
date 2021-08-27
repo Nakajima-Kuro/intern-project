@@ -8,6 +8,8 @@
 #include "Sprite3D.h"
 #include "Text.h"
 #include "GameButton.h"
+#include "Conductor.h"
+#include "ArrowButton.h"
 
 GSPlay::GSPlay()
 {
@@ -42,25 +44,23 @@ void GSPlay::Init()
 		});
 
 	//LeftArrow
-	std::pair<std::shared_ptr<Texture>, std::shared_ptr<Texture>> texturePair
-		= { ResourceManagers::GetInstance()->GetTexture("Arrow/Left/arrow_button_left_1.tga"), ResourceManagers::GetInstance()->GetTexture("Arrow/Left/arrow_button_left_2.tga") };
-	auto button = std::make_shared<ArrowButton>(model, shader, texturePair, VK_LEFT);
+	shader = ResourceManagers::GetInstance()->GetShader("AnimationShader");
+	texture = ResourceManagers::GetInstance()->GetTexture("Arrow/spr_arrow_button_left.tga");
+	auto button = std::make_shared<ArrowButton>(model, shader, texture, VK_LEFT);
 	button->Set2DPosition(Globals::screenWidth / 2 - 120, m_arrowButtonY);
 	button->SetSize(96, 96);
 	m_listArrowButton.push_back(button);
 
 	//UpArrow
-	texturePair
-		= { ResourceManagers::GetInstance()->GetTexture("Arrow/Up/arrow_button_up_1.tga"), ResourceManagers::GetInstance()->GetTexture("Arrow/Up/arrow_button_up_2.tga") };
-	button = std::make_shared<ArrowButton>(model, shader, texturePair, VK_UP);
+	texture = ResourceManagers::GetInstance()->GetTexture("Arrow/spr_arrow_button_up.tga");
+	button = std::make_shared<ArrowButton>(model, shader, texture, VK_UP);
 	button->Set2DPosition(Globals::screenWidth / 2, m_arrowButtonY);
 	button->SetSize(96, 96);
 	m_listArrowButton.push_back(button);
 
 	//RightArrow
-	texturePair
-		= { ResourceManagers::GetInstance()->GetTexture("Arrow/Right/arrow_button_right_1.tga"), ResourceManagers::GetInstance()->GetTexture("Arrow/Right/arrow_button_right_2.tga") };
-	button = std::make_shared<ArrowButton>(model, shader, texturePair, VK_RIGHT);
+	texture = ResourceManagers::GetInstance()->GetTexture("Arrow/spr_arrow_button_right.tga");
+	button = std::make_shared<ArrowButton>(model, shader, texture, VK_RIGHT);
 	button->Set2DPosition(Globals::screenWidth / 2 + 120, m_arrowButtonY);
 	button->SetSize(96, 96);
 	m_listArrowButton.push_back(button);
