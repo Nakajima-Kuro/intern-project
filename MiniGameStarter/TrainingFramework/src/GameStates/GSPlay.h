@@ -60,6 +60,7 @@ private:
 
 	//Others button
 	std::shared_ptr<GameButton>	m_backButton;
-	
+	std::shared_ptr<Note> m_note;
+
 	Vector2 GetSpawnPosition(int position);
 };

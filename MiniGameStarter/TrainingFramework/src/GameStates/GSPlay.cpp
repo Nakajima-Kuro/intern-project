@@ -85,6 +85,11 @@ void GSPlay::Init()
 	m_combo = std::make_shared< Text>(shader, font, "0", TextColor::YELLOW, 2);
 	m_combo->Set2DPosition(Vector2(130, 75));
 
+	//Add the note to scene
+	m_note = std::make_shared<Note>(Vector2(200, 0), Vector2(200, 600), 150, 4);
+	m_note->SetLane(1);
+	m_note->SetSize(96, 96);
+
 	//Load the song and the beat map     Not done!!!
 	//Hard code
 	m_beatMap = {
@@ -147,6 +152,7 @@ void GSPlay::HandleMouseMoveEvents(int x, int y)
 
 void GSPlay::Update(float deltaTime)
 {
+	m_note->Update(deltaTime);
 	m_backButton->Update(deltaTime);
 	for (auto it : m_listArrowButton)
 	{
@@ -171,6 +177,7 @@ void GSPlay::Draw()
 	{
 		it->Draw();
 	}
+	m_note->Draw();
 }
 
 void GSPlay::Update(const std::string& message_from_subject)
@@ -197,11 +204,12 @@ void GSPlay::Update(const std::string& message_from_subject)
 				spawnPosition = rand() % 3;
 			}
 			spawnedPosition.push_back(spawnPosition);
-			//Add the note to scene
-			auto note = std::make_shared<Note>(GetSpawnPosition(spawnPosition), m_listArrowButton[spawnPosition]->Get2DPosition(), 150, 4);
-			note->SetLane(spawnPosition);
-			note->Draw();
-			m_listNote.push_back(note);
+			////Add the note to scene
+			//auto note = std::make_shared<Note>(GetSpawnPosition(spawnPosition), m_listArrowButton[spawnPosition]->Get2DPosition(), 150, 4);
+			//note->SetLane(spawnPosition);
+			//note->SetSize(96,96);
+			//note->Draw();
+			//m_listNote.push_back(note);
 		}
 	}
 }

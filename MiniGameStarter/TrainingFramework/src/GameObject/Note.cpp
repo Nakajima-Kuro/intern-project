@@ -3,13 +3,13 @@
 #include "AnimationSprite2D.h"
 
 Note::Note()
-	: Area2D("note"), m_spawnLocation(Vector2()), m_finishLocation(Vector2()), m_speed(0), m_bpm(0), m_difficulty(4)
+	: Area2D("note"), m_spawnPosition(Vector2()), m_finishPosition(Vector2()), m_speed(0), m_bpm(0), m_difficulty(4)
 {
 	Init();
 }
 
 Note::Note(Vector2 spawnPosition, Vector2 finishPosition, float bpm, int difficulty)
-	: Area2D("note"), m_spawnLocation(spawnPosition), m_finishLocation(finishPosition), m_speed(0), m_bpm(bpm), m_difficulty(difficulty)
+	: Area2D("note"), m_spawnPosition(spawnPosition), m_finishPosition(finishPosition), m_speed(0), m_bpm(bpm), m_difficulty(difficulty)
 {
 	Init();
 }
@@ -27,26 +27,29 @@ void Note::Init()
 	auto texture = ResourceManagers::GetInstance()->GetTexture("Arrow/spr_note.tga");
 	m_sprite = new AnimationSprite2D(model, shader, texture, 3, 0.0f);
 	m_sprite->SetPlayAnimation(false);
+	//Set Position
+	Set2DPosition(m_spawnPosition);
 	//Caculate speed
-	m_speed = float(m_finishLocation.y - m_spawnLocation.y) / (60.0f / m_bpm * m_difficulty);
-	CalculateWorldMatrix();
+	m_speed = float(m_finishPosition.y - m_spawnPosition.y) / (60.0f / m_bpm * m_difficulty);
+	Area2D::Init();
 }
 
 void Note::Update(float deltaTime)
 {
-	if (Globals::screenHeight + m_sprite->GetHeight() < m_position.y) {
-		Destroy("");
-	}
-	else {
-		Set2DPosition(m_position.x, m_position.y + m_speed * deltaTime);
-		Area2D::Update(deltaTime);
-	}
+	Set2DPosition(m_position.x, m_position.y + m_speed * deltaTime);
+	Area2D::Update(deltaTime);
 }
 
 void Note::Draw()
 {
 	m_sprite->Draw();
 	Area2D::Draw();
+}
+
+void Note::SetSize(GLint sizeX, GLint sizeY)
+{
+	m_sprite->SetSize(sizeX, sizeY);
+	Area2D::SetSize(sizeX / 6, sizeY / 6);
 }
 
 void Note::SetLane(int lane)
@@ -61,4 +64,16 @@ void Note::Destroy(std::string status)
 		//Being destroy by ArrowButton
 		//Emit Particles here
 	}
+}
+
+void Note::Set2DPosition(Vector2 position)
+{
+	m_sprite->Set2DPosition(position);
+	Area2D::Set2DPosition(position);
+}
+
+void Note::Set2DPosition(GLint x, GLint y)
+{
+	m_sprite->Set2DPosition(x, y);
+	Area2D::Set2DPosition(x, y);
 }

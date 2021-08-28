@@ -103,6 +103,7 @@ void Area2D::SetSize(GLint sizeX, GLint sizeY)
 	m_sizeX = sizeX;
 	m_sizeY = sizeY;
 	m_background->SetSize(sizeX * 2, sizeY * 2);
+	CalculateWorldMatrix();
 }
 
 void Area2D::setVisible(bool isVisible)
