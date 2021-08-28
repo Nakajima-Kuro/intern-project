@@ -3,11 +3,12 @@
 #include "IObserver.h"
 
 class Sprite2D;
-class Sprite3D;
+class Area2D;
 class Text;
 class GameButton;
 class Conductor;
 class ArrowButton;
+class Note;
 
 class GSPlay :
 	public GameStateBase, public IObserver
@@ -29,6 +30,7 @@ public:
 	void	Update(float deltaTime) override;
 	void	Draw() override;
 
+	//Signal Handling
 	void	Update(const std::string& message_from_subject);
 
 private:
@@ -41,10 +43,23 @@ private:
 	std::shared_ptr<Text>		m_comboTitle;
 
 	//ArrowButton
-	std::list<std::shared_ptr<ArrowButton>> m_listArrowButton;
-	std::shared_ptr<GameButton>	m_backButton;
 	const GLint m_arrowButtonY = Globals::screenHeight - 70;
+	std::vector<std::shared_ptr<ArrowButton>> m_listArrowButton;
+
+	//Data of the beat map
+	//Beat map will look like this:
+	//[the beat when counter advance to next position of the beat map, measure 1, measure 2, measure 3,...]
+	int m_currentMapPosition;	//current position in the map
+	std::vector<std::vector<int>> m_beatMap;
+
+	//List of note
+	std::list<std::shared_ptr<Area2D>> m_listNote;
 
 	//Conductor
-	Conductor* conductor;
+	Conductor* m_conductor;
+
+	//Others button
+	std::shared_ptr<GameButton>	m_backButton;
+	
+	Vector2 GetSpawnPosition(int position);
 };

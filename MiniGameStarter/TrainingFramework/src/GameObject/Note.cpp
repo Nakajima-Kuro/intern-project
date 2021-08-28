@@ -3,13 +3,13 @@
 #include "AnimationSprite2D.h"
 
 Note::Note()
-	: m_spawnLocation(Vector2()), m_finishLocation(Vector2()), m_speed(0), m_bpm(0), m_difficulty(4)
+	: Area2D("note"), m_spawnLocation(Vector2()), m_finishLocation(Vector2()), m_speed(0), m_bpm(0), m_difficulty(4)
 {
 	Init();
 }
 
 Note::Note(Vector2 spawnPosition, Vector2 finishPosition, float bpm, int difficulty)
-	: m_spawnLocation(spawnPosition), m_finishLocation(finishPosition), m_speed(0), m_bpm(bpm), m_difficulty(difficulty)
+	: Area2D("note"), m_spawnLocation(spawnPosition), m_finishLocation(finishPosition), m_speed(0), m_bpm(bpm), m_difficulty(difficulty)
 {
 	Init();
 }
@@ -24,11 +24,12 @@ void Note::Init()
 	//Init 3 arrow sprite
 	auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
 	auto shader = ResourceManagers::GetInstance()->GetShader("AnimationShader");
-	auto texture = ResourceManagers::GetInstance()->GetTexture("Arrow/Left/spr_note.tga");
+	auto texture = ResourceManagers::GetInstance()->GetTexture("Arrow/spr_note.tga");
 	m_sprite = new AnimationSprite2D(model, shader, texture, 3, 0.0f);
 	m_sprite->SetPlayAnimation(false);
 	//Caculate speed
 	m_speed = float(m_finishLocation.y - m_spawnLocation.y) / (60.0f / m_bpm * m_difficulty);
+	CalculateWorldMatrix();
 }
 
 void Note::Update(float deltaTime)
@@ -55,7 +56,7 @@ void Note::SetLane(int lane)
 
 void Note::Destroy(std::string status)
 {
-	m_sprite->SetVisible(false);
+	//m_sprite->SetVisible(false);
 	if (strcmp(status.c_str(), "") != 0) {
 		//Being destroy by ArrowButton
 		//Emit Particles here

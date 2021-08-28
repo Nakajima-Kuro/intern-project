@@ -27,6 +27,9 @@ public:
 	StateType GetGameStateType();
 
 protected:
+	//Song name to load
+	std::string m_songName = "Myths You Forgot (feat. Toby Fox)";
+
 	int m_keyPressed;
 	StateType m_stateType;
 };

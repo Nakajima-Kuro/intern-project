@@ -5,21 +5,23 @@
 #include "Camera.h"
 #include "Font.h"
 #include "Sprite2D.h"
-#include "Sprite3D.h"
+#include "Area2D.h"
 #include "Text.h"
 #include "GameButton.h"
 #include "Conductor.h"
 #include "ArrowButton.h"
+#include "Note.h"
 
 GSPlay::GSPlay()
+	:m_conductor(nullptr), m_currentMapPosition(0)
 {
-	this->conductor = new Conductor(150, 4, "Myths You Forgot (feat. Toby Fox).wav");
+
 }
 
 
 GSPlay::~GSPlay()
 {
-	delete conductor;
+	delete m_conductor;
 }
 
 
@@ -83,8 +85,30 @@ void GSPlay::Init()
 	m_combo = std::make_shared< Text>(shader, font, "0", TextColor::YELLOW, 2);
 	m_combo->Set2DPosition(Vector2(130, 75));
 
-	this->conductor->Attach(this);
-	this->conductor->PlayWithBeatOffset(2);
+	//Load the song and the beat map     Not done!!!
+	//Hard code
+	m_beatMap = {
+		{5, 0, 0, 0, 0},
+		{16, 1, 1, 1, 0},
+		{40, 1, 1, 1, 1},
+		{76, 2, 2, 2, 0},
+		{106, 1, 0, 0, 1},
+		{200, 2, 2, 2, 1},
+		{306, 1, 1, 1, 0},
+		{442, 2, 2, 2, 0},
+		{474, 0, 1, 1, 1},
+		{556, 0, 2, 2, 1},
+		{600, 1, 1, 1, 1},
+		{626, 0, 0, 0, 0},
+		{628, 2, 0, 0, 0},
+		{640, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0}
+	};
+
+	//Play the song
+	this->m_conductor = new Conductor(150, 4, m_songName + ".wav");
+	this->m_conductor->Attach(this);
+	this->m_conductor->PlayWithBeatOffset(2);
 }
 
 void GSPlay::Exit()
@@ -127,8 +151,12 @@ void GSPlay::Update(float deltaTime)
 	for (auto it : m_listArrowButton)
 	{
 		it->Update(deltaTime);
+		it->checkCollision(m_listNote);
 	}
-	conductor->Update(deltaTime);
+	m_conductor->Update(deltaTime);
+	for (auto const& note : m_listNote) {
+		note->Update(deltaTime);
+	}
 }
 
 void GSPlay::Draw()
@@ -149,10 +177,36 @@ void GSPlay::Update(const std::string& message_from_subject)
 {
 	//Trigger every beat
 	if (strcmp(message_from_subject.c_str(), "beat") == 0) {
-		//std::cout << conductor->GetBeat();
+		//If the next beat == the next beat in the map, advance counter by 1 to step to next phase in the map
+		if (m_conductor->GetBeat() == m_beatMap[m_currentMapPosition][0] - 1) {
+			m_currentMapPosition++;
+		}
+		if (m_beatMap[m_currentMapPosition][0] == 0) {
+			//End game and transit to score screen here
+		}
 	}
+
 	//Trigger every beat in loop of measures
 	if (strcmp(message_from_subject.c_str(), "measure") == 0) {
-		//std::cout << conductor->GetMeasure();
+		std::vector<int> spawnedPosition;
+		int spawnPosition = rand() % 3; //Get random lane for not spawning (0, 1, 2)
+		for (int i = 0; i < m_beatMap[m_currentMapPosition][m_conductor->GetMeasure()]; i++) {
+			//Spawn the note base on the current number in the beat map
+			while (std::find(spawnedPosition.begin(), spawnedPosition.end(), spawnPosition) != spawnedPosition.end()) {
+				//Keep ramdoming until we got a free lane. Dont want 2 note spawned in one lane, huh? :))
+				spawnPosition = rand() % 3;
+			}
+			spawnedPosition.push_back(spawnPosition);
+			//Add the note to scene
+			auto note = std::make_shared<Note>(GetSpawnPosition(spawnPosition), m_listArrowButton[spawnPosition]->Get2DPosition(), 150, 4);
+			note->SetLane(spawnPosition);
+			note->Draw();
+			m_listNote.push_back(note);
+		}
 	}
+}
+
+Vector2 GSPlay::GetSpawnPosition(int position)
+{
+	return Vector2(m_listArrowButton[position]->Get2DPosition().x, 30);
 }
