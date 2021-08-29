@@ -27,6 +27,14 @@ GSPlay::~GSPlay()
 
 void GSPlay::Init()
 {
+	//Reset all score
+	m_score = 0;
+	m_perfect = 0;
+	m_good = 0;
+	m_okay = 0;
+	m_maxCombo = 0;
+	m_combo = 0;
+
 	auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
 	auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
 
@@ -48,47 +56,43 @@ void GSPlay::Init()
 	//LeftArrow
 	shader = ResourceManagers::GetInstance()->GetShader("AnimationShader");
 	texture = ResourceManagers::GetInstance()->GetTexture("Arrow/spr_arrow_button_left.tga");
-	auto button = std::make_shared<ArrowButton>(model, shader, texture, VK_LEFT);
+	auto button = std::make_shared<ArrowButton>("arrow", model, shader, texture, VK_LEFT);
 	button->Set2DPosition(Globals::screenWidth / 2 - 120, m_arrowButtonY);
 	button->SetSize(96, 96);
+	button->Attach(this);
 	m_listArrowButton.push_back(button);
 
 	//UpArrow
 	texture = ResourceManagers::GetInstance()->GetTexture("Arrow/spr_arrow_button_up.tga");
-	button = std::make_shared<ArrowButton>(model, shader, texture, VK_UP);
+	button = std::make_shared<ArrowButton>("arrow", model, shader, texture, VK_UP);
 	button->Set2DPosition(Globals::screenWidth / 2, m_arrowButtonY);
 	button->SetSize(96, 96);
+	button->Attach(this);
 	m_listArrowButton.push_back(button);
 
 	//RightArrow
 	texture = ResourceManagers::GetInstance()->GetTexture("Arrow/spr_arrow_button_right.tga");
-	button = std::make_shared<ArrowButton>(model, shader, texture, VK_RIGHT);
+	button = std::make_shared<ArrowButton>("arrow", model, shader, texture, VK_RIGHT);
 	button->Set2DPosition(Globals::screenWidth / 2 + 120, m_arrowButtonY);
 	button->SetSize(96, 96);
+	button->Attach(this);
 	m_listArrowButton.push_back(button);
 
 	std::shared_ptr<Font> font = ResourceManagers::GetInstance()->GetFont("HeartbitXX.ttf");
 	shader = ResourceManagers::GetInstance()->GetShader("TextShader");
-	// score title
-	m_scoreTitle = std::make_shared<Text>(shader, font, "Score:", TextColor::YELLOW, 2);
-	m_scoreTitle->Set2DPosition(Vector2(20, 40));
+	// score text
+	m_textScore = std::make_shared<Text>(shader, font, "Score: 0", TextColor::YELLOW, 2);
+	m_textScore->Set2DPosition(Vector2(20, 40));
 
-	// score
-	m_score = std::make_shared<Text>(shader, font, "0", TextColor::YELLOW, 2);
-	m_score->Set2DPosition(Vector2(130, 40));
-
-	// score title
-	m_comboTitle = std::make_shared<Text>(shader, font, "Combo:", TextColor::YELLOW, 2);
-	m_comboTitle->Set2DPosition(Vector2(20, 75));
-
-	// score
-	m_combo = std::make_shared< Text>(shader, font, "0", TextColor::YELLOW, 2);
-	m_combo->Set2DPosition(Vector2(130, 75));
+	// combo text
+	m_textCombo = std::make_shared<Text>(shader, font, "", TextColor::YELLOW, 2);
+	m_textCombo->Set2DPosition(Vector2(20, 75));
 
 	//Add the note to scene
-	m_note = std::make_shared<Note>(Vector2(200, 0), Vector2(200, 600), 150, 4);
+	m_note = std::make_shared<Note>(GetSpawnPosition(1), m_listArrowButton[1]->Get2DPosition(), 150, 4);
 	m_note->SetLane(1);
 	m_note->SetSize(96, 96);
+	m_listNote.push_back(m_note);
 
 	//Load the song and the beat map     Not done!!!
 	//Hard code
@@ -152,7 +156,6 @@ void GSPlay::HandleMouseMoveEvents(int x, int y)
 
 void GSPlay::Update(float deltaTime)
 {
-	m_note->Update(deltaTime);
 	m_backButton->Update(deltaTime);
 	for (auto it : m_listArrowButton)
 	{
@@ -168,10 +171,8 @@ void GSPlay::Update(float deltaTime)
 void GSPlay::Draw()
 {
 	m_background->Draw();
-	m_score->Draw();
-	m_scoreTitle->Draw();
-	m_combo->Draw();
-	m_comboTitle->Draw();
+	m_textScore->Draw();
+	m_textCombo->Draw();
 	m_backButton->Draw();
 	for (auto it : m_listArrowButton)
 	{
@@ -204,13 +205,25 @@ void GSPlay::Update(const std::string& message_from_subject)
 				spawnPosition = rand() % 3;
 			}
 			spawnedPosition.push_back(spawnPosition);
-			////Add the note to scene
-			//auto note = std::make_shared<Note>(GetSpawnPosition(spawnPosition), m_listArrowButton[spawnPosition]->Get2DPosition(), 150, 4);
-			//note->SetLane(spawnPosition);
-			//note->SetSize(96,96);
-			//note->Draw();
-			//m_listNote.push_back(note);
+			//Add the note to scene
+			/*auto note = std::make_shared<Note>(GetSpawnPosition(spawnPosition), m_listArrowButton[spawnPosition]->Get2DPosition(), 150, 4);
+			note->SetLane(spawnPosition);
+			note->SetSize(96, 96);
+			note->Draw();
+			m_listNote.push_back(note);*/
 		}
+	}
+	if (strcmp(message_from_subject.c_str(), "arrow_perfect") == 0) {
+		IncreaseScore(3);
+	}
+	if (strcmp(message_from_subject.c_str(), "arrow_good") == 0) {
+		IncreaseScore(2);
+	}
+	if (strcmp(message_from_subject.c_str(), "arrow_okay") == 0) {
+		IncreaseScore(1);
+	}
+	if (strcmp(message_from_subject.c_str(), "arrow") == 0) {
+		IncreaseScore(0);
 	}
 }
 
@@ -218,3 +231,27 @@ Vector2 GSPlay::GetSpawnPosition(int position)
 {
 	return Vector2(m_listArrowButton[position]->Get2DPosition().x, 30);
 }
+
+void GSPlay::IncreaseScore(int num)
+{
+	//Handle the score and TextScore
+	m_score += num;
+	m_textScore->SetText("Score: " + std::to_string(m_score));
+	//Handle combo and TextCombo
+	if (num == 0) {
+		//Miss the note => lose combo
+		if (m_maxCombo < m_combo) {
+			m_maxCombo = m_combo;
+		}
+		m_combo = 0;
+		m_textCombo->SetText("");
+	}
+	else {
+		m_combo++;
+		if (m_combo >= 10) {
+			m_textCombo->SetText("Combo " + std::to_string(m_combo));
+		}
+	}
+}
+
+

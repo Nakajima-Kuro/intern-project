@@ -34,13 +34,9 @@ public:
 	void	Update(const std::string& message_from_subject);
 
 private:
-	//int m_score_value;
-	//int combo_value;
 	std::shared_ptr<Sprite2D>	m_background;
-	std::shared_ptr<Text>		m_score;
-	std::shared_ptr<Text>		m_scoreTitle;
-	std::shared_ptr<Text>		m_combo;
-	std::shared_ptr<Text>		m_comboTitle;
+	std::shared_ptr<Text>		m_textScore;
+	std::shared_ptr<Text>		m_textCombo;
 
 	//ArrowButton
 	const GLint m_arrowButtonY = Globals::screenHeight - 70;
@@ -48,7 +44,7 @@ private:
 
 	//Data of the beat map
 	//Beat map will look like this:
-	//[the beat when counter advance to next position of the beat map, measure 1, measure 2, measure 3,...]
+	//[the beat when counter advance to next phase of the beat map, measure 1, measure 2, measure 3,...]
 	int m_currentMapPosition;	//current position in the map
 	std::vector<std::vector<int>> m_beatMap;
 
@@ -63,4 +59,5 @@ private:
 	std::shared_ptr<Note> m_note;
 
 	Vector2 GetSpawnPosition(int position);
+	void IncreaseScore(int score);
 };

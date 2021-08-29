@@ -1,14 +1,14 @@
 #include "ArrowButton.h"
 #include "Area2D.h"
 
-ArrowButton::ArrowButton() 
-	: AnimationSprite2D(), m_input(-1), m_areaPerfect(nullptr), m_areaGood(nullptr), m_areaOkay(nullptr)
+ArrowButton::ArrowButton()
+	: AnimationSprite2D(), m_name(""), m_input(-1), m_isInputHandled(false)
 {
 	Init();
 };
 
-ArrowButton::ArrowButton(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture, int input)
-	: AnimationSprite2D(model, shader, texture, 2, 0.0f), m_input(input)
+ArrowButton::ArrowButton(std::string name, std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture, int input)
+	: AnimationSprite2D(model, shader, texture, 2, 0.0f), m_name(name), m_input(input), m_isInputHandled(false)
 {
 	Init();
 }
@@ -20,7 +20,7 @@ ArrowButton::~ArrowButton()
 	delete m_areaOkay;
 }
 
-void ArrowButton::Init() 
+void ArrowButton::Init()
 {
 	//Set animation playing to false
 	this->SetPlayAnimation(false);
@@ -48,9 +48,15 @@ int ArrowButton::HandleKeyEvents(int key, bool bIsPressed)
 		{
 			// The button is being pressed down
 			this->setFrame(1);
+			if (!m_isInputHandled) {
+				m_isInputHandled = true;//Make sure input only being handle once
+				//Emit Signal, Hail Godot!!!
+				Notify(m_name + m_status);
+			}
 		}
 		else
 		{
+			m_isInputHandled = false;
 			this->setFrame(0);
 		}
 	}
@@ -68,22 +74,24 @@ void ArrowButton::Update(const std::string& message_from_subject)
 {
 	//Handle all 6 message here
 	if (strcmp(message_from_subject.c_str(), "perfect_area_enter") == 0) {
-		m_status = "perfect";
+		m_status = "_perfect";
 	}
 	if (strcmp(message_from_subject.c_str(), "perfect_area_exit") == 0) {
-		m_status = "good";
+		m_status = "_good";
 	}
 	if (strcmp(message_from_subject.c_str(), "good_area_enter") == 0) {
-		m_status = "good";
+		m_status = "_good";
 	}
 	if (strcmp(message_from_subject.c_str(), "good_area_exit") == 0) {
-		m_status = "okay";
+		m_status = "_okay";
 	}
 	if (strcmp(message_from_subject.c_str(), "okay_area_enter") == 0) {
-		m_status = "okay";
+		m_currentNote = m_areaOkay->GetCollidedArea();
+		m_status = "_okay";
 	}
 	if (strcmp(message_from_subject.c_str(), "okay_area_exit") == 0) {
 		m_status = "";
+		m_currentNote.reset();
 	}
 }
 

@@ -36,39 +36,24 @@ void Area2D::Update(GLfloat deltatime)
 void Area2D::checkCollision(std::list<std::shared_ptr<Area2D>> listArea2D)
 {
 	for (auto const& area : listArea2D) {
-
-		Vector2 l1 = Vector2(m_position.x - m_sizeX, m_position.y - m_sizeY);
-		Vector2 r1 = Vector2(m_position.x + m_sizeX, m_position.y + m_sizeY);
-		Vector2 l2 = Vector2(area->GetPosition().x - area->GetSizeX(), area->GetPosition().y - area->GetSizeY());
-		Vector2 r2 = Vector2(area->GetPosition().x + area->GetSizeX(), area->GetPosition().y + area->GetSizeY());
 		//Check if 2 area overlap
-		bool overlap = true;
-		if (l1.x == r1.x || l1.y == r1.y || l2.x == r2.x
-			|| l2.y == r2.y) {
-			// the line cannot have positive overlap
-			overlap = false;
-		}
-
-		// If one rectangle is on left side of other
-		if (l1.x >= r2.x || l2.x >= r1.x)
-			overlap = false;
-
-		// If one rectangle is above other
-		if (r1.y >= l2.y || r2.y >= l1.y)
-			overlap = false;
-
-		if (overlap == true) {
-			//One area enter
-			m_listOverlapArea.push_back(area);
-			//Notify overlap here
-			Notify(m_name.append("_area_enter"));
-		}
-		else {
+		if (area->Get2DPosition().x - area->GetSizeX() > m_position.x + m_sizeX
+			|| area->Get2DPosition().x + area->GetSizeX() < m_position.x - m_sizeX
+			|| area->Get2DPosition().y - area->GetSizeY() > m_position.y + m_sizeY
+			|| area->Get2DPosition().y + area->GetSizeY() < m_position.y - m_sizeY) {
 			if ((std::find(m_listOverlapArea.begin(), m_listOverlapArea.end(), area) != m_listOverlapArea.end())) {
 				//Found area in the list. Which mean this area has exited OUR area
 				//Notify area exit here
-				Notify(m_name.append("_area_exit"));
+				Notify(m_name + "_area_exit");
 				m_listOverlapArea.remove(area);
+			}
+		}
+		else {
+			if (!(std::find(m_listOverlapArea.begin(), m_listOverlapArea.end(), area) != m_listOverlapArea.end())) {
+				//Area not in the list => new area enter
+				m_listOverlapArea.push_back(area);
+				//Notify overlap here
+				Notify(m_name + "_area_enter");
 			}
 		}
 	}
@@ -93,7 +78,7 @@ void Area2D::Set2DPosition(Vector2 position)
 
 void Area2D::Set2DPosition(GLint x, GLint y)
 {
-	m_position = Vector3(x, y, 0.0f);
+	m_position = Vector3(GLfloat(x), GLfloat(y), 0.0f);
 	m_background->Set2DPosition(x, y);
 	CalculateWorldMatrix();
 }
