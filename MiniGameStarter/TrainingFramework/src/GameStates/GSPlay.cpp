@@ -27,14 +27,6 @@ GSPlay::~GSPlay()
 
 void GSPlay::Init()
 {
-	//Reset all score
-	m_score = 0;
-	m_perfect = 0;
-	m_good = 0;
-	m_okay = 0;
-	m_maxCombo = 0;
-	m_combo = 0;
-
 	auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
 	auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
 
