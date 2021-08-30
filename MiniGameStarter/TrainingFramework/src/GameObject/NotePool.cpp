@@ -7,7 +7,7 @@ NotePool::NotePool()
 	Init(0, 0);
 }
 
-NotePool::NotePool(int size, int bpm, int difficulty)
+NotePool::NotePool(int size, float bpm, int difficulty)
 	: m_poolSize(size)
 {
 	Init(bpm, difficulty);
@@ -18,7 +18,7 @@ NotePool::~NotePool()
 	m_notePool.clear();
 }
 
-void NotePool::Init(int bpm, int difficulty)
+void NotePool::Init(float bpm, int difficulty)
 {
 	for (int i = 0; i < m_poolSize; i++) {
 		std::shared_ptr<Note> note = std::make_shared<Note>(Vector2(-100, -100), Vector2(-100, -100), bpm, difficulty);

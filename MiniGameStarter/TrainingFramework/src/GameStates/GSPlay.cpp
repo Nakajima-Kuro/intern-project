@@ -14,7 +14,7 @@
 #include "NotePool.h"
 
 GSPlay::GSPlay()
-	:m_conductor(nullptr), m_currentMapPosition(0), m_notePool(nullptr)
+	:m_conductor(nullptr), m_currentMapPosition(0), m_notePool(nullptr), m_bpm(0), m_measures(0), m_difficulty(0), m_beatoffset(0)
 {
 
 }
@@ -86,6 +86,10 @@ void GSPlay::Init()
 	m_textCombo->Set2DPosition(Vector2(20, 75));
 
 	//Load the song and the beat map     Not done!!!
+	m_bpm = 150;
+	m_measures = 4;
+	m_difficulty = 4;
+	m_beatoffset = 2;
 	//Hard code
 	m_beatMap = {
 		{5, 0, 0, 0, 0},
@@ -106,13 +110,13 @@ void GSPlay::Init()
 	};
 
 	//Init the NotePool
-	m_notePool = new NotePool(15, 150, 4);
+	m_notePool = new NotePool(15, m_bpm, m_difficulty);
 	for (auto const& i : m_notePool->GetListNote()) {
 		m_listNoteArea.push_back(i);
 	}
 
 	//Play the song
-	this->m_conductor = new Conductor(150, 4, m_songName + ".wav");
+	this->m_conductor = new Conductor(m_bpm, m_measures, m_songName + ".wav");
 	this->m_conductor->Attach(this);
 	this->m_conductor->PlayWithBeatOffset(2);
 }

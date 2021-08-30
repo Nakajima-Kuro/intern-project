@@ -5,9 +5,9 @@ class NotePool
 {
 public:
 	NotePool();
-	NotePool(int size, int bpm, int difficulty);
+	NotePool(int size, float bpm, int difficulty);
 	~NotePool();
-	void Init(int bpm, int difficulty);
+	void Init(float bpm, int difficulty);
 	void Draw();
 	void Update(float deltaTime);
 
