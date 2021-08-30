@@ -17,6 +17,12 @@ public:
 	void Draw() override;
 
 	void SetSize(GLint sizeX, GLint sizeY);
+	void Set2DPosition(Vector2 position);
+	void Set2DPosition(GLint x, GLint y);
+	void SetFinishPosition(Vector2 position);
+	void SetFinishPosition(GLint x, GLint y);
+	void SetActive(bool isActive);
+	bool IsActive();
 
 	void SetLane(int lane);
 	void Destroy(std::string status);
@@ -30,12 +36,6 @@ private:
 	int m_difficulty;
 	bool m_isActive;
 
-	void Set2DPosition(Vector2 position);
-	void Set2DPosition(GLint x, GLint y);
-	void SetFinishPosition(Vector2 position);
-	void SetFinishPosition(GLint x, GLint y);
 	void CalculateSpeed();
-	void SetActive(bool isActive);
-	bool IsActive();
 };
 

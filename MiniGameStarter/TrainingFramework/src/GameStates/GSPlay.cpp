@@ -84,6 +84,7 @@ void GSPlay::Init()
 	m_note = std::make_shared<Note>(GetSpawnPosition(1), m_listArrowButton[1]->Get2DPosition(), 150, 4);
 	m_note->SetLane(1);
 	m_note->SetSize(96, 96);
+	m_note->SetActive(true);
 	m_listNote.push_back(m_note);
 
 	//Load the song and the beat map     Not done!!!
