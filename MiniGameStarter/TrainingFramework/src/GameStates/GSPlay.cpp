@@ -180,7 +180,7 @@ void GSPlay::Draw()
 void GSPlay::Update(const std::string& message_from_subject)
 {
 	//Trigger every beat
-	if (strcmp(message_from_subject.c_str(), "beat") == 0) {
+	if (message_from_subject.compare("beat") == 0) {
 		//If the next beat == the next beat in the map, advance counter by 1 to step to next phase in the map
 		if (m_conductor->GetBeat() == m_beatMap[m_currentMapPosition][0] - 1) {
 			m_currentMapPosition++;
@@ -191,7 +191,7 @@ void GSPlay::Update(const std::string& message_from_subject)
 	}
 
 	//Trigger every beat in loop of measures
-	if (strcmp(message_from_subject.c_str(), "measure") == 0) {
+	if (message_from_subject.compare("measure") == 0) {
 		std::vector<int> spawnedPosition;
 		int spawnPosition = rand() % 3; //Get random lane for not spawning (0, 1, 2)
 		for (int i = 0; i < m_beatMap[m_currentMapPosition][m_conductor->GetMeasure()]; i++) {
@@ -210,16 +210,16 @@ void GSPlay::Update(const std::string& message_from_subject)
 			note->SetActive(true);
 		}
 	}
-	if (strcmp(message_from_subject.c_str(), "arrow_perfect") == 0) {
+	if (message_from_subject.compare("arrow_perfect") == 0) {
 		IncreaseScore(300);
 	}
-	if (strcmp(message_from_subject.c_str(), "arrow_good") == 0) {
+	if (message_from_subject.compare("arrow_good") == 0) {
 		IncreaseScore(200);
 	}
-	if (strcmp(message_from_subject.c_str(), "arrow_okay") == 0) {
+	if (message_from_subject.compare("arrow_okay") == 0) {
 		IncreaseScore(100);
 	}
-	if (strcmp(message_from_subject.c_str(), "arrow") == 0) {
+	if (message_from_subject.compare("arrow") == 0) {
 		IncreaseScore(0);
 	}
 }

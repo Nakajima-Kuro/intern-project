@@ -79,24 +79,24 @@ void ArrowButton::checkCollision(std::list<std::shared_ptr<Area2D>> listArea2D)
 void ArrowButton::Update(const std::string& message_from_subject)
 {
 	//Handle all 6 message here
-	if (strcmp(message_from_subject.c_str(), "perfect_area_enter") == 0) {
+	if (message_from_subject.compare("perfect_area_enter") == 0) {
 		m_status = "_perfect";
 	}
-	if (strcmp(message_from_subject.c_str(), "perfect_area_exit") == 0) {
+	if (message_from_subject.compare("perfect_area_exit") == 0) {
 		m_status = "_good";
 	}
-	if (strcmp(message_from_subject.c_str(), "good_area_enter") == 0) {
+	if (message_from_subject.compare("good_area_enter") == 0) {
 		m_status = "_good";
 	}
-	if (strcmp(message_from_subject.c_str(), "good_area_exit") == 0) {
+	if (message_from_subject.compare("good_area_exit") == 0) {
 		m_status = "_okay";
 	}
-	if (strcmp(message_from_subject.c_str(), "okay_area_enter") == 0) {
+	if (message_from_subject.compare("okay_area_enter") == 0) {
 		m_status = "_okay";
 		m_currentNote = m_areaOkay->GetCollidedArea();
 		m_isCurrentNoteHandled = false;
 	}
-	if (strcmp(message_from_subject.c_str(), "okay_area_exit") == 0) {
+	if (message_from_subject.compare("okay_area_exit") == 0) {
 		m_status = "";
 		m_currentNote.reset();
 		if (!m_isCurrentNoteHandled) {

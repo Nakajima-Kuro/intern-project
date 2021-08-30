@@ -47,7 +47,7 @@ void Conductor::Update(float deltaTime)
 void Conductor::Update(const std::string& message_from_subject)
 {
 	//On StartTimer Timeout
-	if (strcmp(message_from_subject.c_str(), "timeout") == 0) {
+	if (message_from_subject.compare("timeout") == 0) {
 		this->songPositionInBeat += 1;
 		if (this->songPositionInBeat < this->beatsBeforeStart - 1) {
 			this->StartTimer->start();
