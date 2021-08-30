@@ -231,9 +231,6 @@ Vector2 GSPlay::GetSpawnPosition(int position)
 
 void GSPlay::IncreaseScore(int num)
 {
-	//Handle the score and TextScore
-	m_score += num;
-	m_textScore->SetText("Score: " + std::to_string(m_score));
 	//Handle combo and TextCombo
 	if (num == 0) {
 		//Miss the note => lose combo
@@ -256,6 +253,9 @@ void GSPlay::IncreaseScore(int num)
 		}
 		//Increase combo
 		m_combo++;
+		//Handle the score and TextScore
+		m_score += num * m_combo;
+		m_textScore->SetText("Score: " + std::to_string(m_score));
 		if (m_combo >= 10) {
 			m_textCombo->SetText("Combo " + std::to_string(m_combo));
 		}
