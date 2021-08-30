@@ -87,6 +87,9 @@
     <ClCompile Include="src\GameObject\AnimationSprite2D.cpp">
       <Filter>TrainingFramework\src\BaseGameObject</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameObject\NotePool.cpp">
+      <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h">
@@ -160,6 +163,9 @@
     </ClInclude>
     <ClInclude Include="src\GameObject\AnimationSprite2D.h">
       <Filter>TrainingFramework\src\BaseGameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObject\NotePool.h">
+      <Filter>TrainingFramework\src\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -9,6 +9,7 @@ class GameButton;
 class Conductor;
 class ArrowButton;
 class Note;
+class NotePool;
 
 class GSPlay :
 	public GameStateBase, public IObserver
@@ -49,6 +50,7 @@ private:
 	std::vector<std::vector<int>> m_beatMap;
 
 	//List of note
+	NotePool* m_notePool;
 	std::list<std::shared_ptr<Area2D>> m_listNote;
 
 	//Conductor

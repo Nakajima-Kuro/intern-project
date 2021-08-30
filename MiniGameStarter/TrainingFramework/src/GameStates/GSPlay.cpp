@@ -11,9 +11,10 @@
 #include "Conductor.h"
 #include "ArrowButton.h"
 #include "Note.h"
+#include "NotePool.h"
 
 GSPlay::GSPlay()
-	:m_conductor(nullptr), m_currentMapPosition(0)
+	:m_conductor(nullptr), m_currentMapPosition(0), m_notePool(nullptr)
 {
 
 }
@@ -22,6 +23,7 @@ GSPlay::GSPlay()
 GSPlay::~GSPlay()
 {
 	delete m_conductor;
+	delete m_notePool;
 }
 
 
@@ -80,12 +82,12 @@ void GSPlay::Init()
 	m_textCombo = std::make_shared<Text>(shader, font, "", TextColor::YELLOW, 2);
 	m_textCombo->Set2DPosition(Vector2(20, 75));
 
-	//Add the note to scene
-	m_note = std::make_shared<Note>(GetSpawnPosition(1), m_listArrowButton[1]->Get2DPosition(), 150, 4);
-	m_note->SetLane(1);
-	m_note->SetSize(96, 96);
-	m_note->SetActive(true);
-	m_listNote.push_back(m_note);
+	////Add the note to scene
+	//m_note = std::make_shared<Note>(GetSpawnPosition(1), m_listArrowButton[1]->Get2DPosition(), 150, 4);
+	//m_note->SetLane(1);
+	//m_note->SetSize(96, 96);
+	//m_note->SetActive(true);
+	//m_listNote.push_back(m_note);
 
 	//Load the song and the beat map     Not done!!!
 	//Hard code
@@ -106,6 +108,9 @@ void GSPlay::Init()
 		{640, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0}
 	};
+
+	//Init the NotePool
+	m_notePool = new NotePool(15, 150, 4);
 
 	//Play the song
 	this->m_conductor = new Conductor(150, 4, m_songName + ".wav");
@@ -171,7 +176,8 @@ void GSPlay::Draw()
 	{
 		it->Draw();
 	}
-	m_note->Draw();
+	//m_note->Draw();
+	m_notePool->Draw();
 }
 
 void GSPlay::Update(const std::string& message_from_subject)
@@ -199,11 +205,13 @@ void GSPlay::Update(const std::string& message_from_subject)
 			}
 			spawnedPosition.push_back(spawnPosition);
 			//Add the note to scene
-			/*auto note = std::make_shared<Note>(GetSpawnPosition(spawnPosition), m_listArrowButton[spawnPosition]->Get2DPosition(), 150, 4);
+			//auto note = std::make_shared<Note>(GetSpawnPosition(spawnPosition), m_listArrowButton[spawnPosition]->Get2DPosition(), 150, 4);
+			auto note = m_notePool->AcquireNote();
 			note->SetLane(spawnPosition);
-			note->SetSize(96, 96);
-			note->Draw();
-			m_listNote.push_back(note);*/
+			note->Set2DPosition(GetSpawnPosition(spawnPosition));
+			note->SetFinishPosition(m_listArrowButton[spawnPosition]->Get2DPosition());
+			note->SetActive(true);
+			m_listNote.push_back(note);
 		}
 	}
 	if (strcmp(message_from_subject.c_str(), "arrow_perfect") == 0) {

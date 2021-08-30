@@ -346,6 +346,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameObject\NotePool.cpp" />
     <ClCompile Include="src\GameObject\AnimationSprite2D.cpp" />
     <ClCompile Include="src\GameObject\Note.cpp" />
     <ClCompile Include="src\GameObject\Area2D.cpp" />
@@ -370,6 +371,7 @@
     <ClCompile Include="src\TrainingFramework.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameObject\NotePool.h" />
     <ClInclude Include="src\GameObject\AnimationSprite2D.h" />
     <ClInclude Include="src\GameObject\Note.h" />
     <ClInclude Include="src\GameObject\Area2D.h" />

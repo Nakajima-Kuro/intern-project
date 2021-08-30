@@ -17,7 +17,7 @@ NotePool::~NotePool()
 {
 	while (!m_notePool.empty())
 	{
-		m_notePool.pop();
+		m_notePool.pop_front();
 	}
 }
 
@@ -26,15 +26,20 @@ void NotePool::Init(int bpm, int difficulty)
 	for (int i = 0; i < m_poolSize; i++) {
 		std::shared_ptr<Note> note = std::make_shared<Note>(Vector2(-100, -100), Vector2(-100, -100), bpm, difficulty);
 		note->SetSize(96, 96);
+		m_notePool.push_back(note);
+	}
+}
+
+void NotePool::Draw() {
+	for (auto& note : m_notePool) {
 		note->Draw();
-		m_notePool.push(note);
 	}
 }
 
 std::shared_ptr<Note> NotePool::AcquireNote()
 {
 	std::shared_ptr<Note> note = m_notePool.front();
-	m_notePool.pop();
-	m_notePool.push(note);
+	m_notePool.pop_front();
+	m_notePool.push_back(note);
 	return note;
 }
