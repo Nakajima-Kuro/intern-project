@@ -28,8 +28,14 @@ private:
 	float m_speed;
 	float m_bpm;
 	int m_difficulty;
+	bool m_isActive;
 
 	void Set2DPosition(Vector2 position);
 	void Set2DPosition(GLint x, GLint y);
+	void SetFinishPosition(Vector2 position);
+	void SetFinishPosition(GLint x, GLint y);
+	void CalculateSpeed();
+	void SetActive(bool isActive);
+	bool IsActive();
 };
 
