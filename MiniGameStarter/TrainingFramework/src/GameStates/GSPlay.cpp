@@ -85,29 +85,29 @@ void GSPlay::Init()
 	m_textCombo = std::make_shared<Text>(shader, font, "", TextColor::YELLOW, 2);
 	m_textCombo->Set2DPosition(Vector2(20, 75));
 
-	//Load the song and the beat map     Not done!!!
-	m_bpm = 150;
-	m_measures = 4;
-	m_difficulty = 4;
-	m_beatoffset = 2;
-	//Hard code
-	m_beatMap = {
-		{5, 0, 0, 0, 0},
-		{16, 1, 1, 1, 0},
-		{40, 1, 1, 1, 1},
-		{76, 2, 2, 2, 0},
-		{106, 1, 0, 0, 1},
-		{200, 2, 2, 2, 1},
-		{306, 1, 1, 1, 0},
-		{442, 2, 2, 2, 0},
-		{474, 0, 1, 1, 1},
-		{556, 0, 2, 2, 1},
-		{600, 1, 1, 1, 1},
-		{626, 0, 0, 0, 0},
-		{628, 2, 0, 0, 0},
-		{640, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0}
-	};
+	//Load the song and the beat map
+	std::ifstream fin;
+	fin.open("..\\Data\\Sounds\\" + m_songName + ".txt");
+	if (fin.is_open()) {
+		fin >> m_bpm >> m_measures >> m_difficulty >> m_beatoffset;
+		std::vector<int> mapPhase;
+		std::string line;
+		while (fin >> line)
+		{
+			int start = 0;
+			int end = line.find(",");
+			while (end != -1) {
+				mapPhase.push_back(std::stoi(line.substr(start, end - start)));
+				start = end + 1;
+				end = line.find(",", start);
+			}
+			mapPhase.push_back(std::stoi(line.substr(start, end - start)));
+			m_beatMap.push_back(mapPhase);
+			std::cout << mapPhase.size();
+			mapPhase.clear();
+		}
+		fin.close();
+	}
 
 	//Init the NotePool
 	m_notePool = new NotePool(15, m_bpm, m_difficulty);
