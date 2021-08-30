@@ -15,10 +15,7 @@ NotePool::NotePool(int size, int bpm, int difficulty)
 
 NotePool::~NotePool()
 {
-	while (!m_notePool.empty())
-	{
-		m_notePool.pop_front();
-	}
+	m_notePool.clear();
 }
 
 void NotePool::Init(int bpm, int difficulty)

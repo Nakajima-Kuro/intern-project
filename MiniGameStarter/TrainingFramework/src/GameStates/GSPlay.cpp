@@ -24,6 +24,9 @@ GSPlay::~GSPlay()
 {
 	delete m_conductor;
 	delete m_notePool;
+	m_listNoteArea.clear();
+	m_listArrowButton.clear();
+	m_beatMap.clear();
 }
 
 
