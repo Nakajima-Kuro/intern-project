@@ -154,7 +154,7 @@ void GSPlay::HandleMouseMoveEvents(int x, int y)
 void GSPlay::Update(float deltaTime)
 {
 	m_backButton->Update(deltaTime);
-	
+
 	for (auto it : m_listArrowButton)
 	{
 		it->Update(deltaTime);
@@ -211,13 +211,13 @@ void GSPlay::Update(const std::string& message_from_subject)
 		}
 	}
 	if (strcmp(message_from_subject.c_str(), "arrow_perfect") == 0) {
-		IncreaseScore(3);
+		IncreaseScore(300);
 	}
 	if (strcmp(message_from_subject.c_str(), "arrow_good") == 0) {
-		IncreaseScore(2);
+		IncreaseScore(200);
 	}
 	if (strcmp(message_from_subject.c_str(), "arrow_okay") == 0) {
-		IncreaseScore(1);
+		IncreaseScore(100);
 	}
 	if (strcmp(message_from_subject.c_str(), "arrow") == 0) {
 		IncreaseScore(0);
@@ -248,27 +248,25 @@ void GSPlay::IncreaseScore(int num)
 				auto note = std::static_pointer_cast<Note>(arrow->GetHandledNote());
 				switch (num)
 				{
-				case 1: {
+				case 100: {
 					note->Destroy("Okay");
 					break;
 				}
-				case 2: {
+				case 200: {
 					note->Destroy("Good");
 					break;
 				}
-				case 3: {
+				case 300: {
 					note->Destroy("Perfect");
 					break;
 				}
-				default:
-					note->Destroy("");
 				}
 			}
 		}
 		//Increase combo
 		m_combo++;
 		//Handle the score and TextScore
-		m_score += num * m_combo;
+		m_score += num + (num * (m_combo - 1)) / 25;
 		m_textScore->SetText("Score: " + std::to_string(m_score));
 		if (m_combo >= 10) {
 			m_textCombo->SetText("Combo " + std::to_string(m_combo));

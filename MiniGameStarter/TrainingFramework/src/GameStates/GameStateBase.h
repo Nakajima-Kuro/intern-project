@@ -28,7 +28,7 @@ public:
 
 protected:
 	//Handle all the score and combo
-	int m_score;
+	unsigned int m_score;
 	int m_perfect;
 	int m_good;
 	int m_okay;
