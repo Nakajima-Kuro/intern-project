@@ -51,14 +51,13 @@ private:
 
 	//List of note
 	NotePool* m_notePool;
-	std::list<std::shared_ptr<Area2D>> m_listNote;
+	std::list<std::shared_ptr<Area2D>> m_listNoteArea;
 
 	//Conductor
 	Conductor* m_conductor;
 
 	//Others button
 	std::shared_ptr<GameButton>	m_backButton;
-	std::shared_ptr<Note> m_note;
 
 	Vector2 GetSpawnPosition(int position);
 	void IncreaseScore(int score);

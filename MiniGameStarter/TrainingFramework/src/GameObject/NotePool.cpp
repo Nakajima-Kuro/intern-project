@@ -36,10 +36,22 @@ void NotePool::Draw() {
 	}
 }
 
+void NotePool::Update(float deltaTime)
+{
+	for (auto& note : m_notePool) {
+		note->Update(deltaTime);
+	}
+}
+
 std::shared_ptr<Note> NotePool::AcquireNote()
 {
 	std::shared_ptr<Note> note = m_notePool.front();
 	m_notePool.pop_front();
 	m_notePool.push_back(note);
 	return note;
+}
+
+std::list<std::shared_ptr<Note>> NotePool::GetListNote()
+{
+	return m_notePool;
 }

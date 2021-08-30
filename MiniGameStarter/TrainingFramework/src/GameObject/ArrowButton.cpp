@@ -2,13 +2,13 @@
 #include "Area2D.h"
 
 ArrowButton::ArrowButton()
-	: AnimationSprite2D(), m_name(""), m_input(-1), m_isInputHandled(false)
+	: AnimationSprite2D(), m_name(""), m_input(-1), m_currentNote(nullptr), m_isInputHandled(false), m_isCurrentNoteHandled(false)
 {
 	Init();
 };
 
 ArrowButton::ArrowButton(std::string name, std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture, int input)
-	: AnimationSprite2D(model, shader, texture, 2, 0.0f), m_name(name), m_input(input), m_isInputHandled(false)
+	: AnimationSprite2D(model, shader, texture, 2, 0.0f), m_name(name), m_input(input), m_currentNote(nullptr), m_isInputHandled(false), m_isCurrentNoteHandled(false)
 {
 	Init();
 }
@@ -50,8 +50,11 @@ int ArrowButton::HandleKeyEvents(int key, bool bIsPressed)
 			this->setFrame(1);
 			if (!m_isInputHandled) {
 				m_isInputHandled = true;//Make sure input only being handle once
-				//Emit Signal, Hail Godot!!!
-				Notify(m_name + m_status);
+				if (!m_isCurrentNoteHandled) {
+					m_isCurrentNoteHandled = true;
+					//Emit Signal, Hail Godot!!!
+					Notify(m_name + m_status);
+				}
 			}
 		}
 		else
@@ -86,13 +89,22 @@ void ArrowButton::Update(const std::string& message_from_subject)
 		m_status = "_okay";
 	}
 	if (strcmp(message_from_subject.c_str(), "okay_area_enter") == 0) {
-		m_currentNote = m_areaOkay->GetCollidedArea();
 		m_status = "_okay";
+		m_currentNote = m_areaOkay->GetCollidedArea();
+		m_isCurrentNoteHandled = false;
 	}
 	if (strcmp(message_from_subject.c_str(), "okay_area_exit") == 0) {
 		m_status = "";
 		m_currentNote.reset();
 	}
+}
+
+std::shared_ptr<Area2D> ArrowButton::GetHandledNote()
+{
+	if (m_isInputHandled && m_currentNote != nullptr) {
+		return m_currentNote;
+	}
+	return nullptr;
 }
 
 void ArrowButton::Update(float deltaTime)

@@ -82,13 +82,6 @@ void GSPlay::Init()
 	m_textCombo = std::make_shared<Text>(shader, font, "", TextColor::YELLOW, 2);
 	m_textCombo->Set2DPosition(Vector2(20, 75));
 
-	////Add the note to scene
-	//m_note = std::make_shared<Note>(GetSpawnPosition(1), m_listArrowButton[1]->Get2DPosition(), 150, 4);
-	//m_note->SetLane(1);
-	//m_note->SetSize(96, 96);
-	//m_note->SetActive(true);
-	//m_listNote.push_back(m_note);
-
 	//Load the song and the beat map     Not done!!!
 	//Hard code
 	m_beatMap = {
@@ -111,6 +104,9 @@ void GSPlay::Init()
 
 	//Init the NotePool
 	m_notePool = new NotePool(15, 150, 4);
+	for (auto const& i : m_notePool->GetListNote()) {
+		m_listNoteArea.push_back(i);
+	}
 
 	//Play the song
 	this->m_conductor = new Conductor(150, 4, m_songName + ".wav");
@@ -155,15 +151,14 @@ void GSPlay::HandleMouseMoveEvents(int x, int y)
 void GSPlay::Update(float deltaTime)
 {
 	m_backButton->Update(deltaTime);
+	
 	for (auto it : m_listArrowButton)
 	{
 		it->Update(deltaTime);
-		it->checkCollision(m_listNote);
+		it->checkCollision(m_listNoteArea);
 	}
 	m_conductor->Update(deltaTime);
-	for (auto const& note : m_listNote) {
-		note->Update(deltaTime);
-	}
+	m_notePool->Update(deltaTime);
 }
 
 void GSPlay::Draw()
@@ -172,11 +167,10 @@ void GSPlay::Draw()
 	m_textScore->Draw();
 	m_textCombo->Draw();
 	m_backButton->Draw();
-	for (auto it : m_listArrowButton)
+	for (auto const& it : m_listArrowButton)
 	{
 		it->Draw();
 	}
-	//m_note->Draw();
 	m_notePool->Draw();
 }
 
@@ -211,7 +205,6 @@ void GSPlay::Update(const std::string& message_from_subject)
 			note->Set2DPosition(GetSpawnPosition(spawnPosition));
 			note->SetFinishPosition(m_listArrowButton[spawnPosition]->Get2DPosition());
 			note->SetActive(true);
-			m_listNote.push_back(note);
 		}
 	}
 	if (strcmp(message_from_subject.c_str(), "arrow_perfect") == 0) {
@@ -248,6 +241,17 @@ void GSPlay::IncreaseScore(int num)
 		m_textCombo->SetText("");
 	}
 	else {
+		//Handle note being hit
+		for (auto const& arrow : m_listArrowButton)
+		{
+			if (arrow->GetHandledNote() != nullptr) {
+				auto note = std::static_pointer_cast<Note>(arrow->GetHandledNote());
+				note->SetActive(false);
+				note->Set2DPosition(-100, -100);
+				note->SetFinishPosition(-100, -100);
+			}
+		}
+		//Increase combo
 		m_combo++;
 		if (m_combo >= 10) {
 			m_textCombo->SetText("Combo " + std::to_string(m_combo));

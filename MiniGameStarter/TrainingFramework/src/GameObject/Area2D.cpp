@@ -21,7 +21,7 @@ void Area2D::Init()
 	auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
 	auto texture = ResourceManagers::GetInstance()->GetTexture("spr_hitbox.tga");
 	m_background = new Sprite2D(model, shader, texture);
-	//m_background->SetVisible(false);
+	m_background->SetVisible(false);
 }
 
 void Area2D::Draw()

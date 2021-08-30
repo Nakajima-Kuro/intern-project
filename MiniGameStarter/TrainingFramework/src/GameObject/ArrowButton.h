@@ -22,6 +22,7 @@ public:
 
 	//Signal Incoming!!!
 	void Update(const std::string& message_from_subject) override;
+	std::shared_ptr<Area2D> GetHandledNote();
 
 	//Override AnimationSprite2D
 	void Update(float deltaTime) override;
@@ -32,6 +33,7 @@ private:
 	std::string m_name;
 	int m_input;
 	bool m_isInputHandled;
+	bool m_isCurrentNoteHandled;
 	std::string m_status;
 	std::shared_ptr<Area2D> m_currentNote;
 	//All hitbox

@@ -1,6 +1,5 @@
 #pragma once
 #include"utilities.h"
-#include<deque>
 class Note;
 class NotePool
 {
@@ -10,10 +9,13 @@ public:
 	~NotePool();
 	void Init(int bpm, int difficulty);
 	void Draw();
+	void Update(float deltaTime);
+
 	std::shared_ptr<Note> AcquireNote();
+	std::list<std::shared_ptr<Note>> GetListNote();
 private:
 	int m_poolSize;
-	std::deque<std::shared_ptr<Note>> m_notePool;
+	std::list<std::shared_ptr<Note>> m_notePool;
 
 };
 
