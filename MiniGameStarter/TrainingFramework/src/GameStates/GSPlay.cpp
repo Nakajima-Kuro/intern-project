@@ -246,9 +246,23 @@ void GSPlay::IncreaseScore(int num)
 		{
 			if (arrow->GetHandledNote() != nullptr) {
 				auto note = std::static_pointer_cast<Note>(arrow->GetHandledNote());
-				note->SetActive(false);
-				note->Set2DPosition(-100, -100);
-				note->SetFinishPosition(-100, -100);
+				switch (num)
+				{
+				case 1: {
+					note->Destroy("Okay");
+					break;
+				}
+				case 2: {
+					note->Destroy("Good");
+					break;
+				}
+				case 3: {
+					note->Destroy("Perfect");
+					break;
+				}
+				default:
+					note->Destroy("");
+				}
 			}
 		}
 		//Increase combo

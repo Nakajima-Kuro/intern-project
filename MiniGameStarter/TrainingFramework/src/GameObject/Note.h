@@ -2,6 +2,7 @@
 #include "Area2D.h"
 
 class AnimationSprite2D;
+class Text;
 
 class Note
 	: public Area2D
@@ -29,6 +30,7 @@ public:
 
 private:
 	AnimationSprite2D* m_sprite;
+	Text* m_text;
 	Vector2 m_spawnPosition;
 	Vector2 m_finishPosition;
 	float m_speed;

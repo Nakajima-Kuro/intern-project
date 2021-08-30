@@ -50,10 +50,13 @@ int ArrowButton::HandleKeyEvents(int key, bool bIsPressed)
 			this->setFrame(1);
 			if (!m_isInputHandled) {
 				m_isInputHandled = true;//Make sure input only being handle once
-				if (!m_isCurrentNoteHandled) {
+				if (!m_isCurrentNoteHandled && m_currentNote != nullptr) {
 					m_isCurrentNoteHandled = true;
 					//Emit Signal, Hail Godot!!!
 					Notify(m_name + m_status);
+				}
+				else {
+					Notify(m_name);
 				}
 			}
 		}
@@ -96,6 +99,9 @@ void ArrowButton::Update(const std::string& message_from_subject)
 	if (strcmp(message_from_subject.c_str(), "okay_area_exit") == 0) {
 		m_status = "";
 		m_currentNote.reset();
+		if (!m_isCurrentNoteHandled) {
+			Notify(m_name);
+		}
 	}
 }
 
