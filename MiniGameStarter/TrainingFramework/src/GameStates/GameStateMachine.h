@@ -11,6 +11,7 @@ enum class StateType
 	STATE_INTRO,
 	STATE_MENU,
 	STATE_PLAY,
+	STATE_PAUSE,
 	STATE_CREDIT
 };
 
@@ -25,7 +26,9 @@ public:
 	void	ChangeState(std::shared_ptr<GameStateBase> state);
 	void	ChangeState(StateType stt);
 	void	PushState(StateType stt);
+	void	PopBackToState(StateType stt);
 	void	PopState();
+	void	PopAndReloadState();
 
 	bool	isRunning() { return m_running; }
 	void	Quit() { m_running = false; }

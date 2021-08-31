@@ -35,6 +35,16 @@ void Conductor::Play()
 	soundSource.Play(this->song);
 }
 
+void Conductor::Pause()
+{
+	soundSource.Pause();
+}
+
+void Conductor::Resume()
+{
+	soundSource.Resume();
+}
+
 void Conductor::Update(float deltaTime)
 {
 	if (soundSource.IsPlaying()) {

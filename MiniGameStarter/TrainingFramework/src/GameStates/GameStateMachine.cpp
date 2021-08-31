@@ -43,6 +43,20 @@ void GameStateMachine::PushState(StateType state)
 	m_pNextState = nextState;
 }
 
+void GameStateMachine::PopBackToState(StateType stt)
+{
+	for (auto const& state : m_StateStack) {
+		if (state->GetGameStateType() == stt) {
+			//Found previous state in stack
+			while (m_StateStack.back()->GetGameStateType() != stt) {
+				m_StateStack.pop_back();
+			}
+			m_StateStack.back()->Resume();
+			m_pActiveState = m_StateStack.back();
+		}
+	}
+}
+
 void GameStateMachine::PopState()
 {
 	// cleanup the current state
@@ -55,6 +69,22 @@ void GameStateMachine::PopState()
 	if (!m_StateStack.empty()) {
 		m_StateStack.back()->Resume();
 		m_pActiveState = m_StateStack.back();
+	}
+}
+
+void GameStateMachine::PopAndReloadState()
+{
+	// cleanup the current state
+	if (!m_StateStack.empty()) {
+		m_StateStack.back()->Exit();
+		m_StateStack.pop_back();
+	}
+	if (!m_StateStack.empty()) {
+		StateType reloadStateType = m_StateStack.back()->GetGameStateType();
+		m_StateStack.back()->Exit();
+		m_StateStack.pop_back();
+		PushState(reloadStateType);
+		PerformStateChange();
 	}
 }
 

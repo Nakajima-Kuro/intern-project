@@ -90,6 +90,9 @@
     <ClCompile Include="src\GameObject\NotePool.cpp">
       <Filter>TrainingFramework\src\GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameStates\GSPause.cpp">
+      <Filter>TrainingFramework\src\GameStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h">
@@ -166,6 +169,9 @@
     </ClInclude>
     <ClInclude Include="src\GameObject\NotePool.h">
       <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameStates\GSPause.h">
+      <Filter>TrainingFramework\src\GameStates</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -14,7 +14,7 @@
 #include "NotePool.h"
 
 GSPlay::GSPlay()
-	:m_conductor(nullptr), m_currentMapPosition(0), m_notePool(nullptr), m_bpm(0), m_measures(0), m_difficulty(0), m_beatoffset(0)
+	:GameStateBase(StateType::STATE_PLAY), m_conductor(nullptr), m_currentMapPosition(0), m_notePool(nullptr), m_bpm(0), m_measures(0), m_difficulty(0), m_beatoffset(0)
 {
 
 }
@@ -41,13 +41,13 @@ void GSPlay::Init()
 	m_background->Set2DPosition((GLint)Globals::screenWidth / 2, (GLint)Globals::screenHeight / 2);
 	m_background->SetSize(Globals::screenWidth, Globals::screenHeight);
 
-	// button close
-	texture = ResourceManagers::GetInstance()->GetTexture("btn_back_symbol.tga");
+	// button pause
+	texture = ResourceManagers::GetInstance()->GetTexture("btn_pause_symbol.tga");
 	m_backButton = std::make_shared<GameButton>(model, shader, texture);
 	m_backButton->Set2DPosition(Globals::screenWidth - 50, 50);
 	m_backButton->SetSize(50, 50);
 	m_backButton->SetOnClick([]() {
-		GameStateMachine::GetInstance()->PopState();
+		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_PAUSE);
 		});
 
 	//LeftArrow
@@ -103,7 +103,6 @@ void GSPlay::Init()
 			}
 			mapPhase.push_back(std::stoi(line.substr(start, end - start)));
 			m_beatMap.push_back(mapPhase);
-			std::cout << mapPhase.size();
 			mapPhase.clear();
 		}
 		fin.close();
@@ -128,10 +127,12 @@ void GSPlay::Exit()
 
 void GSPlay::Pause()
 {
+	m_conductor->Pause();
 }
 
 void GSPlay::Resume()
 {
+	m_conductor->Resume();
 }
 
 
@@ -141,6 +142,12 @@ void GSPlay::HandleEvents()
 
 void GSPlay::HandleKeyEvents(int key, bool bIsPressed)
 {
+	if (key == VK_ESCAPE) {
+		if (bIsPressed) {
+		}
+		else {
+		}
+	}
 	for (auto button : m_listArrowButton) {
 		button->HandleKeyEvents(key, bIsPressed);
 	}

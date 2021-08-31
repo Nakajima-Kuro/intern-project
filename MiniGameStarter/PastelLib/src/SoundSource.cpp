@@ -41,6 +41,16 @@ void SoundSource::Play(const ALuint buffer_to_play)
 	std::cout << "done playing sound\n";*/
 }
 
+void SoundSource::Pause()
+{
+	alSourcePause(p_Source);
+}
+
+void SoundSource::Resume()
+{
+	alSourcePlay(p_Source);
+}
+
 bool SoundSource::IsPlaying()
 {
 	if (alGetError() != AL_NO_ERROR) {
