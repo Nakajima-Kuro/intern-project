@@ -1,56 +1,60 @@
 #include "Conductor.h"
 Conductor::Conductor(float bpm, int measures, std::string songName)
 {
-	this->bpm = bpm;
-	this->measures = measures;
-	this->path.append(songName);
-	this->secPerBeat = 60.0 / bpm;
-	this->song = SoundBuffer::get()->addSoundEffect(this->path.c_str());
-	this->StartTimer = new Timer();
+	m_bpm = bpm;
+	m_measures = measures;
+	m_path.append(songName);
+	m_secPerBeat = 60.0 / bpm;
+	m_song = SoundBuffer::get()->addSoundEffect(m_path.c_str());
+	m_startTimer = new Timer();
+	m_startTimer->Attach(this);
 }
 
 Conductor::~Conductor()
 {
-	if (StartTimer != nullptr) {
-		delete StartTimer;
+	if (m_startTimer != nullptr) {
+		delete m_startTimer;
 	}
-	SoundBuffer::get()->removeSoundEffect(this->song);
+	m_soundSource.Stop();
+	SoundBuffer::get()->removeSoundEffect(m_song);
 }
 
 void Conductor::PlayWithBeatOffset(int offset)
 {
-	this->beatsBeforeStart = offset;
-	this->StartTimer->Attach(this);
-	this->StartTimer->start(this->secPerBeat);
+	m_beatsBeforeStart = offset;
+	m_startTimer->start(m_secPerBeat);
 }
 
 void Conductor::PlayFromBeat(int beat, int offset)
 {
-	this->Play();
+	m_songPosition = double(beat) / m_bpm * 60.0;
 	//seek beat code in here
+	m_beatsBeforeStart = offset;
+	m_measure = beat % m_measures;
+	m_startTimer->start(0);
 }
 
 void Conductor::Play()
 {
-	soundSource.Play(this->song);
+	m_soundSource.Play(m_song, int(m_songPosition));
 }
 
 void Conductor::Pause()
 {
-	soundSource.Pause();
+	m_soundSource.Pause();
 }
 
 void Conductor::Resume()
 {
-	soundSource.Resume();
+	m_soundSource.Resume();
 }
 
 void Conductor::Update(float deltaTime)
 {
-	if (soundSource.IsPlaying()) {
-		this->songPosition = soundSource.GetPlaybackOffset();
-		this->songPositionInBeat = int(floor(this->songPosition / this->secPerBeat)) + this->beatsBeforeStart;
-		this->ReportBeat();
+	if (m_soundSource.IsPlaying()) {
+		m_songPosition = m_soundSource.GetPlaybackOffset();
+		m_songPositionInBeat = int(floor(m_songPosition / m_secPerBeat)) + m_beatsBeforeStart;
+		ReportBeat();
 	}
 }
 
@@ -58,43 +62,42 @@ void Conductor::Update(const std::string& message_from_subject)
 {
 	//On StartTimer Timeout
 	if (message_from_subject.compare("timeout") == 0) {
-		this->songPositionInBeat += 1;
-		if (this->songPositionInBeat < this->beatsBeforeStart - 1) {
-			this->StartTimer->start();
+		m_songPositionInBeat += 1;
+		if (m_songPositionInBeat < m_beatsBeforeStart - 1) {
+			m_startTimer->start();
 		}
-		else if (this->songPositionInBeat == beatsBeforeStart - 1) {
+		else if (m_songPositionInBeat == m_beatsBeforeStart - 1) {
 			//Remember to minus the output latency here, not found on openAL docs yet
-			this->StartTimer->start();
+			m_startTimer->start();
 		}
 		else {
-			this->Play();
-			this->measure = 1;
+			Play();
+			m_measure = 1;
 		}
-		this->ReportBeat();
 	}
 }
 
 int Conductor::GetBeat()
 {
-	return this->songPositionInBeat;
+	return m_songPositionInBeat;
 }
 
 int Conductor::GetMeasure()
 {
-	return this->measure;
+	return m_measure;
 }
 
 void Conductor::ReportBeat()
 {
-	if (this->lastReportBeat < this->songPositionInBeat) {
-		if (this->measure > this->measures) {
-			measure = 1;
+	if (m_lastReportBeat < m_songPositionInBeat) {
+		if (m_measure > m_measures) {
+			m_measure = 1;
 		}
 		//Emit Signal!!! Hail Godot
-		this->Notify("beat");
-		this->Notify("measure");
+		Notify("beat");
+		Notify("measure");
 
-		this->lastReportBeat = this->songPositionInBeat;
-		this->measure += 1;
+		m_lastReportBeat = m_songPositionInBeat;
+		m_measure += 1;
 	}
 }

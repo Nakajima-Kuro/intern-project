@@ -6,7 +6,8 @@ public:
 	SoundSource();
 	~SoundSource();
 
-	void Play(const ALuint buffer_to_play);
+	void Play(const ALuint buffer_to_play, const int offset);
+	void Stop();
 	void Pause();
 	void Resume();
 	bool IsPlaying();

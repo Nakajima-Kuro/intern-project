@@ -149,6 +149,7 @@
     <ClInclude Include="src\Conductor.h" />
     <ClInclude Include="src\IObserver.h" />
     <ClInclude Include="src\ISubject.h" />
+    <ClInclude Include="src\Song.h" />
     <ClInclude Include="src\SoundBuffer.h" />
     <ClInclude Include="src\SoundDevice.h" />
     <ClInclude Include="src\SoundSource.h" />
@@ -157,6 +158,7 @@
   <ItemGroup>
     <ClCompile Include="src\Conductor.cpp" />
     <ClCompile Include="src\ISubject.cpp" />
+    <ClCompile Include="src\Song.cpp" />
     <ClCompile Include="src\SoundBuffer.cpp" />
     <ClCompile Include="src\SoundDevice.cpp" />
     <ClCompile Include="src\SoundSource.cpp" />

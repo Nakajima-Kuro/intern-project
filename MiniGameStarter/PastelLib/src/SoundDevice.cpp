@@ -31,13 +31,7 @@ SoundDevice::SoundDevice()
 
 SoundDevice::~SoundDevice()
 {
-	/*if (!alcMakeContextCurrent(nullptr))
-		throw("failed to set context to nullptr");
-
+	alcMakeContextCurrent(nullptr);
 	alcDestroyContext(p_ALCContext);
-	if (p_ALCContext)
-		throw("failed to unset during close");
-
-	if (!alcCloseDevice(p_ALCDevice))
-		throw("failed to close sound device");*/
+	alcCloseDevice(p_ALCDevice);
 }

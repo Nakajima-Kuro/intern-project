@@ -40,6 +40,9 @@
     <ClCompile Include="src\Conductor.cpp">
       <Filter>BaseNode</Filter>
     </ClCompile>
+    <ClCompile Include="src\Song.cpp">
+      <Filter>BaseNode</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\SoundBuffer.h">
@@ -80,6 +83,9 @@
     </ClInclude>
     <ClInclude Include="src\AL\efx-presets.h">
       <Filter>Ultilities\OpenAL\Included</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Song.h">
+      <Filter>BaseNode</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

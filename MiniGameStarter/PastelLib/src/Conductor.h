@@ -10,8 +10,8 @@ class Conductor : public ISubject, public IObserver
 public:
 	Conductor(float bpm, int measures, std::string songName);
 	~Conductor();
-	float bpm;
-	int measures;
+	float m_bpm;
+	int m_measures;
 	void PlayWithBeatOffset(int offset);
 	void PlayFromBeat(int beat, int offset);
 	void Pause();
@@ -24,21 +24,21 @@ public:
 	int GetMeasure();
 private:
 	//Tracking position of the song
-	double songPosition = 0.0;
-	int songPositionInBeat = 1;
-	double secPerBeat;
-	int lastReportBeat = 0;
-	int beatsBeforeStart = 0;
-	int measure = 1;
+	double m_songPosition = 0.0;
+	int m_songPositionInBeat = 1;
+	double m_secPerBeat;
+	int m_lastReportBeat = 0;
+	int m_beatsBeforeStart = 0;
+	int m_measure = 1;
 
 	//All OpenAl resources for playback
-	SoundDevice* soundDevice = SoundDevice::get();
-	SoundSource soundSource;
-	uint32_t /*ALuint*/ song;
-	std::string path = "..\\Data\\Sounds\\";
+	SoundDevice* m_soundDevice = SoundDevice::get();
+	SoundSource m_soundSource;
+	uint32_t /*ALuint*/ m_song;
+	std::string m_path = "..\\Data\\Sounds\\";
 
 	//Timer
-	Timer* StartTimer;
+	Timer* m_startTimer;
 
 	void Play();
 	//All the magic in this function

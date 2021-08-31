@@ -115,9 +115,11 @@ void GSPlay::Init()
 	}
 
 	//Play the song
-	this->m_conductor = new Conductor(m_bpm, m_measures, m_songName + ".wav");
-	this->m_conductor->Attach(this);
-	this->m_conductor->PlayWithBeatOffset(2);
+	m_conductor = new Conductor(m_bpm, m_measures, m_songName + ".wav");
+	m_conductor->Attach(this);
+	//m_conductor->PlayWithBeatOffset(2);
+	m_conductor->PlayFromBeat(500, 2);
+	getCurrentMapPosition(500);
 }
 
 void GSPlay::Exit()
@@ -142,12 +144,6 @@ void GSPlay::HandleEvents()
 
 void GSPlay::HandleKeyEvents(int key, bool bIsPressed)
 {
-	if (key == VK_ESCAPE) {
-		if (bIsPressed) {
-		}
-		else {
-		}
-	}
 	for (auto button : m_listArrowButton) {
 		button->HandleKeyEvents(key, bIsPressed);
 	}
@@ -213,7 +209,6 @@ void GSPlay::Update(const std::string& message_from_subject)
 			}
 			spawnedPosition.push_back(spawnPosition);
 			//Add the note to scene
-			//auto note = std::make_shared<Note>(GetSpawnPosition(spawnPosition), m_listArrowButton[spawnPosition]->Get2DPosition(), 150, 4);
 			auto note = m_notePool->AcquireNote();
 			note->SetLane(spawnPosition);
 			note->Set2DPosition(GetSpawnPosition(spawnPosition));
@@ -281,6 +276,16 @@ void GSPlay::IncreaseScore(int num)
 		m_textScore->SetText("Score: " + std::to_string(m_score));
 		if (m_combo >= 10) {
 			m_textCombo->SetText("Combo " + std::to_string(m_combo));
+		}
+	}
+}
+
+void GSPlay::getCurrentMapPosition(int beat)
+{
+	for (std::vector<std::vector<int>>::size_type i = 0; i != m_beatMap.size() - 1; i++) {
+		if (m_beatMap[i][0] <= beat && m_beatMap[i + 1][0] > beat) {
+			m_currentMapPosition = i;
+			break;
 		}
 	}
 }

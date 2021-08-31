@@ -65,4 +65,5 @@ private:
 
 	Vector2 GetSpawnPosition(int position);
 	void IncreaseScore(int score);
+	void getCurrentMapPosition(int beat);
 };
