@@ -6,7 +6,6 @@ class Sprite2D;
 class Area2D;
 class Text;
 class GameButton;
-class Conductor;
 class ArrowButton;
 class Note;
 class NotePool;
@@ -43,22 +42,13 @@ private:
 	const GLint m_arrowButtonY = Globals::screenHeight - 70;
 	std::vector<std::shared_ptr<ArrowButton>> m_listArrowButton;
 
-	float m_bpm;
-	int m_measures;
-	int m_difficulty;
-	int m_beatoffset;
-	//Data of the beat map
-	//Beat map will look like this:
-	//[the beat when counter advance to next phase of the beat map, measure 1, measure 2, measure 3,...]
 	int m_currentMapPosition;	//current position in the map
+	std::shared_ptr<Song> m_song;//All info about the song
+	Conductor* m_conductor;
 	std::vector<std::vector<int>> m_beatMap;
-
 	//List of note
 	NotePool* m_notePool;
 	std::list<std::shared_ptr<Area2D>> m_listNoteArea;
-
-	//Conductor
-	Conductor* m_conductor;
 
 	//Others button
 	std::shared_ptr<GameButton>	m_backButton;

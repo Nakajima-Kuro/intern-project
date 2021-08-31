@@ -1,9 +1,9 @@
 #include "Conductor.h"
-Conductor::Conductor(float bpm, int measures, std::string songName)
+Conductor::Conductor(float bpm, int measures, std::string songPath)
 {
 	m_bpm = bpm;
 	m_measures = measures;
-	m_path.append(songName);
+	m_path.append(songPath);
 	m_secPerBeat = 60.0 / bpm;
 	m_song = SoundBuffer::get()->addSoundEffect(m_path.c_str());
 	m_startTimer = new Timer();

@@ -1,10 +1,14 @@
 #pragma once
 #include <vector>
+#include <string>
 class Conductor;
 
 class Song
 {
 public:
+	Song(std::string songPath);
+	~Song();
+	void Init();
 	float GetBpm();
 	void SetBpm(float bpm);
 	int GetMeasures();
@@ -25,5 +29,7 @@ private:
 	int m_beatOffset;
 	Conductor* m_conductor;
 	std::vector<std::vector<int>> m_beatMap;
+
+	std::string m_songPath;
 };
 

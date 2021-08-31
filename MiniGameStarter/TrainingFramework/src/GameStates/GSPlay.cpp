@@ -8,13 +8,14 @@
 #include "Area2D.h"
 #include "Text.h"
 #include "GameButton.h"
-#include "Conductor.h"
 #include "ArrowButton.h"
 #include "Note.h"
 #include "NotePool.h"
+#include "Song.h"
+#include "Conductor.h"
 
 GSPlay::GSPlay()
-	:GameStateBase(StateType::STATE_PLAY), m_conductor(nullptr), m_currentMapPosition(0), m_notePool(nullptr), m_bpm(0), m_measures(0), m_difficulty(0), m_beatoffset(0)
+	:GameStateBase(StateType::STATE_PLAY), m_song(nullptr), m_currentMapPosition(0), m_notePool(nullptr)
 {
 
 }
@@ -22,11 +23,9 @@ GSPlay::GSPlay()
 
 GSPlay::~GSPlay()
 {
-	delete m_conductor;
 	delete m_notePool;
 	m_listNoteArea.clear();
 	m_listArrowButton.clear();
-	m_beatMap.clear();
 }
 
 
@@ -85,38 +84,19 @@ void GSPlay::Init()
 	m_textCombo = std::make_shared<Text>(shader, font, "", TextColor::YELLOW, 2);
 	m_textCombo->Set2DPosition(Vector2(20, 75));
 
-	//Load the song and the beat map
-	std::ifstream fin;
-	fin.open("..\\Data\\Sounds\\" + m_songName + ".txt");
-	if (fin.is_open()) {
-		fin >> m_bpm >> m_measures >> m_difficulty >> m_beatoffset;
-		std::vector<int> mapPhase;
-		std::string line;
-		while (fin >> line)
-		{
-			int start = 0;
-			int end = line.find(",");
-			while (end != -1) {
-				mapPhase.push_back(std::stoi(line.substr(start, end - start)));
-				start = end + 1;
-				end = line.find(",", start);
-			}
-			mapPhase.push_back(std::stoi(line.substr(start, end - start)));
-			m_beatMap.push_back(mapPhase);
-			mapPhase.clear();
-		}
-		fin.close();
-	}
+	//Get the song info
+	m_song = ResourceManagers::GetInstance()->GetSong(m_songName);
+	m_beatMap = m_song->GetBeatMap();
+	m_conductor = m_song->GetConductor();
+	m_conductor->Attach(this);
 
 	//Init the NotePool
-	m_notePool = new NotePool(15, m_bpm, m_difficulty);
+	m_notePool = new NotePool(15, m_song->GetBpm(), m_song->GetDifficulty());
 	for (auto const& i : m_notePool->GetListNote()) {
 		m_listNoteArea.push_back(i);
 	}
-
+	
 	//Play the song
-	m_conductor = new Conductor(m_bpm, m_measures, m_songName + ".wav");
-	m_conductor->Attach(this);
 	//m_conductor->PlayWithBeatOffset(2);
 	m_conductor->PlayFromBeat(500, 2);
 	getCurrentMapPosition(500);

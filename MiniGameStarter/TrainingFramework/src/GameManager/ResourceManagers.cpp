@@ -16,6 +16,7 @@ ResourceManagers::ResourceManagers()
 	m_ModelPath = dataPath + "Models\\"; 
 	m_TexturePath = dataPath + "Textures\\";
 	m_FontPath = dataPath + "Fonts\\";
+	m_SongPath = dataPath + "Sounds\\";
 }
 
 ResourceManagers::~ResourceManagers()
@@ -78,6 +79,18 @@ void ResourceManagers::AddFont(const std::string& name)
 	m_MapFont.insert(std::pair<std::string, std::shared_ptr<Font>>(name, font));
 }
 
+void ResourceManagers::AddSong(const std::string& name)
+{
+	auto it = m_MapSong.find(name);
+	if (it != m_MapSong.end())
+	{
+		return;
+	}
+	std::string path = m_SongPath + name;
+	std::shared_ptr<Song> song = std::make_shared<Song>(path);
+	m_MapSong.insert(std::pair<std::string, std::shared_ptr<Song>>(name, song));
+}
+
 void ResourceManagers::RemoveShader(const std::string& name)
 {
 	m_MapShader.erase(name);
@@ -96,6 +109,11 @@ void ResourceManagers::RemoveTexture(const std::string& name)
 void ResourceManagers::RemoveFont(const std::string& name)
 {
 	m_MapFont.erase(name);
+}
+
+void ResourceManagers::RemoveSong(const std::string& name)
+{
+	m_MapSong.erase(name);
 }
 
 std::shared_ptr<Shader> ResourceManagers::GetShader(const std::string& name)
@@ -157,4 +175,17 @@ std::shared_ptr<Font> ResourceManagers::GetFont(const std::string& name)
 	std::shared_ptr<Font> font = std::make_shared<Font>(path);
 	m_MapFont.insert(std::pair<std::string, std::shared_ptr<Font>>(name, font));
 	return font;
+}
+
+std::shared_ptr<Song> ResourceManagers::GetSong(const std::string& name)
+{
+	auto it = m_MapSong.find(name);
+	if (it != m_MapSong.end())
+	{
+		return it->second;
+	}
+	std::string path = m_SongPath + name;
+	std::shared_ptr<Song> song = std::make_shared<Song>(path);
+	m_MapSong.insert(std::pair<std::string, std::shared_ptr<Song>>(name, song));
+	return song;
 }

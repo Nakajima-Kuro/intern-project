@@ -8,7 +8,7 @@
 class Conductor : public ISubject, public IObserver
 {
 public:
-	Conductor(float bpm, int measures, std::string songName);
+	Conductor(float bpm, int measures, std::string songPath);
 	~Conductor();
 	float m_bpm;
 	int m_measures;
@@ -35,7 +35,7 @@ private:
 	SoundDevice* m_soundDevice = SoundDevice::get();
 	SoundSource m_soundSource;
 	uint32_t /*ALuint*/ m_song;
-	std::string m_path = "..\\Data\\Sounds\\";
+	std::string m_path = "";
 
 	//Timer
 	Timer* m_startTimer;
