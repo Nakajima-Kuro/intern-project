@@ -17,6 +17,9 @@
     <Filter Include="Ultilities\Observer">
       <UniqueIdentifier>{fd1443c6-7796-42bb-849e-004dfcc69147}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Ultilities\OpenAL\Included">
+      <UniqueIdentifier>{c0fdfcb6-cc66-4840-b01f-90686c6cb8af}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SoundBuffer.cpp">
@@ -59,6 +62,24 @@
     </ClInclude>
     <ClInclude Include="src\Conductor.h">
       <Filter>BaseNode</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AL\al.h">
+      <Filter>Ultilities\OpenAL\Included</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AL\alc.h">
+      <Filter>Ultilities\OpenAL\Included</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AL\alext.h">
+      <Filter>Ultilities\OpenAL\Included</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AL\efx.h">
+      <Filter>Ultilities\OpenAL\Included</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AL\efx-creative.h">
+      <Filter>Ultilities\OpenAL\Included</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AL\efx-presets.h">
+      <Filter>Ultilities\OpenAL\Included</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

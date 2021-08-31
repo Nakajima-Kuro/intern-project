@@ -140,6 +140,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\AL\al.h" />
+    <ClInclude Include="src\AL\alc.h" />
+    <ClInclude Include="src\AL\alext.h" />
+    <ClInclude Include="src\AL\efx-creative.h" />
+    <ClInclude Include="src\AL\efx-presets.h" />
+    <ClInclude Include="src\AL\efx.h" />
     <ClInclude Include="src\Conductor.h" />
     <ClInclude Include="src\IObserver.h" />
     <ClInclude Include="src\ISubject.h" />
