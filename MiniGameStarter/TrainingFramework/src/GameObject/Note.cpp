@@ -81,6 +81,15 @@ void Note::Destroy(std::string status)
 		//Emit Particles here, or text or whatever effects
 		m_sprite->setFrame(3);
 		m_text->SetText(status);
+		if (status.compare("Perfect") == 0) {
+			m_text->SetColor(TextColor::YELLOW);
+		}
+		else if (status.compare("Good") == 0) {
+			m_text->SetColor(TextColor::GREEN);
+		}
+		else if (status.compare("Okay") == 0) {
+			m_text->SetColor(TextColor::RED);
+		}
 	}
 }
 

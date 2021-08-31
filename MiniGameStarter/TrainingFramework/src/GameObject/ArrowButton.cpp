@@ -27,10 +27,10 @@ void ArrowButton::Init()
 
 	//Setup all area2D for score
 	m_areaPerfect = new Area2D("perfect");
-	m_areaPerfect->SetSize(16, 16);
+	m_areaPerfect->SetSize(16, 8);
 
 	m_areaGood = new Area2D("good");
-	m_areaGood->SetSize(16, 32);
+	m_areaGood->SetSize(16, 24);
 
 	m_areaOkay = new Area2D("okay");
 	m_areaOkay->SetSize(16, 48);

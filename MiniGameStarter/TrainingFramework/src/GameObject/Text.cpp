@@ -128,6 +128,16 @@ void Text::SetText(std::string text) {
 	m_text = text;
 }
 
+void Text::SetColor(Vector4 color)
+{
+	BaseObject::SetColor(color);
+}
+
+void Text::SetColor(TextColor color)
+{
+	SetColor(EnumToVector(color));
+}
+
 
 
 Vector4 Text::EnumToVector(TextColor color)
@@ -142,10 +152,10 @@ Vector4 Text::EnumToVector(TextColor color)
 		vecColor = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
 		break;
 	case TextColor::RED:
-		vecColor = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+		vecColor = Vector4(0.937f, 0.356f, 0.047f, 1.0f);
 		break;
 	case TextColor::GREEN:
-		vecColor = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+		vecColor = Vector4(0.356f, 0.796f, 0.047f, 1.0f);
 		break;
 	case TextColor::BLUE:
 		vecColor = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
