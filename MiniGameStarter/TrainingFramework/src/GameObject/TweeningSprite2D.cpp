@@ -37,10 +37,9 @@ void TweeningSprite2D::Update(GLfloat deltatime)
 	if (offsetY <= 0) {
 		m_directionY = 1;
 	}
-	std::cout << m_directionX * (m_tweenX * (deltatime / m_time)) << std::endl;
 	Sprite2D::Set2DPosition(
-		Get2DPosition().x + m_directionX * (m_tweenX * (deltatime / m_time)), 
-		Get2DPosition().y + m_directionY * (m_tweenY * (deltatime / m_time))
+		Get2DPosition().x + round(m_directionX * (m_tweenX * (deltatime / m_time))),
+		Get2DPosition().y + round(m_directionY * (m_tweenY * (deltatime / m_time)))
 	);
 }
 
