@@ -102,6 +102,9 @@
     <ClCompile Include="src\GameManager\SharedVariableManager.cpp">
       <Filter>TrainingFramework\src\GameManager</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameObject\TweeningSprite2D.cpp">
+      <Filter>TrainingFramework\src\BaseGameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h">
@@ -190,6 +193,9 @@
     </ClInclude>
     <ClInclude Include="src\GameManager\SharedVariableManager.h">
       <Filter>TrainingFramework\src\GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObject\TweeningSprite2D.h">
+      <Filter>TrainingFramework\src\BaseGameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

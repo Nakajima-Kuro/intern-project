@@ -1,5 +1,6 @@
 #include "GSLibrary.h"
 #include "SongButton.h"
+#include "TweeningSprite2D.h"
 GSLibrary::GSLibrary()
 	: GameStateBase(StateType::STATE_LIBRARY), m_position(0)
 {
@@ -57,6 +58,18 @@ void GSLibrary::Init()
 	foreground->SetSize(650, 120);
 	foreground->Set2DPosition(Globals::screenWidth / 2 + 100, Globals::screenHeight / 2 + 200);
 	m_listForeground.push_back(foreground);
+
+	//Choose Arrow
+	texture = ResourceManagers::GetInstance()->GetTexture("spr_arrow_choose.tga");
+	m_arrow = std::make_shared<TweeningSprite2D>(model, shader, texture, 40, 0, 0.6);
+	m_arrow->SetSize(50, 50);
+	m_arrow->Set2DPosition(150, Globals::screenHeight / 2);
+
+	//Title
+	shader = ResourceManagers::GetInstance()->GetShader("TextShader");
+	std::shared_ptr<Font> font = ResourceManagers::GetInstance()->GetFont("HeartbitXX.ttf");
+	m_title = std::make_shared< Text>(shader, font, "Library", TextColor::YELLOW, 4, TextAlign::CENTER);
+	m_title->Set2DPosition(GLfloat(Globals::screenWidth / 2 - 80), 100);
 }
 
 void GSLibrary::Exit()
@@ -110,6 +123,10 @@ void GSLibrary::HandleMouseMoveEvents(int x, int y)
 
 void GSLibrary::Update(float deltaTime)
 {
+	m_arrow->Update(deltaTime);
+	for (auto const& button : m_listButton) {
+		button->Update(deltaTime);
+	}
 }
 
 void GSLibrary::Draw()
@@ -121,6 +138,8 @@ void GSLibrary::Draw()
 	for (auto const& foreground : m_listForeground) {
 		foreground->Draw();
 	}
+	m_title->Draw();
+	m_arrow->Draw();
 }
 
 void GSLibrary::UpdateButtonInfo()

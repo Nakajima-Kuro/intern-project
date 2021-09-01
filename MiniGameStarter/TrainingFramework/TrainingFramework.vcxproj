@@ -373,6 +373,7 @@
     <ClCompile Include="src\GameStates\GSMenu.cpp" />
     <ClCompile Include="src\GameStates\GSPlay.cpp" />
     <ClCompile Include="src\TrainingFramework.cpp" />
+    <ClCompile Include="src\GameObject\TweeningSprite2D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameManager\SharedVariableManager.h" />
@@ -404,6 +405,7 @@
     <ClInclude Include="src\GameStates\GSIntro.h" />
     <ClInclude Include="src\GameStates\GSMenu.h" />
     <ClInclude Include="src\GameStates\GSPlay.h" />
+    <ClInclude Include="src\GameObject\TweeningSprite2D.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
