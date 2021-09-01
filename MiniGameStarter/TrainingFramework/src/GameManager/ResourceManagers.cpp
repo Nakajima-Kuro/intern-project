@@ -198,7 +198,7 @@ std::vector<std::shared_ptr<Song>> ResourceManagers::GetLibrary()
 	fin.open(path);
 	if (fin.is_open()) {
 		std::string line;
-		while (fin >> line)
+		while (std::getline(fin, line))
 		{
 			std::shared_ptr<Song> song = GetSong(line);
 			listSong.push_back(song);

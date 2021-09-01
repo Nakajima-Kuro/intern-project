@@ -346,6 +346,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameObject\SongButton.cpp" />
     <ClCompile Include="src\GameStates\GSLibrary.cpp" />
     <ClCompile Include="src\GameStates\GSPause.cpp" />
     <ClCompile Include="src\GameObject\NotePool.cpp" />
@@ -373,6 +374,7 @@
     <ClCompile Include="src\TrainingFramework.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameObject\SongButton.h" />
     <ClInclude Include="src\GameStates\GSLibrary.h" />
     <ClInclude Include="src\GameStates\GSPause.h" />
     <ClInclude Include="src\GameObject\NotePool.h" />

@@ -18,7 +18,7 @@ public:
 	Conductor* GetConductor();
 	std::vector<std::vector<int>> GetBeatMap();
 private:
-	std::string m_name;
+	std::string m_name;//Name of the song, not file name
 	float m_bpm;
 	int m_measures;
 	int m_difficulty;

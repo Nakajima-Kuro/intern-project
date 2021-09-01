@@ -1,5 +1,6 @@
 #pragma once
 #include "GameStateBase.h"
+class SongButton;
 class GSLibrary :
     public GameStateBase
 {
@@ -20,10 +21,12 @@ public:
 	void	Update(float deltaTime) override;
 	void	Draw() override;
 
+	void	UpdateButtonInfo();
+
 private:
-	std::vector<std::shared_ptr<Song>> m_library;
-	std::shared_ptr<Sprite2D>				m_background;
-	//std::list<std::shared_ptr<GameButton>>	m_listButton;
+	std::vector<std::shared_ptr<Song>>			m_library;
+	std::shared_ptr<Sprite2D>					m_background;
+	std::vector<std::shared_ptr<SongButton>>	m_listButton;
 	int m_position;
 };
 
