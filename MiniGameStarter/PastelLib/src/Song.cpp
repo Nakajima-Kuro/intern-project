@@ -17,6 +17,7 @@ void Song::Init()
 	std::ifstream fin;
 	fin.open(m_songPath + ".txt");
 	if (fin.is_open()) {
+		std::getline(fin, m_name);
 		fin >> m_bpm >> m_measures >> m_difficulty >> m_beatOffset;
 		std::vector<int> mapPhase;
 		std::string line;
@@ -39,14 +40,13 @@ void Song::Init()
 	//Init the conductor
 	m_conductor = new Conductor(m_bpm, m_measures, m_songPath + ".wav");
 }
+std::string Song::GetName()
+{
+	return m_name;
+}
 float Song::GetBpm()
 {
 	return m_bpm;
-}
-
-void Song::SetBpm(float bpm)
-{
-	m_bpm = bpm;
 }
 
 int Song::GetMeasures()
@@ -54,19 +54,9 @@ int Song::GetMeasures()
 	return m_measures;
 }
 
-void Song::SetMeasures(int measures)
-{
-	m_measures = measures;
-}
-
 int Song::GetDifficulty()
 {
 	return m_difficulty;
-}
-
-void Song::SetDifficulty(int difficulty)
-{
-	m_difficulty = difficulty;
 }
 
 int Song::GetBeatOffset()
@@ -74,27 +64,12 @@ int Song::GetBeatOffset()
 	return m_beatOffset;
 }
 
-void Song::SetBeatOffset(int beatOffset)
-{
-	m_beatOffset = beatOffset;
-}
-
 Conductor* Song::GetConductor()
 {
 	return m_conductor;
 }
 
-void Song::SetConductor(Conductor* conductor)
-{
-	m_conductor = conductor;
-}
-
 std::vector<std::vector<int>> Song::GetBeatMap()
 {
 	return m_beatMap;
-}
-
-void Song::SetBeatMap(std::vector<std::vector<int>> beatMap)
-{
-	m_beatMap = beatMap;
 }

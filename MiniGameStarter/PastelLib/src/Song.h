@@ -9,20 +9,16 @@ public:
 	Song(std::string songPath);
 	~Song();
 	void Init();
+	std::string GetName();
 	float GetBpm();
-	void SetBpm(float bpm);
 	int GetMeasures();
-	void SetMeasures(int measures);
 	int GetDifficulty();
-	void SetDifficulty(int difficulty);
 	int GetBeatOffset();
-	void SetBeatOffset(int beatOffset);
 
 	Conductor* GetConductor();
-	void SetConductor(Conductor* conductor);
 	std::vector<std::vector<int>> GetBeatMap();
-	void SetBeatMap(std::vector<std::vector<int>> beatMap);
 private:
+	std::string m_name;
 	float m_bpm;
 	int m_measures;
 	int m_difficulty;
