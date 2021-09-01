@@ -32,10 +32,11 @@ public:
 	void RemoveSong(const std::string& name);
 
 	std::shared_ptr<Shader> GetShader(const std::string& name);
-	std::shared_ptr<Model> GetModel(const std::string& name); 
-	std::shared_ptr<Texture> GetTexture(const std::string& name);	
+	std::shared_ptr<Model> GetModel(const std::string& name);
+	std::shared_ptr<Texture> GetTexture(const std::string& name);
 	std::shared_ptr<Font> GetFont(const std::string& name);
 	std::shared_ptr<Song> GetSong(const std::string& name);
+	std::vector<std::shared_ptr<Song>> GetLibrary();
 
 private:
 	std::map<std::string, std::shared_ptr<Shader>> m_MapShader;
@@ -45,7 +46,7 @@ private:
 	std::map<std::string, std::shared_ptr<Song>> m_MapSong;
 
 	std::string m_ShaderPath;
-	std::string m_ModelPath; 
+	std::string m_ModelPath;
 	std::string m_TexturePath;
 	std::string m_FontPath;
 	std::string m_SongPath;

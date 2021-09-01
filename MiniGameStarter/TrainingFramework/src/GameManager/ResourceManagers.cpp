@@ -189,3 +189,21 @@ std::shared_ptr<Song> ResourceManagers::GetSong(const std::string& name)
 	m_MapSong.insert(std::pair<std::string, std::shared_ptr<Song>>(name, song));
 	return song;
 }
+
+std::vector<std::shared_ptr<Song>> ResourceManagers::GetLibrary()
+{
+	std::vector<std::shared_ptr<Song>> listSong;
+	std::string path = m_SongPath + "Library.txt";
+	std::ifstream fin;
+	fin.open(path);
+	if (fin.is_open()) {
+		std::string line;
+		while (fin >> line)
+		{
+			std::shared_ptr<Song> song = GetSong(line);
+			listSong.push_back(song);
+		}
+		fin.close();
+	}
+	return listSong;
+}

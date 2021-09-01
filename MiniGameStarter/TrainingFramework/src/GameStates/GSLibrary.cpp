@@ -1,7 +1,7 @@
 #include "GSLibrary.h"
 
 GSLibrary::GSLibrary()
-	: GameStateBase(StateType::STATE_LIBRARY)
+	: GameStateBase(StateType::STATE_LIBRARY), m_position(0)
 {
 }
 
@@ -11,6 +11,19 @@ GSLibrary::~GSLibrary()
 
 void GSLibrary::Init()
 {
+	//Load the library
+	m_library = ResourceManagers::GetInstance()->GetLibrary();
+	
+
+	auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
+	auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
+
+	// background
+	auto texture = ResourceManagers::GetInstance()->GetTexture("bg_main_menu.tga");
+	m_background = std::make_shared<Sprite2D>(model, shader, texture);
+	m_background->Set2DPosition((GLint)Globals::screenWidth / 2, (GLint)Globals::screenHeight / 2);
+	m_background->SetSize(Globals::screenWidth, Globals::screenHeight);
+
 
 }
 
