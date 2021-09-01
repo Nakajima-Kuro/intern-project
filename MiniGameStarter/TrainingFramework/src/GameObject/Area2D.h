@@ -32,7 +32,6 @@ public:
 	void Set2DPosition(Vector2 position);
 	void Set2DPosition(GLint x, GLint y);
 	void SetSize(GLint x, GLint y);
-	void setVisible(bool isVisible);
 	int GetSizeX();
 	int GetSizeY();
 private:

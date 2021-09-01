@@ -91,11 +91,6 @@ void Area2D::SetSize(GLint sizeX, GLint sizeY)
 	CalculateWorldMatrix();
 }
 
-void Area2D::setVisible(bool isVisible)
-{
-	m_background->SetVisible(isVisible);
-}
-
 int Area2D::GetSizeX()
 {
 	return m_sizeX;

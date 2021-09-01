@@ -6,19 +6,19 @@
 #include "Application.h"
 
 Sprite2D::Sprite2D(GLint id, std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture)
-	: BaseObject(id, model, shader, texture), m_iWidth(100), m_iHeight(50), m_vboId(0), m_isVisible(true)
+	: BaseObject(id, model, shader, texture), m_iWidth(100), m_iHeight(50), m_vboId(0)
 {
 	Init();
 }
 
 Sprite2D::Sprite2D(GLint id, std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, Vector4 color)
-	: BaseObject(id, model, shader, color), m_iWidth(100), m_iHeight(50), m_vboId(0), m_isVisible(true)
+	: BaseObject(id, model, shader, color), m_iWidth(100), m_iHeight(50), m_vboId(0)
 {
 	Init();
 }
 
 Sprite2D::Sprite2D(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture)
-	: BaseObject(-1, model, shader, texture), m_iWidth(100), m_iHeight(50), m_vboId(0), m_isVisible(true)
+	: BaseObject(-1, model, shader, texture), m_iWidth(100), m_iHeight(50), m_vboId(0)
 {
 	Init();
 }
@@ -35,67 +35,65 @@ void Sprite2D::Init()
 
 void Sprite2D::Draw()
 {
-	if (m_isVisible) {
-		if (m_pCamera == nullptr) return;
-		glUseProgram(m_pShader->m_program);
-		glBindBuffer(GL_ARRAY_BUFFER, m_pModel->GetVertexObject());
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_pModel->GetIndiceObject());
+	if (m_pCamera == nullptr) return;
+	glUseProgram(m_pShader->m_program);
+	glBindBuffer(GL_ARRAY_BUFFER, m_pModel->GetVertexObject());
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_pModel->GetIndiceObject());
 
-		GLuint iTempShaderVaribleGLID = -1;
-		Matrix wvpMatrix;
+	GLuint iTempShaderVaribleGLID = -1;
+	Matrix wvpMatrix;
 
-		wvpMatrix = m_worldMatrix * m_pCamera->GetLookAtCameraMatrix();
+	wvpMatrix = m_worldMatrix * m_pCamera->GetLookAtCameraMatrix();
 
-		if (m_pTexture != nullptr)
-		{
-			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, m_pTexture->Get2DTextureAdd());
-			if (m_pShader->m_iTextureLoc[0] != -1)
-				glUniform1i(m_pShader->m_iTextureLoc[0], 0);
-		}
-		else
-		{
-			iTempShaderVaribleGLID = -1;
-			iTempShaderVaribleGLID = m_pShader->GetUniformLocation((char*)"u_color");
-			if (iTempShaderVaribleGLID != -1)
-				glUniform4f(iTempShaderVaribleGLID, m_color.x, m_color.y, m_color.z, m_color.w);
-		}
-
-
-		iTempShaderVaribleGLID = -1;
-		iTempShaderVaribleGLID = m_pShader->GetAttribLocation((char*)"a_posL");
-		if (iTempShaderVaribleGLID != -1)
-		{
-			glEnableVertexAttribArray(iTempShaderVaribleGLID);
-			glVertexAttribPointer(iTempShaderVaribleGLID, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), VETEX_POSITION);
-		}
-
-		iTempShaderVaribleGLID = -1;
-		iTempShaderVaribleGLID = m_pShader->GetAttribLocation((char*)"a_uv");
-		if (iTempShaderVaribleGLID != -1)
-		{
-			glEnableVertexAttribArray(iTempShaderVaribleGLID);
-			glVertexAttribPointer(iTempShaderVaribleGLID, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), VETEX_UV);
-		}
-
-		iTempShaderVaribleGLID = -1;
-		iTempShaderVaribleGLID = m_pShader->GetUniformLocation((char*)"u_alpha");
-		if (iTempShaderVaribleGLID != -1)
-			glUniform1f(iTempShaderVaribleGLID, 1.0);
-
-		iTempShaderVaribleGLID = -1;
-		iTempShaderVaribleGLID = m_pShader->GetUniformLocation((char*)"u_wvpMatrix");
-		if (iTempShaderVaribleGLID != -1)
-			glUniformMatrix4fv(iTempShaderVaribleGLID, 1, GL_FALSE, wvpMatrix.m[0]);
-
-
-
-		glDrawElements(GL_TRIANGLES, m_pModel->GetNumIndiceObject(), GL_UNSIGNED_INT, 0);
-
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-		glBindTexture(GL_TEXTURE_2D, 0);
+	if (m_pTexture != nullptr)
+	{
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, m_pTexture->Get2DTextureAdd());
+		if (m_pShader->m_iTextureLoc[0] != -1)
+			glUniform1i(m_pShader->m_iTextureLoc[0], 0);
 	}
+	else
+	{
+		iTempShaderVaribleGLID = -1;
+		iTempShaderVaribleGLID = m_pShader->GetUniformLocation((char*)"u_color");
+		if (iTempShaderVaribleGLID != -1)
+			glUniform4f(iTempShaderVaribleGLID, m_color.x, m_color.y, m_color.z, m_color.w);
+	}
+
+
+	iTempShaderVaribleGLID = -1;
+	iTempShaderVaribleGLID = m_pShader->GetAttribLocation((char*)"a_posL");
+	if (iTempShaderVaribleGLID != -1)
+	{
+		glEnableVertexAttribArray(iTempShaderVaribleGLID);
+		glVertexAttribPointer(iTempShaderVaribleGLID, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), VETEX_POSITION);
+	}
+
+	iTempShaderVaribleGLID = -1;
+	iTempShaderVaribleGLID = m_pShader->GetAttribLocation((char*)"a_uv");
+	if (iTempShaderVaribleGLID != -1)
+	{
+		glEnableVertexAttribArray(iTempShaderVaribleGLID);
+		glVertexAttribPointer(iTempShaderVaribleGLID, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), VETEX_UV);
+	}
+
+	iTempShaderVaribleGLID = -1;
+	iTempShaderVaribleGLID = m_pShader->GetUniformLocation((char*)"u_alpha");
+	if (iTempShaderVaribleGLID != -1)
+		glUniform1f(iTempShaderVaribleGLID, 1.0);
+
+	iTempShaderVaribleGLID = -1;
+	iTempShaderVaribleGLID = m_pShader->GetUniformLocation((char*)"u_wvpMatrix");
+	if (iTempShaderVaribleGLID != -1)
+		glUniformMatrix4fv(iTempShaderVaribleGLID, 1, GL_FALSE, wvpMatrix.m[0]);
+
+
+
+	glDrawElements(GL_TRIANGLES, m_pModel->GetNumIndiceObject(), GL_UNSIGNED_INT, 0);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void Sprite2D::Update(GLfloat deltatime)
@@ -135,14 +133,4 @@ GLint Sprite2D::GetWidth()
 GLint Sprite2D::GetHeight()
 {
 	return this->m_iHeight;
-}
-
-void Sprite2D::SetVisible(bool isVisible)
-{
-	this->m_isVisible = isVisible;
-}
-
-bool Sprite2D::IsVisible()
-{
-	return this->m_isVisible;
 }

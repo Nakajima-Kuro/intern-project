@@ -15,7 +15,7 @@
 #include "Conductor.h"
 
 GSPlay::GSPlay()
-	:GameStateBase(StateType::STATE_PLAY), m_song(nullptr), m_currentMapPosition(0), m_notePool(nullptr)
+	:GameStateBase(StateType::STATE_PLAY), m_song(nullptr), m_conductor(nullptr), m_currentMapPosition(0), m_notePool(nullptr)
 {
 
 }

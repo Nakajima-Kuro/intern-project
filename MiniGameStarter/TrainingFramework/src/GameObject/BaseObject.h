@@ -11,13 +11,13 @@ class BaseObject
 public:
 	BaseObject()
 		: m_id(-1), m_name("Empty"), m_pModel(nullptr), m_pShader(nullptr), m_pTexture(nullptr), m_pCamera(nullptr), m_color(Vector4(0.5f, 0.5f, 0.5f, 1.0f)),
-		m_position(Vector3(0.0f, 0.0f, 0.0f)), m_rotation(Vector3(0.0f, 0.0f, 0.0f)), m_scale(Vector3(1.0f, 1.0f, 1.0f)) {}
+		m_position(Vector3(0.0f, 0.0f, 0.0f)), m_rotation(Vector3(0.0f, 0.0f, 0.0f)), m_scale(Vector3(1.0f, 1.0f, 1.0f)), m_visible(true) {}
 	BaseObject(GLint id, std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture)
 		: m_id(id), m_name("TextureObj"), m_pModel(model), m_pShader(shader), m_pTexture(texture),
-		m_position(Vector3(0.0f, 0.0f, 0.0f)), m_rotation(Vector3(0.0f, 0.0f, 0.0f)), m_scale(Vector3(1.0f, 1.0f, 1.0f)) {}
+		m_position(Vector3(0.0f, 0.0f, 0.0f)), m_rotation(Vector3(0.0f, 0.0f, 0.0f)), m_scale(Vector3(1.0f, 1.0f, 1.0f)), m_visible(true) {}
 	BaseObject(GLint id, std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, Vector4 color)
 		: m_id(id), m_name("ColorObj"), m_pModel(model), m_pShader(shader), m_color(color),
-		m_position(Vector3(0.0f, 0.0f, 0.0f)), m_rotation(Vector3(0.0f, 0.0f, 0.0f)), m_scale(Vector3(1.0f, 1.0f, 1.0f)) {}
+		m_position(Vector3(0.0f, 0.0f, 0.0f)), m_rotation(Vector3(0.0f, 0.0f, 0.0f)), m_scale(Vector3(1.0f, 1.0f, 1.0f)), m_visible(true) {}
 	virtual ~BaseObject() {}
 
 	virtual void Init() = 0;
@@ -51,13 +51,21 @@ public:
 	void SetScale(Vector3 scale) { m_scale = scale; }
 	Vector3 GetScale() { return m_scale; }
 
+	void SetVisible(bool visible) { m_visible = visible; CalculateWorldMatrix(); }
+	bool IsVisible() { return m_visible; }
+
 	void CalculateWorldMatrix() {
 		Matrix Rx, Ry, Rz, R, S, T;
 		Rx.SetRotationX(m_rotation.x);
 		Ry.SetRotationY(m_rotation.y);
 		Rz.SetRotationZ(m_rotation.z);
 		R = Rz * Rx * Ry;
-		S.SetScale(m_scale);
+		if (m_visible) {
+			S.SetScale(m_scale);
+		}
+		else {
+			S.SetScale(Vector3(0, 0, 0));
+		}
 		T.SetTranslation(m_position);
 		m_worldMatrix = S * R * T;
 	}
@@ -68,6 +76,7 @@ protected:
 	Vector3			m_rotation;
 	Vector4			m_color;
 	Matrix			m_worldMatrix;
+	bool			m_visible;
 
 	std::shared_ptr<Model>		m_pModel;
 	std::shared_ptr<Shader>		m_pShader;
