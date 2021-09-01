@@ -24,11 +24,12 @@ public:
     void LoadSongInfo();
 
 private:
-    Vector2                     m_position;
-    std::shared_ptr<Song>       m_song;
-    std::shared_ptr<Text>		m_textName;
-    std::shared_ptr<Text>		m_textBpm;
-    std::shared_ptr<Text>		m_textDifficulty;
-    bool                        m_clickable;
+    Vector2                                 m_position;
+    std::shared_ptr<Song>                   m_song;
+    std::shared_ptr<Text>		            m_textName;
+    std::shared_ptr<Text>		            m_textBpm;
+    std::shared_ptr<Text>		            m_textDifficulty;
+    std::list<std::shared_ptr<Sprite2D>>    m_listStar;
+    bool                                    m_clickable;
 };
 

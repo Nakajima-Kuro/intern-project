@@ -3,6 +3,8 @@
 #include "Song.h"
 #include "Text.h"
 
+#include <sstream>
+
 SongButton::SongButton(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture, std::shared_ptr<Song> song)
 	:AnimationSprite2D(model, shader, texture, 1, 0.4f), m_song(song), m_clickable(true)
 {
@@ -26,8 +28,8 @@ void SongButton::Init()
 	auto shader = ResourceManagers::GetInstance()->GetShader("TextShader");
 
 	m_textName = std::make_shared<Text>(shader, font, "", TextColor::YELLOW, 2);
-	m_textBpm = std::make_shared<Text>(shader, font, "", TextColor::YELLOW, 2);
-	m_textDifficulty = std::make_shared<Text>(shader, font, "", TextColor::YELLOW, 2);
+	m_textBpm = std::make_shared<Text>(shader, font, "", TextColor::YELLOW, 1.7);
+	m_textDifficulty = std::make_shared<Text>(shader, font, "", TextColor::YELLOW, 1.7);
 	LoadSongInfo();
 }
 
@@ -65,6 +67,9 @@ void SongButton::Draw()
 	m_textName->Draw();
 	m_textBpm->Draw();
 	m_textDifficulty->Draw();
+	for (auto const& star : m_listStar) {
+		star->Draw();
+	}
 }
 
 void SongButton::SetClickable(bool isClickable)
@@ -91,9 +96,14 @@ void SongButton::Set2DPosition(GLint x, GLint y)
 
 void SongButton::SetSongInfoPosition(GLint x, GLint y)
 {
-	m_textName->Set2DPosition(x - m_iWidth / 2 + 20, y - m_iHeight / 2 + 20);
-	m_textBpm->Set2DPosition(x + m_iWidth / 2 - 40, y - m_iHeight / 2 + 20);
-	m_textDifficulty->Set2DPosition(x - m_iWidth / 2 + 20, y + m_iHeight / 2 - 20);
+	m_textName->Set2DPosition(x - m_iWidth / 2 + 30, y - m_iHeight / 2 + 40);
+	m_textBpm->Set2DPosition(x + m_iWidth / 2 - 150, y + m_iHeight / 2 - 20);
+	m_textDifficulty->Set2DPosition(x - m_iWidth / 2 + 30, y + m_iHeight / 2 - 20);
+	int i = 0;
+	for (auto const& star : m_listStar) {
+		star->Set2DPosition(x - m_iWidth / 2 + 150 + 40 * i, y + m_iHeight / 2 - 30);
+		i++;
+	}
 }
 
 std::shared_ptr<Song> SongButton::GetSong()
@@ -111,15 +121,35 @@ void SongButton::LoadSongInfo()
 {
 	if (m_song != nullptr) {
 		SetVisible(true);
-
+		//Set song name
 		m_textName->SetText(m_song->GetName());
-		m_textBpm->SetText("BPM: " + std::to_string(m_song->GetBpm()));
-		m_textDifficulty->SetText(std::to_string(m_song->GetDifficulty()));
+
+		//Set song BPM
+		std::stringstream ss;
+		ss << m_song->GetBpm();
+		m_textBpm->SetText("BPM: " + ss.str());
+
+		//Set song difficulty
+		auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
+		auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
+		auto texture = ResourceManagers::GetInstance()->GetTexture("spr_star.tga");
+		m_textDifficulty->SetText("Difficulty: ");
+
+		m_listStar.clear();
+		for (int i = 0; i < m_song->GetDifficulty(); i++) {
+			auto star = std::make_shared<Sprite2D>(model, shader, texture);
+			star->SetSize(30, 26);
+			star->Set2DPosition(GetPosition().x - m_iWidth / 2 + 150 + 40 * i, GetPosition().y + m_iHeight / 2 - 30);
+			m_listStar.push_back(star);
+		}
 	}
 	else {
 		SetVisible(false);
 		m_textName->SetText("");
 		m_textBpm->SetText("");
 		m_textDifficulty->SetText("");
+		for (auto const& star : m_listStar) {
+			star->SetVisible(false);
+		}
 	}
 }

@@ -27,6 +27,7 @@ private:
 	std::vector<std::shared_ptr<Song>>			m_library;
 	std::shared_ptr<Sprite2D>					m_background;
 	std::vector<std::shared_ptr<SongButton>>	m_listButton;
+	std::vector<std::shared_ptr<Sprite2D>>		m_listForeground;
 	int m_position;
 };
 
