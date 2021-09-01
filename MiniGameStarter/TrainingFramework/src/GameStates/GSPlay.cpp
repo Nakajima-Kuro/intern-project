@@ -15,7 +15,8 @@
 #include "Conductor.h"
 
 GSPlay::GSPlay()
-	:GameStateBase(StateType::STATE_PLAY), m_song(nullptr), m_conductor(nullptr), m_currentMapPosition(0), m_notePool(nullptr)
+	:GameStateBase(StateType::STATE_PLAY), m_song(nullptr), m_conductor(nullptr), m_currentMapPosition(0), m_notePool(nullptr),
+	m_combo(0), m_good(0), m_maxCombo(0), m_okay(0), m_perfect(0), m_score(0)
 {
 
 }
@@ -23,6 +24,7 @@ GSPlay::GSPlay()
 
 GSPlay::~GSPlay()
 {
+	delete m_conductor;
 	delete m_notePool;
 	m_listNoteArea.clear();
 	m_listArrowButton.clear();
@@ -31,6 +33,9 @@ GSPlay::~GSPlay()
 
 void GSPlay::Init()
 {
+	//Reset score for new play session
+	SharedVariableManager::GetInstance()->ResetScore();
+
 	auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
 	auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
 
@@ -85,9 +90,11 @@ void GSPlay::Init()
 	m_textCombo->Set2DPosition(Vector2(20, 75));
 
 	//Get the song info
-	m_song = ResourceManagers::GetInstance()->GetSong(m_songName);
+	m_song = ResourceManagers::GetInstance()->GetSong(SharedVariableManager::GetInstance()->songName);
 	m_beatMap = m_song->GetBeatMap();
-	m_conductor = m_song->GetConductor();
+
+	//Init the conductor
+	m_conductor = new Conductor(m_song->GetBpm(), m_song->GetMeasures(), m_song->GetPath() + ".wav");
 	m_conductor->Attach(this);
 
 	//Init the NotePool
@@ -97,13 +104,14 @@ void GSPlay::Init()
 	}
 	
 	//Play the song
-	//m_conductor->PlayWithBeatOffset(2);
-	m_conductor->PlayFromBeat(500, 2);
-	getCurrentMapPosition(500);
+	m_conductor->PlayWithBeatOffset(m_song->GetBeatOffset());
+	/*m_conductor->PlayFromBeat(500, 2);
+	getCurrentMapPosition(500);*/
 }
 
 void GSPlay::Exit()
 {
+	m_conductor->Detach(this);
 }
 
 
@@ -174,6 +182,11 @@ void GSPlay::Update(const std::string& message_from_subject)
 		}
 		if (m_beatMap[m_currentMapPosition][0] == 0) {
 			//End game and transit to score screen here
+			SharedVariableManager::GetInstance()->okay = m_okay;
+			SharedVariableManager::GetInstance()->good = m_good;
+			SharedVariableManager::GetInstance()->perfect = m_perfect;
+			SharedVariableManager::GetInstance()->score = m_score;
+			SharedVariableManager::GetInstance()->maxCombo = m_maxCombo;
 		}
 	}
 

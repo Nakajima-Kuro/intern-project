@@ -110,8 +110,16 @@ void SongButton::SetSong(std::shared_ptr<Song> song)
 void SongButton::LoadSongInfo()
 {
 	if (m_song != nullptr) {
+		SetVisible(true);
+
 		m_textName->SetText(m_song->GetName());
 		m_textBpm->SetText("BPM: " + std::to_string(m_song->GetBpm()));
 		m_textDifficulty->SetText(std::to_string(m_song->GetDifficulty()));
+	}
+	else {
+		SetVisible(false);
+		m_textName->SetText("");
+		m_textBpm->SetText("");
+		m_textDifficulty->SetText("");
 	}
 }

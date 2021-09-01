@@ -29,16 +29,16 @@ void GSLibrary::Init()
 	texture = ResourceManagers::GetInstance()->GetTexture("btn_song.tga");
 	auto button = std::make_shared<SongButton>(model, shader, texture);
 	button->SetClickable(false);
-	button->SetSize(400, 120);
-	button->Set2DPosition(Globals::screenWidth / 2, Globals::screenHeight / 2 - 200);
+	button->SetSize(650, 120);
+	button->Set2DPosition(Globals::screenWidth / 2 + 100, Globals::screenHeight / 2 - 200);
 	m_listButton.push_back(button);
 	button = std::make_shared<SongButton>(model, shader, texture, m_library[0]);
-	button->SetSize(400, 120);
-	button->Set2DPosition(Globals::screenWidth / 2 - 200, Globals::screenHeight / 2);
+	button->SetSize(650, 120);
+	button->Set2DPosition(Globals::screenWidth / 2 + 50, Globals::screenHeight / 2);
 	m_listButton.push_back(button);
 	button = std::make_shared<SongButton>(model, shader, texture, m_library[1]);
-	button->SetSize(400, 120);
-	button->Set2DPosition(Globals::screenWidth / 2, Globals::screenHeight / 2 + 200);
+	button->SetSize(650, 120);
+	button->Set2DPosition(Globals::screenWidth / 2 + 100, Globals::screenHeight / 2 + 200);
 	button->SetClickable(false);
 	m_listButton.push_back(button);
 }
@@ -64,17 +64,19 @@ void GSLibrary::HandleKeyEvents(int key, bool bIsPressed)
 	if (key == VK_RETURN) {
 		//Choose current song
 		auto song = m_listButton[1]->GetSong();
-		m_songName = song->GetName();
+		SharedVariableManager::GetInstance()->songName = song->GetName();
 		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_PLAY);
 	}
 	if (key == VK_UP) {
 		if (m_position > 0) {
 			m_position--;
+			UpdateButtonInfo();
 		}
 	}
 	if (key == VK_DOWN) {
-		if (m_position < m_library.size() - 1) {
+		if (m_position < int(m_library.size() - 1)) {
 			m_position++;
+			UpdateButtonInfo();
 		}
 	}
 }
@@ -111,7 +113,7 @@ void GSLibrary::UpdateButtonInfo()
 		m_listButton[0]->SetSong(nullptr);
 	}
 	m_listButton[1]->SetSong(m_library[m_position]);
-	if (m_position < m_library.size() - 1) {
+	if (m_position < int(m_library.size() - 1)) {
 		m_listButton[2]->SetSong(m_library[m_position + 1]);
 	}
 	else {

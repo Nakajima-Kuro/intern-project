@@ -1,14 +1,12 @@
 #include "Song.h"
-#include "Conductor.h"
 #include <fstream>
 Song::Song(std::string songPath)
-	:m_songPath(songPath), m_bpm(0), m_measures(0), m_difficulty(0), m_beatOffset(0), m_conductor(nullptr)
+	:m_songPath(songPath), m_bpm(0), m_measures(0), m_difficulty(0), m_beatOffset(0)
 {
 	Init();
 }
 Song::~Song()
 {
-	delete m_conductor;
 	m_beatMap.clear();
 }
 void Song::Init()
@@ -36,9 +34,6 @@ void Song::Init()
 		}
 		fin.close();
 	}
-
-	//Init the conductor
-	m_conductor = new Conductor(m_bpm, m_measures, m_songPath + ".wav");
 }
 std::string Song::GetName()
 {
@@ -64,12 +59,12 @@ int Song::GetBeatOffset()
 	return m_beatOffset;
 }
 
-Conductor* Song::GetConductor()
-{
-	return m_conductor;
-}
-
 std::vector<std::vector<int>> Song::GetBeatMap()
 {
 	return m_beatMap;
+}
+
+std::string Song::GetPath()
+{
+	return m_songPath;
 }

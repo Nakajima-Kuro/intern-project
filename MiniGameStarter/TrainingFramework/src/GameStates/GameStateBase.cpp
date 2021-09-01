@@ -1,7 +1,3 @@
-/*
-#include "GSIntro.h"
-#include "GSMenu.h"
-*/
 #include "GSPlay.h"
 #include "GSIntro.h"
 #include "GSMenu.h"
@@ -11,7 +7,7 @@
 
 #include "GameStatebase.h"
 
-GameStateBase::GameStateBase(StateType stateType) : m_stateType(stateType), m_keyPressed(0), m_score(0), m_perfect(0), m_good(0), m_okay(0), m_maxCombo(0), m_combo(0)
+GameStateBase::GameStateBase(StateType stateType) : m_stateType(stateType), m_keyPressed(0)
 {}
 
 std::shared_ptr<GameStateBase> GameStateBase::CreateState(StateType stt)

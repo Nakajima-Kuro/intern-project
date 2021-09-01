@@ -9,6 +9,7 @@ class GameButton;
 class ArrowButton;
 class Note;
 class NotePool;
+class Conductor;
 
 class GSPlay :
 	public GameStateBase, public IObserver
@@ -38,6 +39,14 @@ private:
 	std::shared_ptr<Text>		m_textScore;
 	std::shared_ptr<Text>		m_textCombo;
 
+	//Handle all the score and combo
+	unsigned int m_score;
+	int m_perfect;
+	int m_good;
+	int m_okay;
+	int m_maxCombo;
+	int m_combo;
+
 	//ArrowButton
 	const GLint m_arrowButtonY = Globals::screenHeight - 70;
 	std::vector<std::shared_ptr<ArrowButton>> m_listArrowButton;
@@ -46,6 +55,7 @@ private:
 	std::shared_ptr<Song> m_song;//All info about the song
 	Conductor* m_conductor;
 	std::vector<std::vector<int>> m_beatMap;
+
 	//List of note
 	NotePool* m_notePool;
 	std::list<std::shared_ptr<Area2D>> m_listNoteArea;
