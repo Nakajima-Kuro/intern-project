@@ -102,11 +102,11 @@ void GSPlay::Init()
 	for (auto const& i : m_notePool->GetListNote()) {
 		m_listNoteArea.push_back(i);
 	}
-	
+
 	//Play the song
 	m_conductor->PlayWithBeatOffset(m_song->GetBeatOffset());
-	/*m_conductor->PlayFromBeat(500, 2);
-	getCurrentMapPosition(500);*/
+	//m_conductor->PlayFromBeat(368, m_song->GetBeatOffset());
+	//getCurrentMapPosition(368);
 }
 
 void GSPlay::Exit()
@@ -176,10 +176,8 @@ void GSPlay::Update(const std::string& message_from_subject)
 {
 	//Trigger every beat
 	if (message_from_subject.compare("beat") == 0) {
+		std::cout << "Beat: " << m_conductor->GetBeat() << " / Measure: " << m_conductor->GetMeasure() << std::endl;
 		//If the next beat == the next beat in the map, advance counter by 1 to step to next phase in the map
-		if (m_conductor->GetBeat() == m_beatMap[m_currentMapPosition][0] - 1) {
-			m_currentMapPosition++;
-		}
 		if (m_beatMap[m_currentMapPosition][0] == 0) {
 			//End game and transit to score screen here
 			SharedVariableManager::GetInstance()->okay = m_okay;
@@ -188,6 +186,10 @@ void GSPlay::Update(const std::string& message_from_subject)
 			SharedVariableManager::GetInstance()->score = m_score;
 			SharedVariableManager::GetInstance()->maxCombo = m_maxCombo;
 		}
+		else if (m_conductor->GetBeat() > m_beatMap[m_currentMapPosition][0] - 1) {
+			m_currentMapPosition++;
+		}
+
 	}
 
 	//Trigger every beat in loop of measures
@@ -277,7 +279,7 @@ void GSPlay::getCurrentMapPosition(int beat)
 {
 	for (std::vector<std::vector<int>>::size_type i = 0; i != m_beatMap.size() - 1; i++) {
 		if (m_beatMap[i][0] <= beat && m_beatMap[i + 1][0] > beat) {
-			m_currentMapPosition = i;
+			m_currentMapPosition = i + 1;
 			break;
 		}
 	}

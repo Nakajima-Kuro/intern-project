@@ -30,7 +30,8 @@ void Conductor::PlayFromBeat(int beat, int offset)
 	m_songPosition = double(beat) / m_bpm * 60.0;
 	//seek beat code in here
 	m_beatsBeforeStart = offset;
-	m_measure = beat % m_measures;
+	m_songPositionInBeat = offset;
+	m_measure = (beat % m_measures) + 1;
 	m_startTimer->start(0);
 }
 
@@ -63,16 +64,12 @@ void Conductor::Update(const std::string& message_from_subject)
 	//On StartTimer Timeout
 	if (message_from_subject.compare("timeout") == 0) {
 		m_songPositionInBeat += 1;
-		if (m_songPositionInBeat < m_beatsBeforeStart - 1) {
-			m_startTimer->start();
-		}
-		else if (m_songPositionInBeat == m_beatsBeforeStart - 1) {
-			//Remember to minus the output latency here, not found on openAL docs yet
+		if (m_songPositionInBeat < m_beatsBeforeStart) {
+			ReportBeat();
 			m_startTimer->start();
 		}
 		else {
 			Play();
-			m_measure = 1;
 		}
 	}
 }

@@ -15,6 +15,7 @@ public:
 	TweeningSprite2D(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture, GLfloat tweenX, GLfloat tweenY, GLfloat time);
 	void		Init() override;
 	void		Update(GLfloat deltatime) override;
+	void		ResetPosition();
 	void		Set2DPosition(Vector2 position);
 	void		Set2DPosition(GLfloat x, GLfloat y);
 };

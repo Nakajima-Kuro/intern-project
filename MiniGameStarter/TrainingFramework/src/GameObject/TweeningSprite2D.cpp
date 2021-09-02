@@ -38,9 +38,14 @@ void TweeningSprite2D::Update(GLfloat deltatime)
 		m_directionY = 1;
 	}
 	Sprite2D::Set2DPosition(
-		Get2DPosition().x + round(m_directionX * (m_tweenX * (deltatime / m_time))),
-		Get2DPosition().y + round(m_directionY * (m_tweenY * (deltatime / m_time)))
+		Get2DPosition().x + (int)round(m_directionX * (m_tweenX * (deltatime / m_time))),
+		Get2DPosition().y + (int)round(m_directionY * (m_tweenY * (deltatime / m_time)))
 	);
+}
+
+void TweeningSprite2D::ResetPosition()
+{
+	Sprite2D::Set2DPosition(m_anchorPosition);
 }
 
 void TweeningSprite2D::Set2DPosition(Vector2 position)

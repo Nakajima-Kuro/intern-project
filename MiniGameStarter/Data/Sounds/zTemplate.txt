@@ -1,0 +1,6 @@
+songName
+BPM
+Measures
+Difficulty
+BeatOffset
+Beatmap

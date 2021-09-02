@@ -28,7 +28,7 @@ void Song::Init()
 				start = end + 1;
 				end = line.find(",", start);
 			}
-			mapPhase.push_back(std::stoi(line.substr(start, end - start)));
+			//mapPhase.push_back(std::stoi(line.substr(start, end - start)));
 			m_beatMap.push_back(mapPhase);
 			mapPhase.clear();
 		}
