@@ -35,6 +35,7 @@ void GSScore::Init()
 	auto button = std::make_shared<GameButton>(model, shader, texture);
 	button->Set2DPosition(Globals::screenWidth / 2 - 100, Globals::screenHeight - 70);
 	button->SetSize(80, 80);
+	button->SetClickSfx("game_start");
 	button->SetOnClick([]() {
 		GameStateMachine::GetInstance()->PopAndReloadState();
 		});
@@ -45,6 +46,7 @@ void GSScore::Init()
 	button = std::make_shared<GameButton>(model, shader, texture);
 	button->Set2DPosition(Globals::screenWidth / 2 + 100, Globals::screenHeight - 70);
 	button->SetSize(80, 80);
+	button->SetClickSfx("pause_exit");
 	button->SetOnClick([]() {
 		GameStateMachine::GetInstance()->PopBackToState(StateType::STATE_LIBRARY);
 		});

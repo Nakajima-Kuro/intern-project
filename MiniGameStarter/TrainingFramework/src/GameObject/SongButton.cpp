@@ -41,10 +41,10 @@ bool SongButton::HandleTouchEvents(GLint x, GLint y, bool bIsPressed)
 		bool isHandled = false;
 		if (bIsPressed)
 		{
-			setFrame(1);
 			if ((x > m_position.x - m_iWidth / 2) && (x < m_position.x + m_iWidth / 2)
 				&& (y > m_position.y - m_iHeight / 2) && (y < m_position.y + m_iHeight / 2))
 			{
+				setFrame(1);
 				// The button is being pressed down
 				m_isHolding = true;
 			}

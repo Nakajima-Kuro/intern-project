@@ -106,8 +106,8 @@ void GSPlay::Init()
 
 	//Play the song
 	m_conductor->PlayWithBeatOffset(m_song->GetBeatOffset());
-	/*m_conductor->PlayFromBeat(360, m_song->GetBeatOffset());
-	getCurrentMapPosition(360);*/
+	//m_conductor->PlayFromBeat(360, m_song->GetBeatOffset());
+	//getCurrentMapPosition(360);
 }
 
 void GSPlay::Exit()
@@ -186,6 +186,10 @@ void GSPlay::Update(const std::string& message_from_subject)
 		//std::cout << "Beat: " << m_conductor->GetBeat() << " / Measure: " << m_conductor->GetMeasure() << std::endl;
 		//If the next beat == the next beat in the map, advance counter by 1 to step to next phase in the map
 		if (m_beatMap[m_currentMapPosition][0] == 0) {
+			//check combo one last time
+			if (m_combo > m_maxCombo) {
+				m_maxCombo = m_combo;
+			}
 			//End game and transit to score screen here
 			SharedVariableManager::GetInstance()->miss = m_miss;
 			SharedVariableManager::GetInstance()->okay = m_okay;
