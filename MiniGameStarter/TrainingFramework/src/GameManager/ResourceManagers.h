@@ -12,6 +12,7 @@
 #include "GameObject/Text.h"
 #include "GameObject/ArrowButton.h"
 #include "Song.h"
+#include "SoundServer.h"
 
 class ResourceManagers : public CSingleton<ResourceManagers>
 {
@@ -24,12 +25,14 @@ public:
 	void AddTexture(const std::string& name);
 	void AddFont(const std::string& name);
 	void AddSong(const std::string& name);
+	void AddSfx(const std::string& name);
 
 	void RemoveShader(const std::string& name);
 	void RemoveModel(const std::string& name);
 	void RemoveTexture(const std::string& name);
 	void RemoveFont(const std::string& name);
 	void RemoveSong(const std::string& name);
+	void RemoveSfx(const std::string& name);
 
 	std::shared_ptr<Shader> GetShader(const std::string& name);
 	std::shared_ptr<Model> GetModel(const std::string& name);
@@ -37,6 +40,7 @@ public:
 	std::shared_ptr<Font> GetFont(const std::string& name);
 	std::shared_ptr<Song> GetSong(const std::string& name);
 	std::vector<std::shared_ptr<Song>> GetLibrary();
+	std::shared_ptr<SoundServer> GetSfx(const std::string& name);
 
 private:
 	std::map<std::string, std::shared_ptr<Shader>> m_MapShader;
@@ -44,10 +48,12 @@ private:
 	std::map<std::string, std::shared_ptr<Texture>> m_MapTexture;
 	std::map<std::string, std::shared_ptr<Font>> m_MapFont;
 	std::map<std::string, std::shared_ptr<Song>> m_MapSong;
+	std::map<std::string, std::shared_ptr<SoundServer>> m_MapSfx;
 
 	std::string m_ShaderPath;
 	std::string m_ModelPath;
 	std::string m_TexturePath;
 	std::string m_FontPath;
 	std::string m_SongPath;
+	std::string m_SfxPath;
 };

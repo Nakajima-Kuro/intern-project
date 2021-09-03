@@ -2,9 +2,8 @@
 #include <thread>
 
 Timer::Timer()
+	:m_timeSec(-1), timeLeft(-1), m_isStopped(true)
 {
-	this->m_timeSec = -1;
-	this->timeLeft = -1;
 }
 
 Timer::~Timer()

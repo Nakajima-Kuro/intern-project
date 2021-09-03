@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\SoundServer.h" />
     <ClInclude Include="src\AL\al.h" />
     <ClInclude Include="src\AL\alc.h" />
     <ClInclude Include="src\AL\alext.h" />
@@ -156,6 +157,7 @@
     <ClInclude Include="src\Timer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\SoundServer.cpp" />
     <ClCompile Include="src\Conductor.cpp" />
     <ClCompile Include="src\ISubject.cpp" />
     <ClCompile Include="src\Song.cpp" />

@@ -13,10 +13,11 @@ ResourceManagers::ResourceManagers()
 {
 	std::string dataPath = "..\\Data\\";
 	m_ShaderPath = dataPath + "Shaders\\";
-	m_ModelPath = dataPath + "Models\\"; 
+	m_ModelPath = dataPath + "Models\\";
 	m_TexturePath = dataPath + "Textures\\";
 	m_FontPath = dataPath + "Fonts\\";
 	m_SongPath = dataPath + "Sounds\\";
+	m_SfxPath = dataPath + "Sfx\\";
 }
 
 ResourceManagers::~ResourceManagers()
@@ -91,6 +92,18 @@ void ResourceManagers::AddSong(const std::string& name)
 	m_MapSong.insert(std::pair<std::string, std::shared_ptr<Song>>(name, song));
 }
 
+void ResourceManagers::AddSfx(const std::string& name)
+{
+	auto it = m_MapSfx.find(name);
+	if (it != m_MapSfx.end())
+	{
+		return;
+	}
+	std::string path = m_SfxPath + name + ".wav";
+	std::shared_ptr<SoundServer> sfx = std::make_shared<SoundServer>(path);
+	m_MapSfx.insert(std::pair<std::string, std::shared_ptr<SoundServer>>(name, sfx));
+}
+
 void ResourceManagers::RemoveShader(const std::string& name)
 {
 	m_MapShader.erase(name);
@@ -114,6 +127,11 @@ void ResourceManagers::RemoveFont(const std::string& name)
 void ResourceManagers::RemoveSong(const std::string& name)
 {
 	m_MapSong.erase(name);
+}
+
+void ResourceManagers::RemoveSfx(const std::string& name)
+{
+	m_MapSfx.erase(name);
 }
 
 std::shared_ptr<Shader> ResourceManagers::GetShader(const std::string& name)
@@ -206,4 +224,17 @@ std::vector<std::shared_ptr<Song>> ResourceManagers::GetLibrary()
 		fin.close();
 	}
 	return listSong;
+}
+
+std::shared_ptr<SoundServer> ResourceManagers::GetSfx(const std::string& name)
+{
+	auto it = m_MapSfx.find(name);
+	if (it != m_MapSfx.end())
+	{
+		return it->second;
+	}
+	std::string path = m_SfxPath + name + ".wav";
+	std::shared_ptr<SoundServer> sfx = std::make_shared<SoundServer>(path);
+	m_MapSfx.insert(std::pair<std::string, std::shared_ptr<SoundServer>>(name, sfx));
+	return sfx;
 }

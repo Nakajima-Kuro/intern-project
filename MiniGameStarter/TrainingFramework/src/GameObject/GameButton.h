@@ -1,6 +1,8 @@
 #pragma once 
 #include "Sprite2D.h"
 
+class SoundServer;
+
 class GameButton : public Sprite2D
 {
 public:
@@ -14,4 +16,5 @@ public:
 private:
 	void	(*m_pBtClick)();
 	bool	m_isHolding;
+	std::shared_ptr<SoundServer> m_clickingSfx;
 };
