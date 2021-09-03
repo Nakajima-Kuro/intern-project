@@ -54,32 +54,39 @@ void GSScore::Init()
 	GLfloat basePosition = 250;
 	shader = ResourceManagers::GetInstance()->GetShader("TextShader");
 	std::shared_ptr<Font> font = ResourceManagers::GetInstance()->GetFont("HeartbitXX.ttf");
-	std::shared_ptr<Text> text = std::make_shared< Text>(shader, font, "Score: " + SharedVariableManager::GetInstance()->score, TextColor::YELLOW, 3.2f, TextAlign::CENTER);
+	std::shared_ptr<Text> text = std::make_shared< Text>(shader, font, "Score: " + std::to_string(SharedVariableManager::GetInstance()->score), TextColor::YELLOW, 3.2f, TextAlign::CENTER);
 	text->Set2DPosition(m_marginLeft, basePosition - 10);
 	m_listText.push_back(text);
 
+	int m_perfect = SharedVariableManager::GetInstance()->perfect;
+	int m_good = SharedVariableManager::GetInstance()->good;
+	int m_okay = SharedVariableManager::GetInstance()->okay;
+	int m_miss = SharedVariableManager::GetInstance()->miss;
+	int m_maxCombo = SharedVariableManager::GetInstance()->maxCombo;
+	int m_totalNote = m_perfect + m_good + m_okay + m_miss;
+
 	//Perfect
-	text = std::make_shared< Text>(shader, font, "Perfect: " + SharedVariableManager::GetInstance()->perfect, TextColor::YELLOW, 2, TextAlign::CENTER);
+	text = std::make_shared< Text>(shader, font, "Perfect: " + std::to_string(m_perfect), TextColor::YELLOW, 2, TextAlign::CENTER);
 	text->Set2DPosition(m_marginLeft, basePosition + 60);
 	m_listText.push_back(text);
 
 	//Good
-	text = std::make_shared< Text>(shader, font, "Good: " + SharedVariableManager::GetInstance()->good, TextColor::YELLOW, 2, TextAlign::CENTER);
+	text = std::make_shared< Text>(shader, font, "Good: " + std::to_string(m_good), TextColor::YELLOW, 2, TextAlign::CENTER);
 	text->Set2DPosition(m_marginLeft + 250, basePosition + 60);
 	m_listText.push_back(text);
 
 	//Okay
-	text = std::make_shared< Text>(shader, font, "Okay: " + SharedVariableManager::GetInstance()->okay, TextColor::YELLOW, 2, TextAlign::CENTER);
+	text = std::make_shared< Text>(shader, font, "Okay: " + std::to_string(m_okay), TextColor::YELLOW, 2, TextAlign::CENTER);
 	text->Set2DPosition(m_marginLeft, basePosition + 120);
 	m_listText.push_back(text);
 
 	//Miss
-	text = std::make_shared< Text>(shader, font, "Miss: " + SharedVariableManager::GetInstance()->miss, TextColor::YELLOW, 2, TextAlign::CENTER);
+	text = std::make_shared< Text>(shader, font, "Miss: " + std::to_string(m_miss), TextColor::YELLOW, 2, TextAlign::CENTER);
 	text->Set2DPosition(m_marginLeft + 250, basePosition + 120);
 	m_listText.push_back(text);
 
 	//Max Combo
-	text = std::make_shared< Text>(shader, font, "Max combo: " + SharedVariableManager::GetInstance()->maxCombo, TextColor::YELLOW, 2, TextAlign::CENTER);
+	text = std::make_shared< Text>(shader, font, "Max combo: " + std::to_string(m_maxCombo), TextColor::YELLOW, 2, TextAlign::CENTER);
 	text->Set2DPosition(m_marginLeft, basePosition + 180);
 	m_listText.push_back(text);
 
@@ -88,9 +95,30 @@ void GSScore::Init()
 	text->Set2DPosition(Globals::screenWidth - 370.f, 400);
 	m_listText.push_back(text);
 
+	//Caculate Rank
+	std::string rank;
+	if (m_maxCombo == m_totalNote && m_perfect == m_totalNote) {
+		rank = "SS";
+	}
+	else if (float(m_perfect) / m_totalNote > 0.9 && (float)m_okay / m_totalNote < 0.01 && m_maxCombo == m_totalNote) {
+		rank = "S";
+	}
+	else if ((float(m_perfect) / m_totalNote > 0.8 && m_miss == 0) || float(m_perfect) / m_totalNote > 0.9) {
+		rank = "A";
+	}
+	else if ((float(m_perfect) / m_totalNote > 0.7 && m_miss == 0) || float(m_perfect) / m_totalNote > 0.8) {
+		rank = "B";
+	}
+	else if (float(m_perfect) / m_totalNote > 0.6) {
+		rank = "C";
+	}
+	else {
+		rank = "F";
+	}
+
 	//Rank
 	font = ResourceManagers::GetInstance()->GetFont("Heartbit-Bold.otf");
-	text = std::make_shared< Text>(shader, font, "S", TextColor::YELLOW, 10, TextAlign::CENTER);
+	text = std::make_shared< Text>(shader, font, rank, TextColor::YELLOW, 10, TextAlign::CENTER);
 	text->Set2DPosition(Globals::screenWidth - 300.f, 400);
 	m_listText.push_back(text);
 }

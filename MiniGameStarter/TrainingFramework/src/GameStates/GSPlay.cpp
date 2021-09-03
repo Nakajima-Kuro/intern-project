@@ -105,8 +105,8 @@ void GSPlay::Init()
 
 	//Play the song
 	m_conductor->PlayWithBeatOffset(m_song->GetBeatOffset());
-	//m_conductor->PlayFromBeat(368, m_song->GetBeatOffset());
-	//getCurrentMapPosition(368);
+	/*m_conductor->PlayFromBeat(360, m_song->GetBeatOffset());
+	getCurrentMapPosition(360);*/
 }
 
 void GSPlay::Exit()
@@ -176,15 +176,17 @@ void GSPlay::Update(const std::string& message_from_subject)
 {
 	//Trigger every beat
 	if (message_from_subject.compare("beat") == 0) {
-		std::cout << "Beat: " << m_conductor->GetBeat() << " / Measure: " << m_conductor->GetMeasure() << std::endl;
+		//std::cout << "Beat: " << m_conductor->GetBeat() << " / Measure: " << m_conductor->GetMeasure() << std::endl;
 		//If the next beat == the next beat in the map, advance counter by 1 to step to next phase in the map
 		if (m_beatMap[m_currentMapPosition][0] == 0) {
 			//End game and transit to score screen here
+			SharedVariableManager::GetInstance()->miss = m_miss;
 			SharedVariableManager::GetInstance()->okay = m_okay;
 			SharedVariableManager::GetInstance()->good = m_good;
 			SharedVariableManager::GetInstance()->perfect = m_perfect;
 			SharedVariableManager::GetInstance()->score = m_score;
 			SharedVariableManager::GetInstance()->maxCombo = m_maxCombo;
+			GameStateMachine::GetInstance()->ChangeState(StateType::STATE_SCORE);
 		}
 		else if (m_conductor->GetBeat() > m_beatMap[m_currentMapPosition][0] - 1) {
 			m_currentMapPosition++;
@@ -212,15 +214,19 @@ void GSPlay::Update(const std::string& message_from_subject)
 		}
 	}
 	if (message_from_subject.compare("arrow_perfect") == 0) {
+		m_perfect++;
 		IncreaseScore(300);
 	}
 	if (message_from_subject.compare("arrow_good") == 0) {
+		m_good++;
 		IncreaseScore(200);
 	}
 	if (message_from_subject.compare("arrow_okay") == 0) {
+		m_okay++;
 		IncreaseScore(100);
 	}
 	if (message_from_subject.compare("arrow_miss") == 0) {
+		m_miss++;
 		IncreaseScore(0);
 	}
 	if (message_from_subject.compare("arrow") == 0) {
