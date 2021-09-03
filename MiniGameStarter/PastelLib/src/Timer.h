@@ -13,8 +13,10 @@ public:
 	bool is_stopped();
 	void start(double timeSec);
 	void start();
+	void stop();
 private:
 	double m_timeSec;
+	bool m_isStopped;
 	std::chrono::time_point<std::chrono::steady_clock> m_StartTime;
 	void StartTimer();
 };

@@ -12,9 +12,9 @@ Conductor::Conductor(float bpm, int measures, std::string songPath)
 
 Conductor::~Conductor()
 {
-	if (m_startTimer != nullptr) {
-		delete m_startTimer;
-	}
+	m_startTimer->Detach(this);
+	m_startTimer->stop();
+	delete m_startTimer;
 	m_soundSource.Stop();
 	SoundBuffer::get()->removeSoundEffect(m_song);
 }

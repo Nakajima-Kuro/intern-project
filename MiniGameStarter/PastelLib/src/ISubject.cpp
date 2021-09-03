@@ -4,6 +4,11 @@ ISubject::ISubject()
 {
 }
 
+ISubject::~ISubject()
+{
+    list_observer_.clear();
+}
+
 void ISubject::Attach(IObserver* observer)
 {
 	this->list_observer_.push_back(observer);
@@ -17,7 +22,12 @@ void ISubject::Detach(IObserver* observer)
 void ISubject::Notify(const std::string& message)
 {
     for (auto const& observer : this->list_observer_) {
-        observer->Update(message);
+        if (observer != nullptr) {
+            observer->Update(message);
+        }
+        else {
+            Detach(observer);
+        }
     }
 }
 

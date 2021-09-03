@@ -41,7 +41,7 @@ void GSScore::Init()
 	m_listButton.push_back(button);
 
 	// to library button
-	texture = ResourceManagers::GetInstance()->GetTexture("btn_exit_symbol.tga");
+	texture = ResourceManagers::GetInstance()->GetTexture("btn_library_symbol.tga");
 	button = std::make_shared<GameButton>(model, shader, texture);
 	button->Set2DPosition(Globals::screenWidth / 2 + 100, Globals::screenHeight - 70);
 	button->SetSize(80, 80);

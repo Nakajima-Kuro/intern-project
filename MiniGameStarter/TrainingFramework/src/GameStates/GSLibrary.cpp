@@ -1,6 +1,8 @@
 #include "GSLibrary.h"
 #include "SongButton.h"
 #include "TweeningSprite2D.h"
+#include "GameButton.h"
+
 GSLibrary::GSLibrary()
 	: GameStateBase(StateType::STATE_LIBRARY), m_position(0)
 {
@@ -24,6 +26,15 @@ void GSLibrary::Init()
 	m_background = std::make_shared<Sprite2D>(model, shader, texture);
 	m_background->Set2DPosition((GLint)Globals::screenWidth / 2, (GLint)Globals::screenHeight / 2);
 	m_background->SetSize(Globals::screenWidth, Globals::screenHeight);
+
+	// back button
+	texture = ResourceManagers::GetInstance()->GetTexture("btn_back_symbol.tga");
+	m_backButton = std::make_shared<GameButton>(model, shader, texture);
+	m_backButton->Set2DPosition(Globals::screenWidth - 75, 75);
+	m_backButton->SetSize(50, 50);
+	m_backButton->SetOnClick([]() {
+		GameStateMachine::GetInstance()->PopState();
+		});
 
 	//Init 3 button
 	shader = ResourceManagers::GetInstance()->GetShader("AnimationShader");
@@ -58,7 +69,7 @@ void GSLibrary::Init()
 	shader = ResourceManagers::GetInstance()->GetShader("TextShader");
 	std::shared_ptr<Font> font = ResourceManagers::GetInstance()->GetFont("HeartbitXX.ttf");
 	m_title = std::make_shared< Text>(shader, font, "Library", TextColor::YELLOW, 4, TextAlign::CENTER);
-	m_title->Set2DPosition(GLfloat(Globals::screenWidth / 2 - 80), 100);
+	m_title->Set2DPosition(GLfloat(Globals::screenWidth / 2 - 80), 90);
 }
 
 void GSLibrary::Exit()
@@ -108,6 +119,7 @@ void GSLibrary::HandleTouchEvents(int x, int y, bool bIsPressed)
 	for (auto const& button : m_listButton) {
 		button->HandleTouchEvents(x, y, bIsPressed);
 	}
+	m_backButton->HandleTouchEvents(x, y, bIsPressed);
 }
 
 void GSLibrary::HandleMouseMoveEvents(int x, int y)
@@ -125,6 +137,7 @@ void GSLibrary::Update(float deltaTime)
 void GSLibrary::Draw()
 {
 	m_background->Draw();
+	m_backButton->Draw();
 	for (auto const& button : m_listButton) {
 		button->Draw();
 	}

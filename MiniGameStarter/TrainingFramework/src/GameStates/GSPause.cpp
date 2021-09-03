@@ -45,13 +45,13 @@ void GSPause::Init()
 		});
 	m_listButton.push_back(button);
 
-	// exit button
-	texture = ResourceManagers::GetInstance()->GetTexture("btn_exit_symbol.tga");
+	// to library button
+	texture = ResourceManagers::GetInstance()->GetTexture("btn_library_symbol.tga");
 	button = std::make_shared<GameButton>(model, shader, texture);
 	button->Set2DPosition(Globals::screenWidth / 2 + 200, Globals::screenHeight / 2);
 	button->SetSize(100, 100);
 	button->SetOnClick([]() {
-		GameStateMachine::GetInstance()->PopBackToState(StateType::STATE_MENU);
+		GameStateMachine::GetInstance()->PopBackToState(StateType::STATE_LIBRARY);
 		});
 	m_listButton.push_back(button);
 
