@@ -8,11 +8,16 @@ class SoundServer
 public:
 	SoundServer(std::string path);
 	virtual ~SoundServer();
+
+	//Sound Control
 	void Play();
 	void Pause();
 	void Resume();
 	void Stop();
 	void Seek(float second);
+	void ChangeSound(std::string path);
+
+	//Info Log
 	double GetPlaybackOffset();
 	bool IsPlaying();
 private:

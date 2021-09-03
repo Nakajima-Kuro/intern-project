@@ -2,9 +2,10 @@
 #include "SongButton.h"
 #include "TweeningSprite2D.h"
 #include "GameButton.h"
+#include "Timer.h"
 
 GSLibrary::GSLibrary()
-	: GameStateBase(StateType::STATE_LIBRARY), m_position(0)
+	: GameStateBase(StateType::STATE_LIBRARY), m_position(0), m_song(nullptr), m_timer(nullptr)
 {
 }
 
@@ -75,6 +76,12 @@ void GSLibrary::Init()
 	std::shared_ptr<Font> font = ResourceManagers::GetInstance()->GetFont("HeartbitXX.ttf");
 	m_title = std::make_shared< Text>(shader, font, "Library", TextColor::YELLOW, 4, TextAlign::CENTER);
 	m_title->Set2DPosition(GLfloat(Globals::screenWidth / 2 - 80), 90);
+
+	//Preview
+	m_timer = new Timer();
+	m_timer->Attach(this);
+	m_song = new SoundServer(m_library[m_position]->GetPath() + ".wav");
+	m_timer->start(1.5);
 }
 
 void GSLibrary::Exit()
@@ -162,7 +169,9 @@ void GSLibrary::Draw()
 
 void GSLibrary::UpdateButtonInfo()
 {
+	m_song->Stop();
 	m_listButton[0]->SetSong(m_library[m_position]);
+	m_timer->start(1.5);
 	if (m_position < int(m_library.size() - 1)) {
 		m_listButton[1]->SetSong(m_library[m_position + 1]);
 		m_listForeground[0]->SetVisible(true);
@@ -170,5 +179,14 @@ void GSLibrary::UpdateButtonInfo()
 	else {
 		m_listButton[1]->SetSong(nullptr);
 		m_listForeground[0]->SetVisible(false);
+	}
+}
+
+void GSLibrary::Update(const std::string& message_from_subject)
+{
+	if (message_from_subject.compare("timeout") == 0) {
+		m_song->ChangeSound(m_listButton[0]->GetSong()->GetPath() + ".wav");
+		m_song->Play();
+		m_song->Seek(40);
 	}
 }

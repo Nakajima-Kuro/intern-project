@@ -1,11 +1,14 @@
 #pragma once
 #include "GameStateBase.h"
+#include "IObserver.h"
 class SongButton;
 class TweeningSprite2D;
 class GameButton;
+class Conductor;
+class Timer;
 
 class GSLibrary :
-    public GameStateBase
+    public GameStateBase, public IObserver
 {
 public:
     GSLibrary();
@@ -25,6 +28,7 @@ public:
 	void	Draw() override;
 
 	void	UpdateButtonInfo();
+	void	Update(const std::string& message_from_subject) override;
 
 private:
 	std::shared_ptr<Sprite2D>					m_background;
@@ -36,5 +40,8 @@ private:
 	std::vector<std::shared_ptr<Sprite2D>>		m_listForeground;
 	std::shared_ptr<TweeningSprite2D>			m_arrow;
 	int m_position;
+
+	SoundServer*								m_song;
+	Timer*										m_timer;
 };
 
