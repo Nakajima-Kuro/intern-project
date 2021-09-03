@@ -65,6 +65,12 @@ void SoundSource::Resume()
 	alSourcePlay(p_Source);
 }
 
+void SoundSource::SetGain(float gain)
+{
+	p_Gain = gain;
+	alSourcef(p_Source, AL_GAIN, p_Gain);
+}
+
 bool SoundSource::IsPlaying()
 {
 	if (alGetError() != AL_NO_ERROR) {

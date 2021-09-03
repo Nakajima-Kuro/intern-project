@@ -13,9 +13,7 @@ Conductor::~Conductor()
 {
 	m_startTimer->Detach(this);
 	m_startTimer->stop();
-	if (m_startTimer != nullptr) {
-		delete m_startTimer;
-	}
+	delete m_startTimer;
 	Stop();
 }
 
@@ -55,7 +53,6 @@ void Conductor::Update(const std::string& message_from_subject)
 			m_startTimer->start();
 		}
 		else {
-			delete m_startTimer;
 			Play();
 		}
 	}
