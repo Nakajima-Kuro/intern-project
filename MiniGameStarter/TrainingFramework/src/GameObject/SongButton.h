@@ -1,7 +1,10 @@
 #pragma once
 #include "AnimationSprite2D.h"
+
 class Song;
 class Text;
+class SoundServer;
+
 class SongButton :
     public AnimationSprite2D
 {
@@ -15,6 +18,8 @@ public:
 
     void SetClickable(bool isClickable);
     bool IsClickable();
+    void SetOnClick(void (*pBtClick)());
+    void SetClickSfx(std::string name);
     void Set2DPosition(Vector2 position);
     void Set2DPosition(GLint x, GLint y);
     void SetSongInfoPosition(GLint x, GLint y);
@@ -24,12 +29,16 @@ public:
     void LoadSongInfo();
 
 private:
-    Vector2                                 m_position;
     std::shared_ptr<Song>                   m_song;
     std::shared_ptr<Text>		            m_textName;
     std::shared_ptr<Text>		            m_textBpm;
     std::shared_ptr<Text>		            m_textDifficulty;
     std::list<std::shared_ptr<Sprite2D>>    m_listStar;
+    std::shared_ptr<SoundServer>            m_clickingSfx;
+
     bool                                    m_clickable;
+    bool                                    m_isHolding;
+
+    void	                                (*m_pBtClick)();
 };
 

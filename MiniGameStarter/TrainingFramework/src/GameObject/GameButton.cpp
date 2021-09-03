@@ -5,7 +5,6 @@
 GameButton::GameButton(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture)
 	: Sprite2D(-1, model, shader, texture), m_pBtClick(nullptr), m_isHolding(false)
 {
-	m_clickingSfx = ResourceManagers::GetInstance()->GetSfx("click");
 }
 
 GameButton::~GameButton()
@@ -15,6 +14,11 @@ GameButton::~GameButton()
 void GameButton::SetOnClick(void(*pBtClickFun)())
 {
 	m_pBtClick = pBtClickFun;
+}
+
+void GameButton::SetClickSfx(std::string name)
+{
+	m_clickingSfx = ResourceManagers::GetInstance()->GetSfx(name);
 }
 
 bool GameButton::HandleTouchEvents(GLint x, GLint y, bool bIsPressed)
@@ -36,7 +40,9 @@ bool GameButton::HandleTouchEvents(GLint x, GLint y, bool bIsPressed)
 			&& m_isHolding == true)
 		{
 			// Only perform click action when the same button was pressed down and released
-			m_clickingSfx->Play();
+			if (m_clickingSfx != nullptr) {
+				m_clickingSfx->Play();
+			}
 			m_pBtClick();
 			isHandled = true;
 		}

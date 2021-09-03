@@ -1,18 +1,20 @@
 #include "SongButton.h"
 #include "ResourceManagers.h"
+#include "SharedVariableManager.h"
 #include "Song.h"
 #include "Text.h"
+#include "SoundServer.h"
 
 #include <sstream>
 
 SongButton::SongButton(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture, std::shared_ptr<Song> song)
-	:AnimationSprite2D(model, shader, texture, 1, 0.4f), m_song(song), m_clickable(true)
+	:AnimationSprite2D(model, shader, texture, 1, 0.4f), m_song(song), m_clickable(true), m_isHolding(false)
 {
 	Init();
 }
 
 SongButton::SongButton(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture)
-	: AnimationSprite2D(model, shader, texture, 1, 0.4f), m_song(nullptr), m_clickable(true)
+	: AnimationSprite2D(model, shader, texture, 1, 0.4f), m_song(nullptr), m_clickable(true), m_isHolding(false)
 {
 	Init();
 }
@@ -35,8 +37,8 @@ void SongButton::Init()
 
 bool SongButton::HandleTouchEvents(GLint x, GLint y, bool bIsPressed)
 {
-	bool isHandled = false;
 	if (m_clickable) {
+		bool isHandled = false;
 		if (bIsPressed)
 		{
 			setFrame(1);
@@ -44,21 +46,29 @@ bool SongButton::HandleTouchEvents(GLint x, GLint y, bool bIsPressed)
 				&& (y > m_position.y - m_iHeight / 2) && (y < m_position.y + m_iHeight / 2))
 			{
 				// The button is being pressed down
+				m_isHolding = true;
 			}
 		}
 		else
 		{
 			setFrame(0);
 			if ((x > m_position.x - m_iWidth / 2) && (x < m_position.x + m_iWidth / 2)
-				&& (y > m_position.y - m_iHeight / 2) && (y < m_position.y + m_iHeight / 2))
+				&& (y > m_position.y - m_iHeight / 2) && (y < m_position.y + m_iHeight / 2)
+				&& m_isHolding == true)
 			{
 				// Only perform click action when the same button was pressed down and released
-				//Handle click here
+				if (m_clickingSfx != nullptr) {
+					m_clickingSfx->Play();
+				}
+				SharedVariableManager::GetInstance()->songName = m_song->GetName();
+				m_pBtClick();
 				isHandled = true;
 			}
+			m_isHolding = false;
 		}
+		return isHandled;
 	}
-	return isHandled;
+	return false;
 }
 
 void SongButton::Draw()
@@ -80,6 +90,16 @@ void SongButton::SetClickable(bool isClickable)
 bool SongButton::IsClickable()
 {
 	return m_clickable;
+}
+
+void SongButton::SetOnClick(void(*pBtClickFun)())
+{
+	m_pBtClick = pBtClickFun;
+}
+
+void SongButton::SetClickSfx(std::string name)
+{
+	m_clickingSfx = ResourceManagers::GetInstance()->GetSfx(name);
 }
 
 void SongButton::Set2DPosition(Vector2 position)

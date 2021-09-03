@@ -43,6 +43,9 @@ void GSLibrary::Init()
 	auto button = std::make_shared<SongButton>(model, shader, texture, m_library[0]);
 	button->SetSize(650, 120);
 	button->Set2DPosition(Globals::screenWidth / 2 + 50, Globals::screenHeight / 2);
+	button->SetOnClick([]() {
+		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_PLAY);
+		});
 	m_listButton.push_back(button);
 	//Lower button
 	button = std::make_shared<SongButton>(model, shader, texture, m_library[1]);
@@ -95,12 +98,14 @@ void GSLibrary::HandleKeyEvents(int key, bool bIsPressed)
 			//Choose current song
 			auto song = m_listButton[0]->GetSong();
 			SharedVariableManager::GetInstance()->songName = song->GetName();
+			ResourceManagers::GetInstance()->GetSfx("game_start")->Play();
 			GameStateMachine::GetInstance()->ChangeState(StateType::STATE_PLAY);
 		}
 		if (key == VK_UP) {
 			if (m_position > 0) {
 				m_position--;
 				m_arrow->ResetPosition();
+				ResourceManagers::GetInstance()->GetSfx("change_song")->Play();
 				UpdateButtonInfo();
 			}
 		}
@@ -108,8 +113,13 @@ void GSLibrary::HandleKeyEvents(int key, bool bIsPressed)
 			if (m_position < int(m_library.size() - 1)) {
 				m_position++;
 				m_arrow->ResetPosition();
+				ResourceManagers::GetInstance()->GetSfx("change_song")->Play();
 				UpdateButtonInfo();
 			}
+		}
+		if (key == VK_ESCAPE) {
+			ResourceManagers::GetInstance()->GetSfx("click")->Play();
+			GameStateMachine::GetInstance()->PopState();
 		}
 	}
 }
