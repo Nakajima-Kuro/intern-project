@@ -4,18 +4,15 @@
 #include "SoundSource.h"
 #include "Timer.h"
 #include "ISubject.h"
+#include "SoundServer.h"
 #include <thread>
-class Conductor : public ISubject, public IObserver
+class Conductor : public SoundServer, public ISubject, public IObserver
 {
 public:
 	Conductor(float bpm, int measures, std::string songPath);
 	~Conductor();
-	float m_bpm;
-	int m_measures;
 	void PlayWithBeatOffset(int offset);
 	void PlayFromBeat(int beat, int offset);
-	void Pause();
-	void Resume();
 	
 	void Update(float deltaTime);
 	void Update(const std::string& message_from_subject) override;
@@ -23,6 +20,8 @@ public:
 	int GetBeat();
 	int GetMeasure();
 private:
+	float m_bpm;
+	int m_measures;
 	//Tracking position of the song
 	double m_songPosition = 0.0;
 	int m_songPositionInBeat = 1;
@@ -31,16 +30,9 @@ private:
 	int m_beatsBeforeStart = 0;
 	int m_measure = 1;
 
-	//All OpenAl resources for playback
-	SoundDevice* m_soundDevice = SoundDevice::get();
-	SoundSource m_soundSource;
-	uint32_t /*ALuint*/ m_song;
-	std::string m_path = "";
-
 	//Timer
 	Timer* m_startTimer;
 
-	void Play();
 	//All the magic in this function
 	void ReportBeat();
 };
