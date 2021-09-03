@@ -41,7 +41,7 @@ void GSPause::Init()
 	button = std::make_shared<GameButton>(model, shader, texture);
 	button->Set2DPosition(Globals::screenWidth / 2, Globals::screenHeight / 2);
 	button->SetSize(100, 100);
-	button->SetClickSfx("click");
+	button->SetClickSfx("game_start");
 	button->SetOnClick([]() {
 		GameStateMachine::GetInstance()->PopAndReloadState();
 		});
@@ -52,7 +52,7 @@ void GSPause::Init()
 	button = std::make_shared<GameButton>(model, shader, texture);
 	button->Set2DPosition(Globals::screenWidth / 2 + 200, Globals::screenHeight / 2);
 	button->SetSize(100, 100);
-	button->SetClickSfx("click");
+	button->SetClickSfx("pause_exit");
 	button->SetOnClick([]() {
 		GameStateMachine::GetInstance()->PopBackToState(StateType::STATE_LIBRARY);
 		});

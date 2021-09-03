@@ -14,6 +14,7 @@ public:
 	void start(double timeSec);
 	void start();
 	void stop();
+	void resume();
 private:
 	double m_timeSec;
 	bool m_isStopped;

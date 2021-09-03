@@ -33,17 +33,24 @@ void Timer::stop()
 	m_isStopped = true;
 }
 
+void Timer::resume()
+{
+	m_isStopped = false;
+}
+
 void Timer::StartTimer()
 {
 	this->m_StartTime = std::chrono::steady_clock::now();
 	this->timeLeft = this->m_timeSec;
-	while (true && !m_isStopped) {
-		double eslapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - m_StartTime).count() / 1000.0;
-		this->timeLeft = this->m_timeSec - eslapsedTime;
-		if (this->timeLeft <= 0) {
-			m_isStopped = true;
-			this->Notify("timeout");
-			break;
+	while (true) {
+		if (!m_isStopped) {
+			double eslapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - m_StartTime).count() / 1000.0;
+			this->timeLeft = this->m_timeSec - eslapsedTime;
+			if (this->timeLeft <= 0) {
+				m_isStopped = true;
+				this->Notify("timeout");
+				break;
+			}
 		}
 	}
 }

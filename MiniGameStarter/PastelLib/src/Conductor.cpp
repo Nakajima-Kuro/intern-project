@@ -34,6 +34,28 @@ void Conductor::PlayFromBeat(int beat, int offset)
 	Seek(m_songPosition);
 }
 
+void Conductor::Pause()
+{
+	if (m_songPositionInBeat < m_beatsBeforeStart) {
+		//Song not even start, stop timer here
+		m_startTimer->stop();
+	}
+	else {
+		SoundServer::Pause();
+	}
+}
+
+void Conductor::Resume()
+{
+	if (m_songPositionInBeat < m_beatsBeforeStart) {
+		//Song not even start, resume timer here
+		m_startTimer->resume();
+	}
+	else {
+		SoundServer::Resume();
+	}
+}
+
 void Conductor::Update(float deltaTime)
 {
 	if (IsPlaying()) {

@@ -133,6 +133,12 @@ void GSPlay::HandleEvents()
 
 void GSPlay::HandleKeyEvents(int key, bool bIsPressed)
 {
+	if (bIsPressed) {
+		if (key == VK_ESCAPE) {
+			ResourceManagers::GetInstance()->GetSfx("click")->Play();
+			GameStateMachine::GetInstance()->ChangeState(StateType::STATE_PAUSE);
+		}
+	}
 	for (auto button : m_listArrowButton) {
 		button->HandleKeyEvents(key, bIsPressed);
 	}
