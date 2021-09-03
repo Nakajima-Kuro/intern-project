@@ -1,7 +1,7 @@
 #include "SharedVariableManager.h"
 
 SharedVariableManager::SharedVariableManager()
-	:score(0), perfect(0), good(0), okay(0), maxCombo(0)
+	:score(0), perfect(0), good(0), okay(0), miss(0), maxCombo(0)
 {
 }
 
@@ -15,5 +15,6 @@ void SharedVariableManager::ResetScore()
 	perfect = 0;
 	good = 0;
 	okay = 0;
+	miss = 0;
 	maxCombo = 0;
 }

@@ -56,6 +56,7 @@ int ArrowButton::HandleKeyEvents(int key, bool bIsPressed)
 					Notify(m_name + m_status);
 				}
 				else {
+					//Lose combo by pressing when a note is not there
 					Notify(m_name);
 				}
 			}
@@ -97,11 +98,13 @@ void ArrowButton::Update(const std::string& message_from_subject)
 		m_isCurrentNoteHandled = false;
 	}
 	if (message_from_subject.compare("okay_area_exit") == 0) {
-		m_status = "";
 		m_currentNote.reset();
 		if (!m_isCurrentNoteHandled) {
-			Notify(m_name);
+			//Miss the note
+			m_status = "_miss";
+			Notify(m_name + m_status);
 		}
+		m_status = "";
 	}
 }
 

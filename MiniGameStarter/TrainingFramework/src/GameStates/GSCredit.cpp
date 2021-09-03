@@ -1,5 +1,5 @@
 #include "GSCredit.h"
-GSCredit::GSCredit() : GameStateBase(StateType::STATE_MENU),
+GSCredit::GSCredit() : GameStateBase(StateType::STATE_CREDIT),
 m_background(nullptr), m_listText(std::list<std::shared_ptr<Text>>{}), m_backButton(nullptr)
 {
 }

@@ -346,6 +346,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameStates\GSScore.cpp" />
     <ClCompile Include="src\GameManager\SharedVariableManager.cpp" />
     <ClCompile Include="src\GameObject\SongButton.cpp" />
     <ClCompile Include="src\GameStates\GSLibrary.cpp" />
@@ -376,6 +377,7 @@
     <ClCompile Include="src\GameObject\TweeningSprite2D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameStates\GSScore.h" />
     <ClInclude Include="src\GameManager\SharedVariableManager.h" />
     <ClInclude Include="src\GameObject\SongButton.h" />
     <ClInclude Include="src\GameStates\GSLibrary.h" />

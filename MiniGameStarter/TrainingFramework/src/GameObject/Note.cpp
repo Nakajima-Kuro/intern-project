@@ -90,6 +90,9 @@ void Note::Destroy(std::string status)
 		else if (status.compare("Okay") == 0) {
 			m_text->SetColor(TextColor::RED);
 		}
+		else if (status.compare("Miss") == 0) {
+			m_text->SetColor(TextColor::RED);
+		}
 	}
 }
 

@@ -44,6 +44,7 @@ private:
 	int m_perfect;
 	int m_good;
 	int m_okay;
+	int m_miss;
 	int m_maxCombo;
 	int m_combo;
 

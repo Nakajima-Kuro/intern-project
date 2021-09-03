@@ -13,8 +13,9 @@ public:
 	int perfect;
 	int good;
 	int okay;
+	int miss;
 	int maxCombo;
 	//Song name to load
-	std::string songName = "";
+	std::string songName = "Invisible Chair - Kana Wakareno";
 };
 

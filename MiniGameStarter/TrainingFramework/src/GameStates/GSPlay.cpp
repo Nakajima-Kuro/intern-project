@@ -16,7 +16,7 @@
 
 GSPlay::GSPlay()
 	:GameStateBase(StateType::STATE_PLAY), m_song(nullptr), m_conductor(nullptr), m_currentMapPosition(0), m_notePool(nullptr),
-	m_combo(0), m_good(0), m_maxCombo(0), m_okay(0), m_perfect(0), m_score(0)
+	m_score(0), m_perfect(0), m_good(0), m_okay(0), m_miss(0), m_combo(0), m_maxCombo(0)
 {
 
 }
@@ -220,8 +220,14 @@ void GSPlay::Update(const std::string& message_from_subject)
 	if (message_from_subject.compare("arrow_okay") == 0) {
 		IncreaseScore(100);
 	}
-	if (message_from_subject.compare("arrow") == 0) {
+	if (message_from_subject.compare("arrow_miss") == 0) {
 		IncreaseScore(0);
+	}
+	if (message_from_subject.compare("arrow") == 0) {
+		//Lose combo by pressing the note when it's not there
+		if (m_score != 0) {
+			IncreaseScore(0);
+		}
 	}
 }
 
@@ -249,6 +255,10 @@ void GSPlay::IncreaseScore(int num)
 				auto note = std::static_pointer_cast<Note>(arrow->GetHandledNote());
 				switch (num)
 				{
+				case 0: {
+					note->Destroy("Miss");
+					break;
+				}
 				case 100: {
 					note->Destroy("Okay");
 					break;

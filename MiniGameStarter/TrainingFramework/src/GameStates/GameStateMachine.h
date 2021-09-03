@@ -13,6 +13,7 @@ enum class StateType
 	STATE_LIBRARY,
 	STATE_PLAY,
 	STATE_PAUSE,
+	STATE_SCORE,
 	STATE_CREDIT
 };
 

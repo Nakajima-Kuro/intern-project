@@ -105,6 +105,9 @@
     <ClCompile Include="src\GameObject\TweeningSprite2D.cpp">
       <Filter>TrainingFramework\src\BaseGameObject</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameStates\GSScore.cpp">
+      <Filter>TrainingFramework\src\GameStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h">
@@ -196,6 +199,9 @@
     </ClInclude>
     <ClInclude Include="src\GameObject\TweeningSprite2D.h">
       <Filter>TrainingFramework\src\BaseGameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameStates\GSScore.h">
+      <Filter>TrainingFramework\src\GameStates</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

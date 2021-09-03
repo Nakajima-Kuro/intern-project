@@ -40,7 +40,7 @@ void GSMenu::Init()
 	button->Set2DPosition(Globals::screenWidth / 2, Globals::screenHeight / 2);
 	button->SetSize(192, 72);
 	button->SetOnClick([]() {
-		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_CREDIT);
+		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_SCORE);
 		});
 	m_listButton.push_back(button);
 
