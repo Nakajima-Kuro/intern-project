@@ -29,6 +29,7 @@ void GSMenu::Init()
 	std::shared_ptr<GameButton> button = std::make_shared<GameButton>(model, shader, texture);
 	button->Set2DPosition(Globals::screenWidth / 2, Globals::screenHeight / 2 - 100);
 	button->SetSize(192, 72);
+	button->SetClickSfx("click");
 	button->SetOnClick([]() {
 		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_LIBRARY);
 		});
@@ -39,6 +40,7 @@ void GSMenu::Init()
 	button = std::make_shared<GameButton>(model, shader, texture);
 	button->Set2DPosition(Globals::screenWidth / 2, Globals::screenHeight / 2);
 	button->SetSize(192, 72);
+	button->SetClickSfx("click");
 	button->SetOnClick([]() {
 		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_CREDIT);
 		});
@@ -49,6 +51,7 @@ void GSMenu::Init()
 	button = std::make_shared<GameButton>(model, shader, texture);
 	button->Set2DPosition(Globals::screenWidth / 2, Globals::screenHeight / 2 + 100);
 	button->SetSize(192, 72);
+	button->SetClickSfx("click");
 	button->SetOnClick([]() {
 		exit(0);
 		});

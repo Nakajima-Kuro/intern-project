@@ -50,6 +50,7 @@ void GSPlay::Init()
 	m_backButton = std::make_shared<GameButton>(model, shader, texture);
 	m_backButton->Set2DPosition(Globals::screenWidth - 50, 50);
 	m_backButton->SetSize(50, 50);
+	m_backButton->SetClickSfx("click");
 	m_backButton->SetOnClick([]() {
 		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_PAUSE);
 		});

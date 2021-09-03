@@ -32,6 +32,7 @@ void GSLibrary::Init()
 	m_backButton = std::make_shared<GameButton>(model, shader, texture);
 	m_backButton->Set2DPosition(Globals::screenWidth - 75, 75);
 	m_backButton->SetSize(50, 50);
+	m_backButton->SetClickSfx("click");
 	m_backButton->SetOnClick([]() {
 		GameStateMachine::GetInstance()->PopState();
 		});
@@ -43,6 +44,7 @@ void GSLibrary::Init()
 	auto button = std::make_shared<SongButton>(model, shader, texture, m_library[0]);
 	button->SetSize(650, 120);
 	button->Set2DPosition(Globals::screenWidth / 2 + 50, Globals::screenHeight / 2);
+	button->SetClickSfx("game_start");
 	button->SetOnClick([]() {
 		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_PLAY);
 		});

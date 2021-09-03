@@ -27,6 +27,7 @@ void GSCredit::Init()
 	m_backButton = std::make_shared<GameButton>(model, shader, texture);
 	m_backButton->Set2DPosition(Globals::screenWidth / 2, Globals::screenHeight - 100);
 	m_backButton->SetSize(192, 72);
+	m_backButton->SetClickSfx("click");
 	m_backButton->SetOnClick([]() {
 		GameStateMachine::GetInstance()->PopState();
 		});
