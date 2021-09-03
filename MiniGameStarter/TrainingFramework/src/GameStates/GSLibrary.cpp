@@ -86,14 +86,18 @@ void GSLibrary::Init()
 
 void GSLibrary::Exit()
 {
+	delete m_song;
+	delete m_timer;
 }
 
 void GSLibrary::Pause()
 {
+	m_song->Stop();
 }
 
 void GSLibrary::Resume()
 {
+	m_timer->start(1.5);
 }
 
 void GSLibrary::HandleEvents()
