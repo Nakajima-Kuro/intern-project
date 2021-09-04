@@ -24,8 +24,13 @@ void Timer::start(double timeSec)
 void Timer::start()
 {
 	m_isStopped = false;
-	auto thread = std::thread(&Timer::StartTimer, this);
-	thread.detach();
+	if (timeLeft <= 0) {
+		auto thread = std::thread(&Timer::StartTimer, this);
+		thread.detach();
+	}
+	else {
+		timeLeft = m_timeSec;
+	}
 }
 
 void Timer::stop()
