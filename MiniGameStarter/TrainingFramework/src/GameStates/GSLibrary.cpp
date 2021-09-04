@@ -93,6 +93,7 @@ void GSLibrary::Exit()
 void GSLibrary::Pause()
 {
 	m_song->Stop();
+	m_timer->stop();
 }
 
 void GSLibrary::Resume()

@@ -106,8 +106,8 @@ void GSPlay::Init()
 
 	//Play the song
 	m_conductor->PlayWithBeatOffset(m_song->GetBeatOffset());
-	//m_conductor->PlayFromBeat(360, m_song->GetBeatOffset());
-	//getCurrentMapPosition(360);
+	/*m_conductor->PlayFromBeat(360, m_song->GetBeatOffset());
+	getCurrentMapPosition(360);*/
 }
 
 void GSPlay::Exit()

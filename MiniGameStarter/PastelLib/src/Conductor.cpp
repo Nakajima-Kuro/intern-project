@@ -25,7 +25,7 @@ void Conductor::PlayWithBeatOffset(int offset)
 
 void Conductor::PlayFromBeat(int beat, int offset)
 {
-	m_songPosition = double(beat) / m_bpm * 60.0;
+	m_songPosition = double(beat) * m_secPerBeat;
 	//seek beat code in here
 	m_beatsBeforeStart = offset;
 	m_songPositionInBeat = offset;
