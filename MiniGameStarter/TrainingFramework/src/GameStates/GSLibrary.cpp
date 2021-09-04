@@ -86,8 +86,10 @@ void GSLibrary::Init()
 
 void GSLibrary::Exit()
 {
-	delete m_song;
+	m_timer->stop();
+	m_timer->Detach(this);
 	delete m_timer;
+	delete m_song;
 }
 
 void GSLibrary::Pause()
