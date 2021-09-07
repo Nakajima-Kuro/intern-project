@@ -33,6 +33,8 @@ private:
     std::shared_ptr<Text>		            m_textName;
     std::shared_ptr<Text>		            m_textBpm;
     std::shared_ptr<Text>		            m_textDifficulty;
+    std::shared_ptr<Text>		            m_textHighscore;
+    std::shared_ptr<Text>		            m_textMaxCombo;
     std::list<std::shared_ptr<Sprite2D>>    m_listStar;
     std::shared_ptr<SoundServer>            m_clickingSfx;
 

@@ -24,6 +24,7 @@ void Song::Init()
 			int start = 0;
 			int end = line.find(",");
 			if (end == -1) {
+				m_highscore = std::stoi(line);
 				break;
 			}
 			while (end != -1) {
@@ -35,7 +36,7 @@ void Song::Init()
 			mapPhase.clear();
 		}
 		if (fin.peek() != EOF) {
-			fin >> m_highscore >> m_maxCombo >> m_rank;
+			fin >> m_maxCombo >> m_rank;
 		}
 		fin.close();
 	}

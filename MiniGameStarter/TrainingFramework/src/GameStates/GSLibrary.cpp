@@ -47,7 +47,7 @@ void GSLibrary::Init()
 	texture = ResourceManagers::GetInstance()->GetTexture("btn_song.tga");
 	//Middle button
 	auto button = std::make_shared<SongButton>(model, shader, texture, m_library[0]);
-	button->SetSize(650, 120);
+	button->SetSize(650, 150);
 	button->Set2DPosition(Globals::screenWidth / 2 + 50, Globals::screenHeight / 2);
 	button->SetClickSfx("game_start");
 	button->SetOnClick([]() {
@@ -56,16 +56,16 @@ void GSLibrary::Init()
 	m_listButton.push_back(button);
 	//Lower button
 	button = std::make_shared<SongButton>(model, shader, texture, m_library[1]);
-	button->SetSize(650, 120);
+	button->SetSize(650, 150);
 	button->Set2DPosition(Globals::screenWidth / 2 + 100, Globals::screenHeight / 2 + 200);
 	button->SetClickable(false);
 	m_listButton.push_back(button);
 
 	//Foreground for lower button
-	texture = ResourceManagers::GetInstance()->GetTexture("spr_foreground.tga");
+	texture = ResourceManagers::GetInstance()->GetTexture("btn_song_alpha.tga");
 
 	auto foreground = std::make_shared<Sprite2D>(-1, model, shader, texture);
-	foreground->SetSize(650, 120);
+	foreground->SetSize(650, 150);
 	foreground->Set2DPosition(Globals::screenWidth / 2 + 100, Globals::screenHeight / 2 + 200);
 	m_listForeground.push_back(foreground);
 
