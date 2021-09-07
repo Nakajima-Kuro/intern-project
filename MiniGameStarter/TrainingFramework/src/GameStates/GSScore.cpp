@@ -13,6 +13,8 @@ GSScore::~GSScore()
 
 void GSScore::Init()
 {
+	std::shared_ptr<Song> m_song = ResourceManagers::GetInstance()->GetSong(SharedVariableManager::GetInstance()->songName);
+
 	auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
 	auto texture = ResourceManagers::GetInstance()->GetTexture("bg_main_menu.tga");
 
@@ -25,7 +27,7 @@ void GSScore::Init()
 	//Song Info
 	shader = ResourceManagers::GetInstance()->GetShader("AnimationShader");
 	texture = ResourceManagers::GetInstance()->GetTexture("btn_song.tga");
-	m_songTitle = std::make_shared<SongButton>(model, shader, texture, ResourceManagers::GetInstance()->GetSong(SharedVariableManager::GetInstance()->songName));
+	m_songTitle = std::make_shared<SongButton>(model, shader, texture, m_song);
 	m_songTitle->SetSize(650, 120);
 	m_songTitle->SetClickable(false);
 	m_songTitle->Set2DPosition(Globals::screenWidth / 2, 100);
@@ -52,20 +54,22 @@ void GSScore::Init()
 		});
 	m_listButton.push_back(button);
 
-	//Score
-	GLfloat basePosition = 250;
-	shader = ResourceManagers::GetInstance()->GetShader("TextShader");
-	std::shared_ptr<Font> font = ResourceManagers::GetInstance()->GetFont("HeartbitXX.ttf");
-	std::shared_ptr<Text> text = std::make_shared< Text>(shader, font, "Score: " + std::to_string(SharedVariableManager::GetInstance()->score), TextColor::YELLOW, 3.2f, TextAlign::CENTER);
-	text->Set2DPosition(m_marginLeft, basePosition - 10);
-	m_listText.push_back(text);
-
+	//Get all values
+	int m_score = SharedVariableManager::GetInstance()->score;
 	int m_perfect = SharedVariableManager::GetInstance()->perfect;
 	int m_good = SharedVariableManager::GetInstance()->good;
 	int m_okay = SharedVariableManager::GetInstance()->okay;
 	int m_miss = SharedVariableManager::GetInstance()->miss;
 	int m_maxCombo = SharedVariableManager::GetInstance()->maxCombo;
 	int m_totalNote = m_perfect + m_good + m_okay + m_miss;
+
+	//Score
+	GLfloat basePosition = 250;
+	shader = ResourceManagers::GetInstance()->GetShader("TextShader");
+	std::shared_ptr<Font> font = ResourceManagers::GetInstance()->GetFont("HeartbitXX.ttf");
+	std::shared_ptr<Text> text = std::make_shared< Text>(shader, font, "Score: " + std::to_string(m_score), TextColor::YELLOW, 3.2f, TextAlign::CENTER);
+	text->Set2DPosition(m_marginLeft, basePosition - 10);
+	m_listText.push_back(text);
 
 	//Perfect
 	text = std::make_shared< Text>(shader, font, "Perfect: " + std::to_string(m_perfect), TextColor::YELLOW, 2, TextAlign::CENTER);
@@ -123,6 +127,9 @@ void GSScore::Init()
 	text = std::make_shared< Text>(shader, font, rank, TextColor::YELLOW, 10, TextAlign::CENTER);
 	text->Set2DPosition(Globals::screenWidth - 300.f, 400);
 	m_listText.push_back(text);
+
+	//Save score
+	m_song->SaveHighScore(m_score, m_maxCombo, rank);
 }
 
 void GSScore::Exit()

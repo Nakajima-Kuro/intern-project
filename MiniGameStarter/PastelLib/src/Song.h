@@ -14,6 +14,12 @@ public:
 	int GetDifficulty();
 	int GetBeatOffset();
 	std::vector<std::vector<int>> GetBeatMap();
+
+	int GetHighScore();
+	int GetMaxCombo();
+	std::string GetRank();
+	void SaveHighScore(int highscore, int maxCombo, std::string rank);
+
 	std::string GetPath();
 private:
 	std::string m_name;//Name of the song, not file name
@@ -22,6 +28,10 @@ private:
 	int m_difficulty;
 	int m_beatOffset;
 	std::vector<std::vector<int>> m_beatMap;
+
+	int m_highscore;
+	int m_maxCombo;
+	std::string m_rank;
 
 	std::string m_songPath;
 };
