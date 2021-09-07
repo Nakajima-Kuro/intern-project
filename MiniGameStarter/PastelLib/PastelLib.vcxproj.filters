@@ -93,6 +93,5 @@
     <ClInclude Include="src\SoundServer.h">
       <Filter>BaseNode</Filter>
     </ClInclude>
-    <ClInclude Include="src\AL\sndfile.h" />
   </ItemGroup>
 </Project>
