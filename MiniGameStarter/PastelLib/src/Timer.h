@@ -18,6 +18,7 @@ public:
 private:
 	double m_timeSec;
 	bool m_isStopped;
+	bool m_isDestroyed;
 	std::chrono::time_point<std::chrono::steady_clock> m_StartTime;
 	void StartTimer();
 };

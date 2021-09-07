@@ -1,13 +1,15 @@
 #include "Timer.h"
 #include <thread>
+#include <iostream>
 
 Timer::Timer()
-	:m_timeSec(-1), timeLeft(-1), m_isStopped(true)
+	:m_timeSec(-1), timeLeft(-1), m_isStopped(true), m_isDestroyed(false)
 {
 }
 
 Timer::~Timer()
 {
+	m_isDestroyed = true;
 	stop();
 }
 
@@ -31,6 +33,7 @@ void Timer::start()
 	}
 	else {
 		timeLeft = m_timeSec;
+		this->m_StartTime = std::chrono::steady_clock::now();
 	}
 }
 
@@ -48,7 +51,7 @@ void Timer::StartTimer()
 {
 	this->m_StartTime = std::chrono::steady_clock::now();
 	this->timeLeft = this->m_timeSec;
-	while (true) {
+	while (!m_isDestroyed) {
 		if (!m_isStopped) {
 			double eslapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - m_StartTime).count() / 1000.0;
 			this->timeLeft = this->m_timeSec - eslapsedTime;
