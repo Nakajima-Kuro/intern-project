@@ -144,7 +144,7 @@
     <IntDir>$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-Angle|Win32'">
-    <OutDir>$(SolutionDir)\BIN-Nvidia\</OutDir>
+    <OutDir>$(SolutionDir)\BIN-Angle\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-ATI|Win32'">

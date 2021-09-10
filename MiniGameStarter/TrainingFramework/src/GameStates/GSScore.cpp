@@ -28,7 +28,7 @@ void GSScore::Init()
 	shader = ResourceManagers::GetInstance()->GetShader("AnimationShader");
 	texture = ResourceManagers::GetInstance()->GetTexture("btn_song.tga");
 	m_songTitle = std::make_shared<SongButton>(model, shader, texture, m_song);
-	m_songTitle->SetSize(650, 120);
+	m_songTitle->SetSize(650, 150);
 	m_songTitle->SetClickable(false);
 	m_songTitle->Set2DPosition(Globals::screenWidth / 2, 100);
 
@@ -64,7 +64,7 @@ void GSScore::Init()
 	int m_totalNote = m_perfect + m_good + m_okay + m_miss;
 
 	//Score
-	GLfloat basePosition = 250;
+	GLfloat basePosition = 265;
 	shader = ResourceManagers::GetInstance()->GetShader("TextShader");
 	std::shared_ptr<Font> font = ResourceManagers::GetInstance()->GetFont("HeartbitXX.ttf");
 	std::shared_ptr<Text> text = std::make_shared< Text>(shader, font, "Score: " + std::to_string(m_score), TextColor::YELLOW, 3.2f, TextAlign::CENTER);
