@@ -140,7 +140,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\SHA256.h" />
     <ClInclude Include="src\SoundServer.h" />
     <ClInclude Include="src\AL\al.h" />
     <ClInclude Include="src\AL\alc.h" />
@@ -156,9 +155,9 @@
     <ClInclude Include="src\SoundDevice.h" />
     <ClInclude Include="src\SoundSource.h" />
     <ClInclude Include="src\Timer.h" />
+    <ClInclude Include="VigenereEncrypt.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\SHA256.cpp" />
     <ClCompile Include="src\SoundServer.cpp" />
     <ClCompile Include="src\Conductor.cpp" />
     <ClCompile Include="src\ISubject.cpp" />
