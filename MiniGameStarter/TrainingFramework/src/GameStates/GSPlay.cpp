@@ -87,8 +87,12 @@ void GSPlay::Init()
 	m_textScore->Set2DPosition(Vector2(20, 40));
 
 	// combo text
-	m_textCombo = std::make_shared<Text>(shader, font, "", TextColor::YELLOW, 2);
-	m_textCombo->Set2DPosition(Vector2(20, 75));
+	m_textCombo = std::make_shared<Text>(shader, font, "", TextColor::YELLOW, 3);
+	m_textCombo->Set2DPosition(Globals::screenWidth - 220, Globals::screenHeight / 2 - 20);
+
+	// combo value text
+	m_textComboValue = std::make_shared<Text>(shader, font, "", TextColor::YELLOW, 3);
+	m_textComboValue->Set2DPosition(Globals::screenWidth - 190, Globals::screenHeight / 2 + 30);
 
 	//Get the song info
 	m_song = ResourceManagers::GetInstance()->GetSong(SharedVariableManager::GetInstance()->songName);
@@ -171,6 +175,7 @@ void GSPlay::Draw()
 	m_background->Draw();
 	m_textScore->Draw();
 	m_textCombo->Draw();
+	m_textComboValue->Draw();
 	m_backButton->Draw();
 	for (auto const& it : m_listArrowButton)
 	{
@@ -297,7 +302,8 @@ void GSPlay::IncreaseScore(int num)
 		m_score += num + (num * (m_combo - 1)) / 25;
 		m_textScore->SetText("Score: " + std::to_string(m_score));
 		if (m_combo >= 10) {
-			m_textCombo->SetText("Combo " + std::to_string(m_combo));
+			m_textCombo->SetText("Combo");
+			m_textComboValue->SetText(std::to_string(m_combo));
 		}
 	}
 }

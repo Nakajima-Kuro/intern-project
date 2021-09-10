@@ -20,6 +20,9 @@
     <Filter Include="Ultilities\OpenAL\Included">
       <UniqueIdentifier>{c0fdfcb6-cc66-4840-b01f-90686c6cb8af}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Ultilities\SHA256">
+      <UniqueIdentifier>{f4b54549-ac04-4348-99e5-306ced6a8e4a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SoundBuffer.cpp">
@@ -45,6 +48,9 @@
     </ClCompile>
     <ClCompile Include="src\SoundServer.cpp">
       <Filter>BaseNode</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SHA256.cpp">
+      <Filter>Ultilities\SHA256</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -92,6 +98,9 @@
     </ClInclude>
     <ClInclude Include="src\SoundServer.h">
       <Filter>BaseNode</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SHA256.h">
+      <Filter>Ultilities\SHA256</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

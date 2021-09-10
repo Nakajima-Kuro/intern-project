@@ -170,6 +170,7 @@ void SongButton::LoadSongInfo()
 		for (int i = 0; i < m_song->GetDifficulty(); i++) {
 			auto star = std::make_shared<Sprite2D>(model, shader, texture);
 			star->SetSize(30, 26);
+			star->Set2DPosition(m_position.x - m_iWidth / 2 + 120 + 40 * i, m_position.y + m_iHeight / 2 - 65);
 			m_listStar.push_back(star);
 		}
 	}
